@@ -1,0 +1,118 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\begin{document}
+\begin{center}
+{\Large{}Section 1: Introduction to probability}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+August 29, 2017
+\par\end{center}
+
+\begin{itemize}
+	%\setlength\itemsep{0em}
+	\item Introduction (10 min)
+	\item A few tips (10 min)
+	\item Practice questions (30 min)
+\end{itemize}
+The section notes are available on the section Github at \href{github.com/johnloeser/eep152}{github.com/johnloeser/are210} in the ``section1'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item A \textbf{probability space} is a triple $(\Omega, \mathbf{F}, P)$
+	\begin{itemize}
+		\item The \textbf{sample space} $\Omega$ is a set
+		\begin{itemize}
+			\item $A \in \Omega$ is an \textbf{event}
+		\end{itemize}
+		\item $\mathbf{F} \subseteq 2^{\Omega}$ is a $\mathbf{\sigma}\textbf{-algebra}$
+		\begin{itemize}
+			\item A set $\mathbf{F}$ is a $\mathbf{\sigma}\textbf{-algebra}$ if
+			\begin{enumerate}
+				\item $\emptyset \in \mathbf{F}$
+				\item $A \in \mathbf{F} \Rightarrow A^{c} \in \mathbf{F}$
+				\item $A_{1}, A_{2}, \ldots \in \mathbf{F} \Rightarrow \cup_{i=1}^{\infty} A_{i} \in \mathbf{F}$
+			\end{enumerate}
+		\end{itemize}
+		\item The \textbf{probability measure} $P : \mathbf{F} \to [0,1]$ such that
+		\begin{enumerate}
+			\item $P(\Omega) = 1$
+			\item $A_{1}, A_{2}, \ldots$ pairwise disjoint $\Rightarrow P(\cup_{i = 1}^{\infty} A_{i}) = \sum_{i = 1}^{\infty} P(A_{i})$
+		\end{enumerate}
+	\end{itemize}
+	\item A \textbf{measurable space} is a 2-tuple $(\Omega, \mathbf{F})$, where $\Omega$ is a set and $\mathbf{F}$ is a $\sigma$-algebra over $\Omega$
+	\begin{itemize}
+		\item Common measurable spaces are $(\Omega, 2^{\Omega})$ and $(\mathbf{R}^{k}, \mathbf{B}^{k})$ (where $\mathbf{B}$ is the $\textbf{Borel }\mathbf{\sigma}\textbf{-algebra}$, the smallest $\sigma$-algebra containing all open sets in $\mathbf{R}$)
+	\end{itemize}
+	\item A \textbf{partition} of $\Omega$ is a set of disjoint sets whose union is $\Omega$
+	\item The probability of $A$ conditional on $B$ is $P(A | B) = \frac{P(A \cap B)}{P(B)}$
+	\item \textbf{Bayes rule} is $P(A | B) = \frac{P(B | A) P(A)}{P(B)}$
+	\item $\{ A_{i} \}_{i = 1}^{N}$ are \textbf{mutually independent} if $\forall$ $I \subseteq \{1, \ldots, N\}$, $P(\cap_{i \in I} A_{i}) = \prod_{i \in I} P(A_{i})$
+	\item A \textbf{random variable} $X : (\Sigma, \mathbf{F}) \to (E, \mathbf{E})$, where $X$ is a measurable function, and $(\Sigma, \mathbf{F})$ and $(E, \mathbf{E})$ are measurable spaces
+	\begin{itemize}
+		\item Typically, $(E, \mathbf{E}) = (\mathbf{R}^{k}, \mathbf{B}^{k})$
+	\end{itemize}
+\end{itemize}
+
+\section{Some useful tips for the homework}
+
+\begin{itemize}
+	\item Set logic
+	\begin{itemize}
+		\item $a \in A \cup B \Leftrightarrow a \in A \vee a \in B$
+		\item $a \in A \cap B \Leftrightarrow a \in A \wedge a \in B$
+		\item $a \in A^{c} \Leftrightarrow a \notin A$
+		\item $A = B \Leftrightarrow (a \in A \Rightarrow a \in B) \wedge (a \in B \Rightarrow a \in A)$
+	\end{itemize}
+	\item Let $C$ be a set of sets, and $\sigma(C)$ be the smallest $\sigma$-algebra over $\Omega$ containing $C$. It's useful to conceptualize $\sigma(C)$ as countable unions of the smallest partition of $\Omega$ which can be used to construct any element of $C$ by countable union.
+	\item $a \in X^{-1}(A) \Leftrightarrow X(a) \in A$
+\end{itemize}
+
+\vspace{1em}
+Also worth noting - Lecture 1 covered sufficient material to answer questions 1 through 5, while Lecture 2 covered sufficient material to answer questions 6 through 8. If any questions seem difficult to you, I recommend coming to office hours to discuss why it seemed tough. If the questions seemed easy, it might be useful to wait to complete the problem set after we've covered all the relevant material as a refresher.
+
+\section{Some example questions}
+
+1) \textbf{Conditional independence:} Define $A_{1}$ and $A_{2}$ to be independent conditional on $B$ if $P(A_{1} \cap A_{2} | B) = P(A_{1} | B) P(A_{2} | B)$. Show that independence conditional on each event in a partition of the sample space implies independence.
+
+\vspace{1em}
+\noindent
+2) \textbf{Practice constructing counterexamples:} Recall our formula for Bayesian updating, $P(A | B) = \frac{P(B | A) P(A)}{P(B)}$. Suppose we observe the events $B_{1}, B_{2}, \ldots, B_{N}$. Consider calculating $P(A | \cap_{i = 1}^{N} B_{i})$ via \textbf{batch Bayesian updating} and \textbf{sequential Bayesian updating}. Define the batch Bayesian updating approach by
+\begin{align*}
+P(A | \cap_{i = 1}^{N} B_{i}) = \frac{P(\cap_{i = 1}^{N} B_{i} | A) P(A)}{P(\cap_{i = 1}^{N} B_{i})}
+\end{align*}
+Define the sequential Bayesian updating approach recursively by
+\begin{align*}
+P(A | B_{1}) & = \frac{P(B_{1} | A) P(A)}{P(B_{1})} \\
+P(A | \cap_{i = 1}^{K} B_{i}) & = \frac{P(B_{K} | A) P(A | \cap_{i = 1}^{K - 1} B_{i})}{P(B_{K})}
+\end{align*}
+
+a) Propose two sufficient conditions for the two approaches to yield the same answer. Which approach do you think is ``correct''?
+
+b) For $N = 2$, construct an example where the two approaches yield different answers, but the first condition is violated.
+
+c) For $N = 2$, construct an example where the two approaches yield different answers, but the second condition is violated.
+
+\end{document}
