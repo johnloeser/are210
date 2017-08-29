@@ -1,0 +1,125 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\begin{document}
+\begin{center}
+{\Large{}Section 1: Introduction to probability (solutions)}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+August 29, 2017
+\par\end{center}
+
+\noindent
+3.1) \textbf{Conditional independence:} Define $A_{1}$ and $A_{2}$ to be independent conditional on the event $B$ occurring if $P(A_{1} \cap A_{2} | B) = P(A_{1} | B) P(A_{2} | B)$. Does independence conditional on each event in a partition of the sample space imply independence? If so, why? If not, construct a counterexample.
+
+\vspace{1em}
+
+Let $\{ B_{i} \}_{i=1}^{N}$ partition the sample space $\Omega$.
+\begin{align*}
+P(A_{1} \cap A_{2}) & = \sum_{i = 1}^{N} P(A_{1} \cap A_{2} \cap B_{i}) \\
+& = \sum_{i = 1}^{N} P(A_{1} \cap A_{2} | B_{i}) P(B_{i}) \\
+& = \sum_{i = 1}^{N} P(A_{1} | B_{i}) P(A_{2} | B_{i}) P(B_{i})
+\end{align*}
+
+We can see that $P(A_{i} | B_{i}) = P(A_{i})$ would be sufficient for the result to hold. Can we construct an example where this doesn't hold?
+
+Let $\Omega = \{\text{fair coin chosen}, \text{two headed coin chosen} \} \times \{0, 1\}^{2}$ be the sample space, representing the choice of a coin (fair or two headed), and the possible outcomes of two coin flips. Let $P(\text{fair coin chosen}) = 0.5$, $P(\{1, 1\} | \text{two headed coin chosen}) = 1$, and all possible sequences of coin flips have equal probability if the fair coin is chosen. Let $A_{1} = \text{heads first flip}$ and $A_{2} = \text{heads second flip}$. In this case
+\begin{align*}
+P(A_{1} | B_{1}) P (A_{2} | B_{1}) = 0.25 & \qquad P(A_{1} \cap A_{2} | B_{1}) = 0.25 \\
+P(A_{1} | B_{2}) P (A_{2} | B_{2}) = 1 & \qquad P(A_{1} \cap A_{2} | B_{2}) = 1
+\end{align*}
+we have conditional independence on each event in a partition of the sample space ($\{ B_{1}, B_{2} \}$ partitions $\Omega$), but
+\begin{align*}
+P(A_{1}) P(A_{2}) = \frac{9}{16} & \qquad P(A_{1} \cap A_{2}) = \frac{5}{8}
+\end{align*}
+we do not have independence.
+
+\vspace{1em}
+\noindent
+3.2) \textbf{Practice constructing counterexamples:} Recall our formula for Bayesian updating, $P(A | B) = \frac{P(B | A) P(A)}{P(B)}$. Suppose we observe the events $B_{1}, B_{2}, \ldots, B_{N}$. Consider calculating $P(A | \cap_{i = 1}^{N} B_{i})$ via \textbf{batch Bayesian updating} and \textbf{sequential Bayesian updating}. Define the batch Bayesian updating approach by
+\begin{align*}
+P(A | \cap_{i = 1}^{N} B_{i}) = \frac{P(\cap_{i = 1}^{N} B_{i} | A) P(A)}{P(\cap_{i = 1}^{N} B_{i})}
+\end{align*}
+Define the sequential Bayesian updating approach recursively by
+\begin{align*}
+P^{SEQ}(A | B_{1}) & = \frac{P(B_{1} | A) P(A)}{P(B_{1})} \\
+P^{SEQ}(A | \cap_{i = 1}^{K} B_{i}) & = \frac{P(B_{K} | A) P^{SEQ}(A | \cap_{i = 1}^{K - 1} B_{i})}{P(B_{K})}
+\end{align*}
+
+a) Propose two sufficient conditions for the two approaches to yield the same answer. Which approach do you think is ``correct''? Hint: $\frac{P(B_{K} | A) P^{SEQ}(A | \cap_{i = 1}^{K - 1} B_{i})}{P(B_{K})} = \left( \frac{P(B_{K} | A)}{P(B_{K})} \right) P^{SEQ}(A | \cap_{i = 1}^{K - 1} B_{i})$.
+
+\vspace{1em}
+
+We can rewrite $P^{SEQ}(A | \cap_{i=1}^{N} B_{i}) = \frac{\prod_{i = 1}^{N} P(B_{i} | A)}{\prod_{i = 1}^{N} P(B_{i})} P(A)$. Then we can see that 1) $B_{i}$ are independent conditional on $A$, and 2) $B_{i}$ are independent are sufficient conditions for $P^{SEQ}(A | \cap_{i=1}^{N} B_{i}) = P(A | \cap_{i=1}^{N} B_{i})$.
+
+The batch approach returns the correct result in that it strictly applies Bayes rule. The sequential approach, as we've formulated it, in each recursive step throws out the information $\int_{i=1}^{K-1} B_{i}$ gives us about $P(B_{K} | A)$ and $P(B_{K})$.
+
+\vspace{1em}
+
+b) How can you correct the sequential (batch) approach so it returns the same answer as the batch (sequential) approach?
+
+\vspace{1em}
+
+To correct the sequential approach, we need to avoid throwing out that information. Redefine the sequential approach by
+\begin{align*}
+P^{SEQ'}(A | B_{1}) & = P^{SEQ}(A | B_{1}) \\
+P^{SEQ'}(A | \cap_{i = 1}^{K} B_{i}) & = \frac{P(B_{K} | A \cap (\cap_{i=1}^{K-1} B_{i})) P^{SEQ'}(A | \cap_{i = 1}^{K - 1} B_{i})}{P(B_{K} | \cap_{i=1}^{K-1} B_{i})}
+\end{align*}
+We can now show by induction that the two approaches are identical. First, $P(A|B_{1}) = P^{SEQ}(A|B_{1}) = P^{SEQ'}(A|B_{1}$. Second, suppose $P^{SEQ'}(A | \cap_{i = 1}^{K-1} B_{i}) = P(A | \cap_{i = 1}^{K-1} B_{i})$ for some $K$. Then,
+\begin{align*}
+P^{SEQ'}(A | \cap_{i = 1}^{K} B_{i}) & = \frac{P(B_{K} | A \cap (\cap_{i=1}^{K-1} B_{i})) P(A | \cap_{i = 1}^{K - 1} B_{i})}{P(B_{K} | \cap_{i=1}^{K-1} B_{i})} \\
+& = \frac{\frac{P(B_{K} \cap A \cap (\cap_{i=1}^{K-1} B_{i}))}{P(A \cap (\cap_{i=1}^{K-1} B_{i}))} \frac{P(A \cap (\cap_{i=1}^{K-1} B_{i}))}{P((\cap_{i=1}^{K-1} B_{i}))}}{\frac{P(B_{K} \cap (\cap_{i=1}^{K-1} B_{i}))}{P((\cap_{i=1}^{K-1} B_{i}))}} \\
+& = \frac{P(B_{K} \cap A \cap (\cap_{i=1}^{K-1} B_{i}))}{P(B_{K} \cap (\cap_{i=1}^{K-1} B_{i}))} \\
+& = P(A | \cap_{i=1}^{K} B_{i})
+\end{align*}
+
+\vspace{1em}
+
+c) For $N = 2$, construct an example where the two approaches yield different answers, but the second condition is not violated.
+
+\vspace{1em}
+
+Use the same counterexample and sample space as in 3.1), letting $B_{1} = \text{heads first flip}$ and $B_{2} = \text{heads second flip}$, $A = \text{fair coin chosen}$. We have shown than $B_{1}$ and $B_{2}$ are independent conditional on $A$, but they are not independent.
+
+Batch updating, $P(A | B_{1} \cap B_{2}) = \frac{P(B_{1} \cap B_{2} | A) P(A)}{P(B_{1} \cap B_{2})} = \frac{\frac{1}{4} \frac{1}{2}}{\frac{5}{8}} = \frac{1}{5}$.
+
+Sequential updating, $P^{SEQ}(A | B_{1}) = \frac{P(B_{1} | A) P(A)}{P(B_{1})} = \frac{\frac{1}{2} \frac{1}{2}}{\frac{3}{4}} = \frac{1}{3}$. $P^{SEQ}(A | B_{1} \cap B_{2}) = \frac{P(B_{2} | A) P^{SEQ}(A | B_{1})}{P(B_{2})} = \frac{\frac{1}{2} \frac{1}{3}}{\frac{3}{4}} = \frac{2}{9}$.
+
+Modified sequential updating, $P^{SEQ'}(A | B_{1}) = \frac{1}{3}$. $P^{SEQ'}(A | B_{1} \cap B_{2}) = \frac{P(B_{2} | A \cap B_{1}) P^{SEQ'}(A | B_{1})}{P(B_{2} | B_{1})} = \frac{\frac{1}{2} \frac{1}{3}}{\frac{5}{6}} = \frac{1}{5}$.
+
+\vspace{1em}
+
+d) For $N = 2$, construct an example where the two approaches yield different answers, but the first condition is not violated.
+
+\vspace{1em}
+
+Let $B_{1} = \text{heads first flip}$ and $B_{2} = \text{heads second flip}$.  Suppose two coins can be chosen, a sticky coin ($P(B_{1} | A) = \frac{1}{2}$, $P(B_{2} | B_{1} \cap A) = 1$, and $P(B_{2}^{c} | B_{1}^{c} \cap A) = 1$, where $A = \text{sticky coin chosen}$) and a flippy coin ($P(B_{1} | A^{c}) = \frac{1}{2}$, $P(B_{2} | B_{1} \cap A^{c}) = 0$ and $P(B_{2}^{c} | B_{1}^{c} \cap A^{c}) = 0$). Let $\Omega = \{\text{sticky coin chosen}, \text{flippy coin chosen} \} \times \{0, 1\}^{2}$, and assume $P(A) = \frac{1}{2}$. $B_{1}$ and $B_{2}$ are not independent conditional on $A$, but one can show $B_{1}$ and $B_{2}$ are independent.
+
+Batch updating, $P(A | B_{1} \cap B_{2}) = \frac{P(B_{1} \cap B_{2} | A) P(A)}{P(B_{1} \cap B_{2})} = \frac{\frac{1}{2} \frac{1}{2}}{\frac{1}{4}} = 1$.
+
+Sequential updating, $P^{SEQ}(A | B_{1}) = \frac{P(B_{1} | A) P(A)}{P(B_{1})} = \frac{\frac{1}{2} \frac{1}{2}}{\frac{1}{2}} = \frac{1}{2}$. $P^{SEQ}(A | B_{1} \cap B_{2}) = \frac{P(B_{2} | A) P^{SEQ}(A | B_{1})}{P(B_{2})} = \frac{\frac{1}{2} \frac{1}{2}}{\frac{1}{2}} = \frac{1}{2}$.
+
+Modified sequential updating, $P^{SEQ'}(A | B_{1}) = \frac{1}{2}$. $P^{SEQ'}(A | B_{1} \cap B_{2}) = \frac{P(B_{2} | A, B_{1}) P^{SEQ'}(A | B_{1})}{P(B_{2} | B_{1})} = \frac{1 \frac{1}{2}}{\frac{1}{2}} = 1$.
+
+\end{document}

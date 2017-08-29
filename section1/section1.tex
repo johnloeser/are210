@@ -45,7 +45,7 @@ The section notes are available on the section Github at \href{github.com/johnlo
 	\begin{itemize}
 		\item The \textbf{sample space} $\Omega$ is a set
 		\begin{itemize}
-			\item $A \in \Omega$ is an \textbf{event}
+			\item $A \subseteq \Omega$ is an \textbf{event}
 		\end{itemize}
 		\item $\mathbf{F} \subseteq 2^{\Omega}$ is a $\mathbf{\sigma}\textbf{-algebra}$
 		\begin{itemize}
@@ -85,9 +85,10 @@ The section notes are available on the section Github at \href{github.com/johnlo
 		\item $a \in A \cap B \Leftrightarrow a \in A \wedge a \in B$
 		\item $a \in A^{c} \Leftrightarrow a \notin A$
 		\item $A = B \Leftrightarrow (a \in A \Rightarrow a \in B) \wedge (a \in B \Rightarrow a \in A)$
+		\item $A \subseteq \Omega \Leftrightarrow A \in 2^{\Omega}$
+		\item $a \in X^{-1}(A) \Leftrightarrow X(a) \in A$
 	\end{itemize}
 	\item Let $C$ be a set of sets, and $\sigma(C)$ be the smallest $\sigma$-algebra over $\Omega$ containing $C$. It's useful to conceptualize $\sigma(C)$ as countable unions of the smallest partition of $\Omega$ which can be used to construct any element of $C$ by countable union.
-	\item $a \in X^{-1}(A) \Leftrightarrow X(a) \in A$
 \end{itemize}
 
 \vspace{1em}
@@ -95,7 +96,7 @@ Also worth noting - Lecture 1 covered sufficient material to answer questions 1 
 
 \section{Some example questions}
 
-1) \textbf{Conditional independence:} Define $A_{1}$ and $A_{2}$ to be independent conditional on $B$ if $P(A_{1} \cap A_{2} | B) = P(A_{1} | B) P(A_{2} | B)$. Show that independence conditional on each event in a partition of the sample space implies independence.
+1) \textbf{Conditional independence:} Define $A_{1}$ and $A_{2}$ to be independent conditional on the event $B$ occurring if $P(A_{1} \cap A_{2} | B) = P(A_{1} | B) P(A_{2} | B)$. Does independence conditional on each event in a partition of the sample space imply independence? If so, why? If not, construct a counterexample.
 
 \vspace{1em}
 \noindent
@@ -105,14 +106,16 @@ P(A | \cap_{i = 1}^{N} B_{i}) = \frac{P(\cap_{i = 1}^{N} B_{i} | A) P(A)}{P(\cap
 \end{align*}
 Define the sequential Bayesian updating approach recursively by
 \begin{align*}
-P(A | B_{1}) & = \frac{P(B_{1} | A) P(A)}{P(B_{1})} \\
-P(A | \cap_{i = 1}^{K} B_{i}) & = \frac{P(B_{K} | A) P(A | \cap_{i = 1}^{K - 1} B_{i})}{P(B_{K})}
+P^{SEQ}(A | B_{1}) & = \frac{P(B_{1} | A) P(A)}{P(B_{1})} \\
+P^{SEQ}(A | \cap_{i = 1}^{K} B_{i}) & = \frac{P(B_{K} | A) P^{SEQ}(A | \cap_{i = 1}^{K - 1} B_{i})}{P(B_{K})}
 \end{align*}
 
-a) Propose two sufficient conditions for the two approaches to yield the same answer. Which approach do you think is ``correct''?
+a) Propose two sufficient conditions for the two approaches to yield the same answer. Which approach do you think is ``correct''? Hint: $\frac{P(B_{K} | A) P^{SEQ}(A | \cap_{i = 1}^{K - 1} B_{i})}{P(B_{K})} = \left( \frac{P(B_{K} | A)}{P(B_{K})} \right) P^{SEQ}(A | \cap_{i = 1}^{K - 1} B_{i})$.
 
-b) For $N = 2$, construct an example where the two approaches yield different answers, but the first condition is violated.
+b) How can you correct the sequential (batch) approach so it returns the same answer as the batch (sequential) approach?
 
-c) For $N = 2$, construct an example where the two approaches yield different answers, but the second condition is violated.
+c) For $N = 2$, construct an example where the two approaches yield different answers, but the second condition is not violated.
+
+d) For $N = 2$, construct an example where the two approaches yield different answers, but the first condition is not violated.
 
 \end{document}
