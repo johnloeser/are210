@@ -1,0 +1,116 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\begin{document}
+\begin{center}
+{\Large{}Section 2: Random variables (solutions)}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+September 5, 2017
+\par\end{center}
+
+\noindent
+1) \textbf{Probability of complement}: Show that $P(A^{c}) = 1 - P(A)$.
+\vspace{1em}
+
+By the law of total probability, $P(A^{c}) + P(A) = 1$. Subtracting yields $P(A^{c}) = 1 - P(A)$.
+
+\vspace{1em}
+\noindent
+2) \textbf{Conditional Bayes' Theorem}: Show that $P(A | B, C) = \frac{P(A, B | C)}{P(B | C)}$
+\vspace{1em}
+
+\begin{align*}
+P(A | B, C) & = \frac{P(A, B, C)}{P(B, C)} \\
+& = \frac{P(A, B | C) P(C)}{P(B | C) P(C)} \\
+& = \frac{P(A, B |C)}{P(B | C)}
+\end{align*}
+
+\vspace{1em}
+\noindent
+3) \textbf{Mixed random variables}: Let $(X_{1}, X_{2})$ be mixed random variables with joint distribution $F = \alpha F^{C} + (1 - \alpha) F^{D}$, and joint density $f = \alpha f^{C} + (1 - \alpha) f^{D}$, where $F^{C}$ is a continuous CDF, $F^{D}$ is a discrete CDF, $f^{C}$ is the density for a continuous RV, and $f^{D}$ is the density for a discrete RV (i.e. a sum of dirac functions). How would you calculate the CDF of $X_{1}$? the density of $X_{1}$?
+\vspace{1em}
+
+$$ F_{1}(x_{1}) = \lim_{x_{2} \to \infty} F(x_{1}, x_{2}) $$
+
+$$ f_{1}(x_{1}) = \int_{-\infty}^{\infty} f(x_{1}, x_{2}) dx_{2} $$\
+
+\vspace{1em}
+\noindent
+4) \textbf{Independence and densities}: Let $X_{1}, X_{2}$ be independent continuous random variables. Show that their joint density is equal to the product of their marginal densities, and assume for simplicity that each has a continuous marginal density.
+
+First, their joint distribution $F(x_{1}, x_{2}) = F_{1}(x_{1}) F_{2}(x_{2})$. Substituting for the definitions of the CDF in terms of the density and merging the integration yields $F(x_{1}, x_{2}) = \int_{-\infty}^{x_{1}} \int_{-\infty}^{x_{2}} f_{1}(\widetilde{x_{1}}) f_{2}(\widetilde{x_{2}}) d\widetilde{x_{2}} d\widetilde{x_{1}}$, which implies that $f(x_{1}, x_{2}) = f_{1}(x_{1}) f_{2}(x_{2})$.
+
+\vspace{1em}
+\noindent
+5) \textbf{Distribution practice}: Let $X_{1}, X_{2}$ be standard normal random variables, each with density $f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^{2}}{2}}$. \\
+a) What is the joint distribution $F$ of $X_{1}$ and $X_{2}$? What is the joint density $f$? \\
+
+$$ F(x_{1}, x_{2}) = \Phi(x_{1}) \Phi(x_{2}) =  \frac{1}{2\pi} \int_{-\infty}^{x_{1}} \int_{-\infty}^{x_{2}} \exp \left\{ -\frac{\widetilde{x_{1}}^{2} + \widetilde{x_{2}}^{2}}{2} \right\} d\widetilde{x_{2}} d\widetilde{x_{1}} $$
+
+$$ f(x_{1}, x_{2}) = \phi(x_{1}) \phi(x_{2}) = \frac{1}{2\pi} \exp \left\{ -\frac{\widetilde{x_{1}}^{2} + \widetilde{x_{2}}^{2}}{2} \right\} $$
+
+\vspace{1em}
+\noindent
+b) What is the distribution $F_{Y}$ of $Y = X_{1} + X_{2}$? What is the density $f_{Y}$? \\
+
+Let $\phi$ be the standard normal density and $\Phi$ be the standard normal CDF.
+
+\begin{align*}
+F_{Y}(y) & = \int_{-\infty}^{\infty} \int_{-\infty}^{y - x_{1}} \phi(x_{1}) \phi(x_{2}) dx_{2} dx_{1} \\
+& = \int_{-\infty}^{\infty} \phi(x_{1}) \Phi(y - x_{1}) dx_{1} \\
+\end{align*}
+
+Differentiating with respect to $y$ yields
+
+\begin{align*}
+f_{Y}(y) & = \int_{-\infty}^{\infty} \phi(x_{1}) \phi(y - x_{1}) dx_{1} \\
+& = \frac{1}{2\pi} \int_{-\infty}^{\infty} \exp \left\{ -\frac{x_{1}^{2}}{2}\right\} \exp \left\{ -\frac{(y - x_{1})^{2}}{2}\right\} dx_{1} \\
+& = \frac{1}{2\sqrt{\pi}} \exp \left\{ -\frac{y^{2}}{4} \right\} \int_{-\infty}^{\infty} \frac{1}{\sqrt{\pi}} \exp \left\{ - \left(x_{1} - \frac{y}{2} \right)^{2}\right\} dx_{1} \\
+& = \frac{1}{2\sqrt{\pi}} \exp \left\{ -\frac{y^{2}}{4} \right\}
+\end{align*}
+
+Integrating again yields
+
+\begin{align*}
+F_{Y}(y) = \frac{1}{2\sqrt{\pi}} \int_{-\infty}^{y} \exp \left\{ -\frac{\widetilde{y}^{2}}{4} \right\} d \widetilde{y}
+\end{align*}
+
+\begin{comment}
+\vspace{1em}
+\noindent
+c) What is the joint distribution $G$ of $X_{1}$ and $Y$? What is the joint density $g$? \\
+
+\begin{align*}
+G(x_{1}, y) & = F(x_{1}, y - x_{1}) \\
+& = \Phi(x_{1}) \Phi(y - x_{1})
+\end{align*}
+
+\begin{align*}
+g(x_{1}, y) & = \frac{\partial}{\partial x_{1}} \frac{\partial}{\partial y} G(x_{1}, y) \\
+& = \frac{\partial}{\partial x_{1}} \Phi(x_{1}) \phi(y - x_{1}) \\
+& = \phi(x_{1}) \phi(y - x_{1}) - \Phi(x_{1}) \phi'(y - x_{1})
+\end{align*}
+\end{comment}
+\end{document}

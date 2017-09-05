@@ -1,0 +1,105 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\begin{document}
+\begin{center}
+{\Large{}Section 2: Random variables}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+September 5, 2017
+\par\end{center}
+
+\begin{itemize}
+	%\setlength\itemsep{0em}
+	\item Introduction (10 min)
+	\item A few tips (10 min)
+	\item Practice questions (30 min)
+\end{itemize}
+The section notes are available on the section Github at \href{github.com/johnloeser/eep152}{github.com/johnloeser/are210} in the ``section2'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item A \textbf{probability space} is a triple $(\Omega, \textbf{F}, P)$, where $\Omega$ is the \textbf{sample space}, $\textbf{F}$ is a \textbf{$\sigma$-algebra} over $\Omega$, and $P$ is a \textbf{probability measure}. $(\Omega, \textbf{F})$ is a \textbf{measurable space}.
+	\item $\{ A_{i} \}_{i = 1}^{N}$ are \textbf{mutually independent} if $\forall$ $I \subseteq \{1, \ldots, N\}$, $P(\cap_{i \in I} A_{i}) = \prod_{i \in I} P(A_{i})$
+	\item A \textbf{random variable} $X : (\Omega, \mathbf{F}) \to (E, \mathbf{E})$, where $X$ is a measurable function, and $(\Omega, \mathbf{F})$ and $(E, \mathbf{E})$ are measurable spaces
+	\begin{itemize}
+		\item Note: the mapping from $\mathbf{F}$ to $\mathbf{E}$ is induced by the mapping from $\Omega$ to $E$. The mapping from $P$ to $P_{X}$ is induced by the mapping from $\mathbf{F}$ to $\mathbf{E}$.
+		\item \textbf{stochastic process} $\equiv$ $E = $ the space of functions mapping a set $T$ to $\mathbf{R}^{k}$
+		\item \textbf{scalar random variable} $\equiv$ $E = \mathbf{R}$
+		\item \textbf{discrete random variable} $\equiv$ $E \cong \mathbf{N}$ ($E$ countable)
+	\end{itemize}
+	\item The \textbf{CDF} (cumulative distribution function) of a random variable $X : (\Omega, \textbf{F}) \to (\mathbf{R}^{k}, \mathbf{B}^{k})$ is $F_{X}(x) = P_{X}[X_{1} \leq x_{1}, \ldots, X_{k} \leq x_{k}]$
+	\begin{itemize}
+		\item $F : \mathbf{R^{k}} \to [0, 1]$ is a CDF if and only if 1) $\lim_{x \downarrow x_{0}} F(x) = F(x_{0})$ (right continuity), 2) $F$ is non-decreasing, 3) $\inf_{x \in \mathbf{R}^{k}} F(x) = 0$, $\sup_{x \in \mathbf{R}^{k}} F(x) = 1$
+		\item Assume $X$ is absolutely continuous. Then $\exists$ a \textbf{density} $f_{X}(x)$ such that $F_{X}(x) \equiv \int_{-\infty}^{x_{1}} \ldots \int_{-\infty}^{x_{k}} f_{X}(\widetilde{x}) d\widetilde{x}_{k} \ldots d\widetilde{x}_{1}$.
+		\begin{itemize}
+			\item $\Rightarrow$ $P_{X}[X \in A] = \int_{A} f_{X}(x) dx$
+		\end{itemize}
+	\end{itemize}
+	\item $X : (\Omega, \textbf{F}) \to (E, \mathbf{E})$ is a \textbf{continuous random variable} if it has no atoms (is diffuse)
+	\begin{itemize}
+		\item $\{ \omega \} \in \mathbf{E}$ (where $\omega \in E$) is an \textbf{atom} if $P_{X}(\{ \omega \}) > 0$
+		\item Let $D$ be the set of atoms. $X$ is discrete if and only if $P_{X}(E \setminus D) = 0$
+		\item $X$ is continuous if and only if, for any countable set $C$, $P(X \in C) = 0$
+		\item $X$ is a \textbf{mixed random variable} if it is neither continuous nor discrete
+	\end{itemize}
+	\item Random variables $X_{1}, \ldots, X_{n}$ are \textbf{mutually independent} if $P(\cap_{i = 1}^{n} {X_{i} \in B_{i}}) = \prod_{i=1}^{n} P(X_{i} \in B_{i})$ for all measurable sets $B_{i}$ for $i \in 1, \ldots, n$.
+	\begin{itemize}
+		\item Let $X_{1}, \ldots, X_{n}$ be a vector of real valued random variables with CDF $F$ and marginal CDFs $F_{i}$. $\{ X_{i} \}_{i=1}^{n}$ are mutually independent if and only if $F(x_{1}, \ldots, x_{n}) = \prod_{i=1}^{n} F_{i}(x_{i})$.
+	\end{itemize}
+	\item Let $E \subset \mathbf{R}^{k}$, $g : E \to \mathbf{R}^{k}$ one-to-one, continuously differentiable, $\left| \frac{\partial g(y)}{\partial y} \right| \neq 0$ in nbd of $g^{-1}(y)$ for $y \in \mathbf{R}^{k}$, $Y = g(X)$. Then, the density $f_{Y}(y) = f_{X}(g^{-1}(y)) \left| \frac{\partial g^{-1}(y)}{\partial y} \right|$
+	\item Let $F$ be a CDF, the \textbf{quantile function} is $Q(p) \equiv \inf \{ x \in E : F(x) \geq p \}$.
+\end{itemize}
+
+\section{Some helpful tips}
+
+\begin{itemize}
+	\item It can be helpful to think of a random variable $X$ as a mapping just from one sample space $\Omega$ to another sample space $E$. However, this mapping induces a mapping from the $\sigma$-algebra $\mathbf{F}$ to the $\sigma$-algebra $\mathbf{E}$ ($A \in \mathbf{F} \Rightarrow X(A) \equiv \{ X(\omega) | \omega \in A \} \in \mathbf{E}$) and from the probability measure $P$ to the probability measure $P_{X}$ ($\forall \; A \in \mathbf{F}, \; P(A) = P_{X}(X(A))$).
+\end{itemize}
+
+\section{Practice questions}
+
+1) \textbf{Probability of complement}: Show that $P(A^{c}) = 1 - P(A)$.
+
+\vspace{1em}
+\noindent
+2) \textbf{Conditional Bayes' Theorem}: Show that $P(A | B, C) = \frac{P(A, B | C)}{P(B | C)}$
+
+\vspace{1em}
+\noindent
+3) \textbf{Mixed random variables}: Let $(X_{1}, X_{2})$ be mixed random variables with joint distribution $F = \alpha F^{C} + (1 - \alpha) F^{D}$, where $F^{C}$ is a continuous CDF and $F^{D}$ is a discrete CDF. How would you calculate the marginal distribution of $X_{1}$?
+
+\vspace{1em}
+\noindent
+4) \textbf{Independence and densities}: Let $X_{1}, X_{2}$ be independent continuous random variables. Show that their joint density is equal to the product of their marginal densities, and assume for simplicity that each has a continuous marginal density.
+
+\vspace{1em}
+\noindent
+5) \textbf{Distribution practice}: Let $X_{1}, X_{2}$ be standard normal random variables, each with density $f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^{2}}{2}}$. \\
+a) What is the joint distribution $F$ of $X_{1}$ and $X_{2}$? What is the joint density $f$? \\
+b) What is the distribution $F_{Y}$ of $Y = X_{1} + X_{2}$? What is the density $f_{Y}$? \\
+%c) What is the joint distribution $G$ of $X_{1}$ and $Y$? What is the joint density $g$?
+
+\end{document}
