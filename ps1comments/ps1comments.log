@@ -1,7 +1,7 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015/Debian) (rev 5238)  (format=lualatex 2017.8.7)  5 SEP 2017 10:05
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015/Debian) (rev 5238)  (format=lualatex 2017.8.23)  7 SEP 2017 21:48
  restricted \write18 enabled.
-**section2soln.tex
-(./section2soln.tex
+**ps1comments.tex
+(./ps1comments.tex
 LaTeX2e <2016/02/01>
 Babel <3.9q> and hyphenation patterns for 1 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -372,84 +372,84 @@ Package: babel 2016/02/24 3.9q The Babel package
 (/usr/share/texlive/texmf-dist/tex/generic/babel/luababel.def
 \l@dumylang=\language1
 \l@nohyphenation=\language2
-\l@czech=\language3
-\l@hungarian=\language4
-\l@armenian=\language5
-\l@lithuanian=\language6
-\l@estonian=\language7
-\l@arabic=\language8
-\l@finnish=\language9
-\l@german=\language10
-\l@esperanto=\language11
-\l@monogreek=\language12
-\l@bengali=\language13
-\l@kannada=\language14
-\l@pinyin=\language15
-\l@italian=\language16
-\l@interlingua=\language17
-\l@slovenian=\language18
-\l@polish=\language19
-\l@occitan=\language20
-\l@russian=\language21
-\l@latvian=\language22
-\l@tamil=\language23
-\l@panjabi=\language24
-\l@croatian=\language25
-\l@serbianc=\language26
-\l@portuguese=\language27
-\l@icelandic=\language28
-\l@bokmal=\language29
-\l@thai=\language30
-\l@usenglishmax=\language31
-\l@hindi=\language32
-\l@catalan=\language33
-\l@malayalam=\language34
-\l@ancientgreek=\language35
-\l@classiclatin=\language36
-\l@dutch=\language37
-\l@georgian=\language38
-\l@afrikaans=\language39
+\l@gujarati=\language3
+\l@russian=\language4
+\l@kurmanji=\language5
+\l@marathi=\language6
+\l@slovenian=\language7
+\l@ancientgreek=\language8
+\l@panjabi=\language9
+\l@dutch=\language10
+\l@farsi=\language11
+\l@assamese=\language12
+\l@lithuanian=\language13
+\l@latvian=\language14
+\l@welsh=\language15
+\l@latin=\language16
+\l@french=\language17
+\l@spanish=\language18
+\l@turkmen=\language19
+\l@ethiopic=\language20
+\l@coptic=\language21
+\l@nynorsk=\language22
+\l@icelandic=\language23
+\l@romansh=\language24
+\l@esperanto=\language25
+\l@occitan=\language26
+\l@catalan=\language27
+\l@ibycus=\language28
+\l@swedish=\language29
+\l@tamil=\language30
+\l@turkish=\language31
+\l@serbianc=\language32
+\l@monogreek=\language33
+\l@portuguese=\language34
+\l@pinyin=\language35
+\l@interlingua=\language36
+\l@slovak=\language37
+\l@finnish=\language38
+\l@german=\language39
 \l@sanskrit=\language40
-\l@coptic=\language41
-\l@french=\language42
-\l@marathi=\language43
-\l@spanish=\language44
-\l@irish=\language45
-\l@turkish=\language46
-\l@farsi=\language47
-\l@welsh=\language48
-\l@german-x-2014-05-21=\language49
-\l@basque=\language50
-\l@romansh=\language51
-\l@latin=\language52
-\l@ngerman=\language53
-\l@ukrainian=\language54
-\l@danish=\language55
-\l@swedish=\language56
-\l@piedmontese=\language57
-\l@serbian=\language58
-\l@nynorsk=\language59
-\l@ethiopic=\language60
-\l@slovak=\language61
-\l@swissgerman=\language62
-\l@indonesian=\language63
-\l@bulgarian=\language64
-\l@gujarati=\language65
-\l@uppersorbian=\language66
-\l@assamese=\language67
-\l@mongolianlmc=\language68
-\l@galician=\language69
-\l@ibycus=\language70
-\l@kurmanji=\language71
-\l@telugu=\language72
-\l@turkmen=\language73
-\l@ukenglish=\language74
-\l@mongolian=\language75
-\l@oriya=\language76
-\l@greek=\language77
-\l@friulan=\language78
-\l@ngerman-x-2014-05-21=\language79
-\l@romanian=\language80
+\l@arabic=\language41
+\l@german-x-2014-05-21=\language42
+\l@estonian=\language43
+\l@kannada=\language44
+\l@malayalam=\language45
+\l@irish=\language46
+\l@ngerman-x-2014-05-21=\language47
+\l@thai=\language48
+\l@ukenglish=\language49
+\l@italian=\language50
+\l@uppersorbian=\language51
+\l@friulan=\language52
+\l@hindi=\language53
+\l@telugu=\language54
+\l@ukrainian=\language55
+\l@classiclatin=\language56
+\l@bengali=\language57
+\l@afrikaans=\language58
+\l@danish=\language59
+\l@basque=\language60
+\l@piedmontese=\language61
+\l@georgian=\language62
+\l@ngerman=\language63
+\l@czech=\language64
+\l@serbian=\language65
+\l@oriya=\language66
+\l@romanian=\language67
+\l@indonesian=\language68
+\l@polish=\language69
+\l@mongolian=\language70
+\l@swissgerman=\language71
+\l@mongolianlmc=\language72
+\l@hungarian=\language73
+\l@usenglishmax=\language74
+\l@armenian=\language75
+\l@croatian=\language76
+\l@bokmal=\language77
+\l@greek=\language78
+\l@bulgarian=\language79
+\l@galician=\language80
 )
 (/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2012/08/20 v3.3p English support from the babel system
@@ -464,8 +464,8 @@ File: babel.def 2016/02/24 3.9q Babel common definitions
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
-(./section2soln.aux)
-\openout1 = section2soln.aux
+(./ps1comments.aux)
+\openout1 = ps1comments.aux
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
@@ -561,66 +561,58 @@ LaTeX Info: Redefining \ref on input line 20.
 LaTeX Info: Redefining \pageref on input line 20.
 LaTeX Info: Redefining \nameref on input line 20.
 
-(./section2soln.out) (./section2soln.out)
+(./ps1comments.out) (./ps1comments.out)
 \@outlinefile=\write3
 
-\openout3 = section2soln.out
-LaTeX Font Info:    Try loading font information for U+msa on input line 34.
+\openout3 = ps1comments.out
+LaTeX Font Info:    Try loading font information for U+msa on input line 37.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 34.
+LaTeX Font Info:    Try loading font information for U+msb on input line 37.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 66--69
-
+Overfull \hbox (14.87494pt too wide) in paragraph at lines 50--50
+[][] 
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 75--77
-
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 116.
-[2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 116.
- (./section2soln.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 116.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 116.
-Package rerunfilecheck Info: File `section2soln.out' has not changed.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 55.
+ [2]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 55.
+ (./ps1comments.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 55.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 55.
+Package rerunfilecheck Info: File `ps1comments.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 116.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 55.
 )
 
 Here is how much of LuaTeX's memory you used:
- 9555 strings out of 495004
+ 9553 strings out of 495004
  100000,266212 words of node,token memory allocated
- 377 words of node memory still in use:
+ 345 words of node memory still in use:
    6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 43 glue_spec, 1 write nodes
-   avail lists: 2:19,3:135,4:521,5:144,6:1139,7:31,8:2,9:413,10:87
- 12740 multiletter control sequences out of 65536+600000
- 34 fonts using 1347939 bytes
- 40i,11n,38p,420b,335s stack positions out of 5000i,500n,10000p,200000b,100000s
-<</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><</usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><</usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><</usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><</usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><</usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr12.pfb><</usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr17.pfb><</usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr6.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr8.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy10.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8
-.pfb>
-Output written on section2soln.pdf (2 pages, 113527 bytes).
+   avail lists: 2:21,3:87,4:870,5:157,6:1899,7:25,8:2,9:165,10:153
+ 12739 multiletter control sequences out of 65536+600000
+ 33 fonts using 1308723 bytes
+ 40i,15n,38p,458b,335s stack positions out of 5000i,500n,10000p,200000b,100000s
+<</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><</usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><</usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><</usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><</usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr8.pfb><</usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmsy10.pfb>
+Output written on ps1comments.pdf (2 pages, 76215 bytes).
 
-PDF statistics: 61 PDF objects out of 1000 (max. 8388607)
- 45 compressed objects within 1 object stream
+PDF statistics: 45 PDF objects out of 1000 (max. 8388607)
+ 33 compressed objects within 1 object stream
  3 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

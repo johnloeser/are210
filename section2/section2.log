@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015/Debian) (rev 5238)  (format=lualatex 2017.8.23)  4 SEP 2017 23:11
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015/Debian) (rev 5238)  (format=lualatex 2017.8.7)  5 SEP 2017 10:06
  restricted \write18 enabled.
 **section2.tex
 (./section2.tex
@@ -372,84 +372,84 @@ Package: babel 2016/02/24 3.9q The Babel package
 (/usr/share/texlive/texmf-dist/tex/generic/babel/luababel.def
 \l@dumylang=\language1
 \l@nohyphenation=\language2
-\l@gujarati=\language3
-\l@russian=\language4
-\l@kurmanji=\language5
-\l@marathi=\language6
-\l@slovenian=\language7
-\l@ancientgreek=\language8
-\l@panjabi=\language9
-\l@dutch=\language10
-\l@farsi=\language11
-\l@assamese=\language12
-\l@lithuanian=\language13
-\l@latvian=\language14
-\l@welsh=\language15
-\l@latin=\language16
-\l@french=\language17
-\l@spanish=\language18
-\l@turkmen=\language19
-\l@ethiopic=\language20
-\l@coptic=\language21
-\l@nynorsk=\language22
-\l@icelandic=\language23
-\l@romansh=\language24
-\l@esperanto=\language25
-\l@occitan=\language26
-\l@catalan=\language27
-\l@ibycus=\language28
-\l@swedish=\language29
-\l@tamil=\language30
-\l@turkish=\language31
-\l@serbianc=\language32
-\l@monogreek=\language33
-\l@portuguese=\language34
-\l@pinyin=\language35
-\l@interlingua=\language36
-\l@slovak=\language37
-\l@finnish=\language38
-\l@german=\language39
+\l@czech=\language3
+\l@hungarian=\language4
+\l@armenian=\language5
+\l@lithuanian=\language6
+\l@estonian=\language7
+\l@arabic=\language8
+\l@finnish=\language9
+\l@german=\language10
+\l@esperanto=\language11
+\l@monogreek=\language12
+\l@bengali=\language13
+\l@kannada=\language14
+\l@pinyin=\language15
+\l@italian=\language16
+\l@interlingua=\language17
+\l@slovenian=\language18
+\l@polish=\language19
+\l@occitan=\language20
+\l@russian=\language21
+\l@latvian=\language22
+\l@tamil=\language23
+\l@panjabi=\language24
+\l@croatian=\language25
+\l@serbianc=\language26
+\l@portuguese=\language27
+\l@icelandic=\language28
+\l@bokmal=\language29
+\l@thai=\language30
+\l@usenglishmax=\language31
+\l@hindi=\language32
+\l@catalan=\language33
+\l@malayalam=\language34
+\l@ancientgreek=\language35
+\l@classiclatin=\language36
+\l@dutch=\language37
+\l@georgian=\language38
+\l@afrikaans=\language39
 \l@sanskrit=\language40
-\l@arabic=\language41
-\l@german-x-2014-05-21=\language42
-\l@estonian=\language43
-\l@kannada=\language44
-\l@malayalam=\language45
-\l@irish=\language46
-\l@ngerman-x-2014-05-21=\language47
-\l@thai=\language48
-\l@ukenglish=\language49
-\l@italian=\language50
-\l@uppersorbian=\language51
-\l@friulan=\language52
-\l@hindi=\language53
-\l@telugu=\language54
-\l@ukrainian=\language55
-\l@classiclatin=\language56
-\l@bengali=\language57
-\l@afrikaans=\language58
-\l@danish=\language59
-\l@basque=\language60
-\l@piedmontese=\language61
-\l@georgian=\language62
-\l@ngerman=\language63
-\l@czech=\language64
-\l@serbian=\language65
-\l@oriya=\language66
-\l@romanian=\language67
-\l@indonesian=\language68
-\l@polish=\language69
-\l@mongolian=\language70
-\l@swissgerman=\language71
-\l@mongolianlmc=\language72
-\l@hungarian=\language73
-\l@usenglishmax=\language74
-\l@armenian=\language75
-\l@croatian=\language76
-\l@bokmal=\language77
-\l@greek=\language78
-\l@bulgarian=\language79
-\l@galician=\language80
+\l@coptic=\language41
+\l@french=\language42
+\l@marathi=\language43
+\l@spanish=\language44
+\l@irish=\language45
+\l@turkish=\language46
+\l@farsi=\language47
+\l@welsh=\language48
+\l@german-x-2014-05-21=\language49
+\l@basque=\language50
+\l@romansh=\language51
+\l@latin=\language52
+\l@ngerman=\language53
+\l@ukrainian=\language54
+\l@danish=\language55
+\l@swedish=\language56
+\l@piedmontese=\language57
+\l@serbian=\language58
+\l@nynorsk=\language59
+\l@ethiopic=\language60
+\l@slovak=\language61
+\l@swissgerman=\language62
+\l@indonesian=\language63
+\l@bulgarian=\language64
+\l@gujarati=\language65
+\l@uppersorbian=\language66
+\l@assamese=\language67
+\l@mongolianlmc=\language68
+\l@galician=\language69
+\l@ibycus=\language70
+\l@kurmanji=\language71
+\l@telugu=\language72
+\l@turkmen=\language73
+\l@ukenglish=\language74
+\l@mongolian=\language75
+\l@oriya=\language76
+\l@greek=\language77
+\l@friulan=\language78
+\l@ngerman-x-2014-05-21=\language79
+\l@romanian=\language80
 )
 (/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2012/08/20 v3.3p English support from the babel system
@@ -626,7 +626,7 @@ Here is how much of LuaTeX's memory you used:
  100000,266212 words of node,token memory allocated
  335 words of node memory still in use:
    5 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 43 glue_spec, 1 write nodes
-   avail lists: 2:24,3:151,4:1026,5:182,6:1701,7:12,8:5,9:187,10:132
+   avail lists: 2:24,3:151,4:1026,5:174,6:1637,7:12,8:5,9:187,10:128
  12770 multiletter control sequences out of 65536+600000
  38 fonts using 1504867 bytes
  40i,8n,38p,485b,544s stack positions out of 5000i,500n,10000p,200000b,100000s
@@ -642,7 +642,7 @@ sfonts/cm/cmr6.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmr8.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
 .pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><<
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on section2.pdf (3 pages, 142192 bytes).
+Output written on section2.pdf (3 pages, 141279 bytes).
 
 PDF statistics: 88 PDF objects out of 1000 (max. 8388607)
  69 compressed objects within 1 object stream

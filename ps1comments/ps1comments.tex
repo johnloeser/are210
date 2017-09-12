@@ -1,0 +1,55 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\begin{document}
+\begin{center}
+{\Large{}Section 2: Random variables}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+September 7, 2017
+\par\end{center}
+
+
+A few quick notes on the problem set.
+
+\vspace{1em}\noindent
+1) We can think (broadly) about 4 ways we've introduced for capturing the probability of a random variable $X$ taking a value in a set $A$ - a probability measure, a PDF, a CDF, and a probability mass function. These are each very different, and being careful to think about the properties of one vs. another is important.
+
+\vspace{1em}\noindent
+2) I believe this comes up on PS2, but it's worth remembering that random variables $X_{1}$ and $X_{2}$ are independence does not imply that they are independent conditional on some other random variable $X_{3}$ (for a clear example of this, consider the case where $X_{3} = X_{1} + X_{2}$), and conditional independence does not imply independence. A couple people assumed independence implies conditional independence while working on 11).
+
+\vspace{1em}\noindent
+3) I think the cleanest way to understand Simpson's paradox is to push the math a little more. Note that
+\begin{align*}
+& P(A = 1 | G = 1) - P(A = 1 | G = 0) = \\
+& \sum_{d} P(A = 1 \cap D = d | G = 1) - P(A = 1 \cap D = d | G = 0) = \\
+& \sum_{d} P(A = 1 | D = d, G = 1) P(D = d | G = 0) - P(A = 1 | D = d, G = 1) P(D = d | G = 0) = \\
+& \sum_{d} \underbrace{\left[ P(A = 1 | D = d, G = 1) - P(A = 1 | D = d, G = 0) \right]}_{\text{Difference in Pr[A] wrt G by D}} \underbrace{P(D = d | G = 1)}_{\text{Weight on D}} + \\
+& \qquad\qquad \sum_{d} \underbrace{P(A = 1 | D = d, G = 0)}_{\text{Pr[A] by D}} \underbrace{[ P(D = d | G = 1) - P(D = d | G = 0) ]}_{\text{Difference in Pr[D] wrt G}}
+\end{align*}
+So we can decompose the difference in admission rates by gender into two sums. When $G \perp D$, the second term disappears, and the expression above is the same you found in 11a). Simpson's paradox is just saying that even when the first term is negative, the sum can be positive, and it's clear here that can occur when departmental admission rates are correlated with departmental application rates by gender.
+
+As an aside, one way (roughly speaking) to interpret the second term is as what would happen to the admission rate gap after assigning gender 0 the characteristics $D$ of gender 1, and the first term as asking ``if gender 0 and gender 1 had the same characteristics $D$, what would their difference in admission rates be''. You'll end up asking questions like this a lot in ARE213 (and in applied research in general).
+
+\end{document}

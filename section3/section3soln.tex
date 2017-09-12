@@ -1,0 +1,128 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\begin{document}
+\begin{center}
+{\Large{}Section 3: Expectation (solutions)}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+September 12, 2017
+\par\end{center}
+
+\noindent
+1) \textbf{Expectation practice}: Let $X \sim N(0, 1)$. Calculate $\mathbf{E}[X^{3}]$.
+\vspace{1em}
+
+For the easy way, we can just use the fact that the characteristic function of the standard normal is $\exp(-t^{2} / 2)$. The third derivative of the characteristic function is $-i$ times the third moment. This third derivative is 0, which tells us that $\mathbf{E}[X^{3}] = 0$.
+
+For the hard way,
+\begin{align*}
+\mathbf{E}[X^{3}] & = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} x^{3} e^{-x^{2}} dx \\
+& = \frac{1}{\sqrt{2\pi}} \left( \int_{-\infty}^{0} x^{3} e^{-x^{2}} dx + \int_{0}^{\infty} x^{3} e^{-x^{2}} dx \right) \\
+& = \frac{1}{\sqrt{2\pi}} \left( - \int_{0}^{\infty} x^{3} e^{-x^{2}} dx + \int_{0}^{\infty} x^{3} e^{-x^{2}} dx \right)
+\end{align*}
+
+Note that the two terms in the parentheses cancel to 0 as long as they are finite. So $\mathbf{E}[X^{3}]$ is either 0 or undefined. We next calculate one of these terms to verify that its 0.
+
+\begin{align*}
+\int_{0}^{\infty} x^{3} e^{-x^{2}} dx & = \left. -\frac{1}{2} x^{2} e^{-x^{2}} \right|_{0}^{\infty} + \int_{0}^{\infty} x e^{-x^{2}} dx \\
+& = \frac{1}{2} \int_{0}^{\infty} 2x e^{-x^{2}} dx \\
+& = \frac{1}{2} \int_{0}^{\infty} e^{-y} dy \\
+& = \frac{1}{2}
+\end{align*}
+
+These terms are finite, so $\mathbf{E}[X^{3}] = 0$.
+
+\vspace{1em}
+\noindent
+2) \textbf{Lee bounds}: Let $F(y) = pM(y) + (1 - p)N(y)$, for $p \in [0, 1]$, and let $G(y) = \max \left\{ 0, \frac{F(y) - p}{1 - p} \right\}$. Show that $\int y G(dy) \geq \int y N(dy)$.
+\vspace{1em}
+
+First, we use our formulas for integration in terms of the CDF.
+
+\begin{align*}
+\int y G(dy) & = \int_{0}^{\infty} [1 - G(y)] dy - \int_{-\infty}^{0} G(y) dy \\
+\int y N(dy) & = \int_{0}^{\infty} [1 - N(y)] dy - \int_{-\infty}^{0} N(y) dy \\
+\int y G(dy) - \int y N(dy) & = \int_{0}^{\infty} [N(y) - G(y)] dy - \int_{-\infty}^{0} [G(y) - N(y)] dy \\
+& = \int_{-\infty}^{\infty} [N(y) - G(y)] dy
+\end{align*}
+
+Intuitively, it suffices to show that $N(y) \geq G(y)$. First, note that $F(y) \leq (1 - p) N(y) + p$.\footnote{To find this, one can look for when a counterexample would exist - $G$ will be largest when $M$ is largest, or when $M$ is always 1. Alternatively, one can think of $G$ as picking the biggest values from the distribution $F$ (from combining $N$ and $M$), so $G$ will ``pick'' relatively small values, i.e. $G$ will be large, when $M$ ``picks'' relatively small values, i.e. $M$ is large.} This implies that $G(y) \leq \max \left\{ 0, N(y) \right\} = N(y)$.
+
+
+\vspace{1em}
+\noindent
+3) \textbf{Characteristic function of the sample mean}: Let $\left\{ X_{i} \right\}_{i=1}^{n} \sim$ iid with mean $\mu$ and variance $\sigma^{2}$. Let $\overline{X}_{n} \equiv \frac{1}{n} \sum_{i=1}^{n} X_{i}$. Let $Y_{n} \equiv \frac{\overline{X}_{n} - \mathbf{E} \left[\overline{X}_{n} \right]}{\sqrt{\mathbf{V} \left[ \overline{X}_{n} \right]}}$. Derive the characteristic function of $Y_{n}$, $\Psi_{Y_{n}}(t)$.
+
+Hint: Use $\Psi_{Y_{n}}(t) = \mathbf{E}[\exp(itY_{n})]$, $\Psi_{aX + b}(t) = \exp(itb) \Psi_{X}(at)$, and $\Psi_{A + B}(t) = \Psi_{A}(t) \Psi_{B}(t)$ when $A$ and $B$ are independent.
+\vspace{1em}
+
+First, $\mathbf{E}[\overline{X}_{n}] = \frac{1}{n} \sum_{i=1}^{n} \mathbf{E}[X_{i}] = \mu$ and $\mathbf{V}[\overline{X}_{n}] = \frac{1}{n^{2}} \sum_{i=1}^{n} \mathbf{V}[X_{i}] = \sigma^{2} / n$.
+
+Using the hint, this gives us
+\begin{align*}
+\Psi_{Y_{n}}(t) & = \exp(-it\sqrt{n}\mu/\sigma) \Psi_{\overline{X}_{n}}(\sqrt{n} t / \sigma) \\
+& = \exp(-it\sqrt{n}\mu/\sigma) \Psi_{\sum_{i=1}^{n} X_{i}}(t / (\sqrt{n}\sigma)) \\
+& = \exp(-it\sqrt{n}\mu/\sigma) \left( \Psi_{X_{i}}(t / (\sqrt{n}\sigma)) \right)^{n}
+\end{align*}
+
+\vspace{1em}
+\noindent
+4) \textbf{Visual intuition of MGF and characteristic function}: Define $M_{X}(t) = \mathbf{E}[\exp(tX)]$ and $\Psi_{X}(t) = \mathbf{E}[\exp(itX)]$.
+
+\noindent
+a) Take Taylor series expansions of $M_{X}$ and $\Psi_{X}$ around $t = 0$.
+
+\noindent
+b) What's the first derivative of $M_{X}$ at 0? The second derivative? What's the first derivative of $\Psi_{X}$ at 0? The second derivative?
+
+\noindent
+c) Graph $\Psi_{X}(t)$ for a few small $t$ for $X \sim \text{Bernoulli}(1/3)$ ($\Psi_{X}(t) = \frac{1}{3}[\cos t + i \sin t] + \frac{2}{3}$) and for $X \sim N(0, 1)$ ($\Psi_{X}(t) = \exp(-t^{2}/2)$). Think about this and the fact that $\Psi_{X}(t) = \mathbf{E}[\cos[tX]] + i \mathbf{E}[\sin[tX]]$.
+\vspace{1em}
+
+$$ M_{X}(t) = \sum_{j=0}^{\infty} \frac{t^{j}}{j!} \mathbf{E}[X^{j}] $$
+$$ \Psi_{X}(t) = \sum_{j=0}^{\infty} \frac{(it)^{j}}{j!} \mathbf{E}[X^{j}] $$
+
+The first (second) derivative of $M_{X}$ at 0 is the first (second) moment of $X$. The first (second) derivative of $\Psi_{X}$ at 0 is the first (second) moment of $X$ times $i$ (-1).
+
+Basically, we're taking the expectation of the unit circle, where the weights on segments are determined by $P_{X}$, but gradually scaling $X$ out using $t$.
+
+\vspace{1em}
+\noindent
+5) \textbf{Chebyshev's Inequality}: Prove that $P[\left| X - \mathbf{E}[X] \right| > \epsilon] \leq \frac{\mathbf{V}[X]}{\epsilon^{2}}$.
+
+Hint: Use the trick from the proof of Markov's Inequality, that $|X| \geq b \mathbf{1}[|X| \geq b]$, and apply it to $Z = (X - \mathbf{E}[X])^{2}$.
+\vspace{1em}
+
+Let $Z = (X - \mathbf{E}[X])^{2}$. Then
+
+\begin{align*}
+Z & \geq \epsilon^{2} \mathbf{1}[Z > \epsilon^{2}] \\
+\mathbf{E}[Z] & \geq \epsilon^{2} \mathbf{P}[Z > \epsilon^{2}] \\
+\mathbf{V}[X] & \geq \epsilon^{2} \mathbf{P}[Z > \epsilon^{2}] \\
+& = \epsilon^{2} \mathbf{P}[|X - \mathbf{E}[X]| > \epsilon] \\
+\frac{\mathbf{V}[X]}{\epsilon^{2}} & \geq \mathbf{P}[|X - \mathbf{E}[X]| > \epsilon]
+\end{align*}
+
+\end{document}

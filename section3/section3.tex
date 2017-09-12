@@ -1,0 +1,130 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\begin{document}
+\begin{center}
+{\Large{}Section 3: Expectation}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+September 12, 2017
+\par\end{center}
+
+\begin{itemize}
+	%\setlength\itemsep{0em}
+	\item Introduction (10 min)
+	\item Quick tips (5 min)
+	\item Practice questions (35 min)
+\end{itemize}
+The section notes are available on the section Github at \href{github.com/johnloeser/eep152}{github.com/johnloeser/are210} in the ``section3'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item Let $\mu$ be a measure over a measurable space $(\Omega, F)$
+	\begin{itemize}
+		\item $\int \mathbf{1}_{A}(\omega) \mu(d\omega) = \mu(A)$, where $\mathbf{1}_{A}(\omega) = \mathbf{1} \{ \omega \in A \}$
+		\item Let $f(\omega) = \sum_{j} a_{j} \mathbf{1}_{A_{j}}(\omega)$, then $\int f(\omega) \mu(d\omega) = \sum_{j} a_{j} \mu(A_{j})$. We call functions of the form of $f$ \textbf{step functions}
+		\item Let $f_{n} \to f$ be a sequence of step functions converging in the limit to $f$, a measurable function. $\int f(\omega) \mu(d\omega) \equiv \lim_{n \to \infty} \int f_{n}(\omega) \mu(d\omega)$
+		\item $\int_{A} f(\omega) \mu(d\omega) \equiv \int f(\omega) \mathbf{1}_{A}(\omega) \mu(d\omega)$
+		\item From here on out, we'll almost always use Lebesgue measure over the Borel $\sigma$-algebra, which means Lebesgue integration is equivalent to traditional Riemann integration, and standard results hold (Fundamental Theorem of Calculus, Change of Variable, \ldots)
+		\begin{itemize}
+			\item Let $X$ be a random variable with probability measure $P_{X}$ and density $f$, and $g$ a function. Then $\int g(x) P_{X}(dx) = \int g(x) f(x) dx$
+			\item Need to be careful when working with discrete or mixed random variables
+			\item Need to be careful when working with infinities - break integral into set when $f$ is positive and set when $f$ is negative, if both integrals infinite then integral undefined
+		\end{itemize}
+	\end{itemize}
+	\item $A$ holds almost surely $\Leftrightarrow$ $P(A) = 1$
+	\item $\mathbf{E}[X] \equiv \int_{\Omega} X(\omega) P[d\omega]$
+	\begin{itemize}
+		\item $\mathbf{E}[aX + bY] = a\mathbf{E}[X] + b \mathbf{E}[Y]$
+		\item $X \sim F \Rightarrow \mathbf{E}[X] = \int_{0}^{\infty} [1 - F(t)]dt - \int_{-\infty}^{0} F(t) dt$
+	\end{itemize}
+	\item $n$th moment of $X$ $\equiv \mathbf{E}[X^{n}]$
+	\item $n$th centered moment of $X$ $\equiv \mathbf{E}[(X - \mathbf{E}[X])^{n}]$
+	\item $\text{Cov}(X, Y) = \mathbf{E}[(X - \mathbf{E}[X])(Y - \mathbf{E}[Y])^{T}]$
+	\begin{itemize}
+		\item Can verify $\text{Cov}$ is linear from $\mathbf{E}$ properties
+	\end{itemize}
+	\item $M_{X}(t) = \mathbf{E}[\exp(tX)]$ is the \textbf{moment generating function}
+	\begin{itemize}
+		\item If the MGF is defined in a neighborhood of 0 for $X$ and $Y$, then $X$ and $Y$ have the same distribution if and only if $M_{X}$ and $M_{Y}$ are identical in a neighborhood of 0
+	\end{itemize}
+	\item $\Psi_{X}(t) = \mathbf{E}[\exp(itX)]$ is the \textbf{characteristic function}
+	\begin{itemize}
+		\item $X$ and $Y$ are identically distributed if and only if $\Psi_{X}$ and $\Psi_{Y}$ are identical
+		\item $\Psi_{aX + b}(t) = \exp(itb) \Psi_{X}(at)$
+		\item $X \perp Y \Rightarrow \Psi_{X + Y}(t) = \Psi_{X}(t) \Psi_{Y}(t)$
+	\end{itemize}
+	\item \textbf{Markov's Inequality}: $P[|X| > b] \leq \frac{\mathbf{E}[|X|]}{b}$
+	\item \textbf{Chebyshev's Inequality}: $P[|X - \mathbf{E}[X]| > \epsilon] \leq \frac{\mathbf{V}[X]}{\epsilon^{2}}$
+	\item \textbf{Jensen's Inequality}: Let $g$ be a convex function, $X$ a random variable, then $\mathbf{E}[g(X)] \geq g(\mathbf{E}[X])$
+\end{itemize}
+
+\section{Some helpful tips}
+
+\begin{itemize}
+	\item For our purposes, when taking expectations, we'll almost always be doing so with respect to a random variable with a continuous, discrete, or mixed distribution over $\mathbf{R}$. We'll see next week that we can reduce the mixed case to the discrete and continuous case
+	\begin{itemize}
+		\item Expectation of a discrete RV just involves sums
+		\item Expectation of a continuous RV can be done using Riemann integration
+		\item In some cases, we can do either using characteristic functions or MGF/Laplace transform
+	\end{itemize}
+	\item (MGF:Characteristic Function)::(Taylor Series:Fourier Series)
+	\item We've now covered material needed to answer 1-9 on PS2. You can try 10-14 however - these questions are on conditional expectation. However, we can think about $Y | X$ as a random variable just like $Y$ - we can calculate its distribution using Bayes' Rule, which means we can calculate its CDF. As a result, you have all the tools you need to answer these questions.
+\end{itemize}
+
+\section{Practice questions}
+
+1) \textbf{Expectation practice}: Let $X \sim N(0, 1)$. Calculate $\mathbf{E}[X^{3}]$.
+
+\vspace{1em}
+\noindent
+2) \textbf{Lee bounds}: Let $F(y) = pM(y) + (1 - p)N(y)$, for $p \in [0, 1]$, and let $G(y) = \max \left\{ 0, \frac{F(y) - p}{1 - p} \right\}$. Show that $\int y G(dy) \geq \int y N(dy)$.
+
+\vspace{1em}
+\noindent
+3) \textbf{Characteristic function of the sample mean}: Let $\left\{ X_{i} \right\}_{i=1}^{n} \sim$ iid with mean $\mu$ and variance $\sigma^{2}$. Let $\overline{X}_{n} \equiv \frac{1}{n} \sum_{i=1}^{n} X_{i}$. Let $Y_{n} \equiv \frac{\overline{X}_{n} - \mathbf{E} \left[\overline{X}_{n} \right]}{\sqrt{\mathbf{V} \left[ \overline{X}_{n} \right]}}$. Derive the characteristic function of $Y_{n}$, $\Psi_{Y_{n}}(t)$.
+
+Hint: Use $\Psi_{Y_{n}}(t) = \mathbf{E}[\exp(itY_{n})]$ and $\Psi_{aX + b}(t) = \exp(itb) \Psi_{X}(at)$.
+
+\vspace{1em}
+\noindent
+4) \textbf{Visual intuition of MGF and characteristic function}: Define $M_{X}(t) = \mathbf{E}[\exp(tX)]$ and $\Psi_{X}(t) = \mathbf{E}[\exp(itX)]$.
+
+\noindent
+a) Take Taylor series expansions of $M_{X}$ and $\Psi_{X}$ around $t = 0$.
+
+\noindent
+b) What's the first derivative of $M_{X}$ at 0? The second derivative? What's the first derivative of $\Psi_{X}$ at 0? The second derivative?
+
+\noindent
+c) Graph $\Psi_{X}(t)$ for a few small $t$ for $X \sim \text{Bernoulli}(1/3)$ ($\Psi_{X}(t) = \frac{1}{3}[\cos t + i \sin t] + \frac{2}{3}$) and for $X \sim N(0, 1)$ ($\Psi_{X}(t) = \exp(-t^{2}/2)$). Think about this and the fact that $\Psi_{X}(t) = \mathbf{E}[\cos[tX]] + i \mathbf{E}[\sin[tX]]$.
+
+\vspace{1em}
+\noindent
+5) \textbf{Chebyshev's Inequality}: Prove that $P[\left| X - \mathbf{E}[X] \right| > \epsilon] \leq \frac{\mathbf{V}[X]}{\epsilon^{2}}$.
+
+Hint: Use the trick from the proof of Markov's Inequality, that $|X| \geq b \mathbf{1}[|X| \geq b]$, and apply it to $Z = (X - \mathbf{E}[X])^{2}$.
+
+\end{document}
