@@ -31,10 +31,26 @@ September 12, 2017
 \par\end{center}
 
 \noindent
-1) \textbf{Expectation practice}: Let $X \sim N(0, 1)$. Calculate $\mathbf{E}[X^{3}]$.
+1) \textbf{Expectation practice}: Let $X \sim N(0, 1)$.
+
+\noindent
+a) Calculate $\Psi_{X}(t)$.
+
+\noindent
+b) Calculate $\mathbf{E}[X^{3}]$.
 \vspace{1em}
 
-For the easy way, we can just use the fact that the characteristic function of the standard normal is $\exp(-t^{2} / 2)$. The third derivative of the characteristic function is $-i$ times the third moment. This third derivative is 0, which tells us that $\mathbf{E}[X^{3}] = 0$.
+a) First, we use the fact that $\Psi_{X}(t) = \mathbf{E}[\exp(itX)]$, where $i = \sqrt{-1}$.
+
+\begin{align*}
+\Psi_{X}(t) & = \frac{1}{\sqrt{2\pi}} \int \exp(itx) \exp(-x^{2}/2) dx \\
+& = \frac{1}{\sqrt{2\pi}} \int \exp(-(x - it)^{2}/2 - t^{2}/2) dx \\
+& = \exp(-t^{2}/2) \int \frac{1}{\sqrt{2\pi}} \exp(-(x - it)^{2}/2) dx \\
+& = \exp(-t^{2}/2) \int \frac{1}{\sqrt{2\pi}} \exp(-\widetilde{x}^{2}/2) d\widetilde{x} \\
+& = \exp(-t^{2} / 2)
+\end{align*}
+
+b) For the easy way, we can just use the fact that the characteristic function of the standard normal is $\exp(-t^{2} / 2)$. The third derivative of the characteristic function is $-i$ times the third moment. This third derivative is 0, which tells us that $\mathbf{E}[X^{3}] = 0$.
 
 For the hard way,
 \begin{align*}

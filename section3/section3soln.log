@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015/Debian) (rev 5238)  (format=lualatex 2017.8.23)  12 SEP 2017 00:24
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015/Debian) (rev 5238)  (format=lualatex 2017.9.6)  12 SEP 2017 11:05
  restricted \write18 enabled.
 **section3soln.tex
 (./section3soln.tex
@@ -372,84 +372,84 @@ Package: babel 2016/02/24 3.9q The Babel package
 (/usr/share/texlive/texmf-dist/tex/generic/babel/luababel.def
 \l@dumylang=\language1
 \l@nohyphenation=\language2
-\l@gujarati=\language3
-\l@russian=\language4
-\l@kurmanji=\language5
-\l@marathi=\language6
-\l@slovenian=\language7
-\l@ancientgreek=\language8
-\l@panjabi=\language9
-\l@dutch=\language10
-\l@farsi=\language11
-\l@assamese=\language12
-\l@lithuanian=\language13
-\l@latvian=\language14
-\l@welsh=\language15
-\l@latin=\language16
-\l@french=\language17
-\l@spanish=\language18
-\l@turkmen=\language19
-\l@ethiopic=\language20
-\l@coptic=\language21
-\l@nynorsk=\language22
-\l@icelandic=\language23
-\l@romansh=\language24
-\l@esperanto=\language25
-\l@occitan=\language26
-\l@catalan=\language27
-\l@ibycus=\language28
-\l@swedish=\language29
-\l@tamil=\language30
-\l@turkish=\language31
-\l@serbianc=\language32
-\l@monogreek=\language33
-\l@portuguese=\language34
-\l@pinyin=\language35
-\l@interlingua=\language36
-\l@slovak=\language37
-\l@finnish=\language38
-\l@german=\language39
-\l@sanskrit=\language40
-\l@arabic=\language41
-\l@german-x-2014-05-21=\language42
-\l@estonian=\language43
-\l@kannada=\language44
-\l@malayalam=\language45
-\l@irish=\language46
-\l@ngerman-x-2014-05-21=\language47
-\l@thai=\language48
-\l@ukenglish=\language49
-\l@italian=\language50
-\l@uppersorbian=\language51
-\l@friulan=\language52
-\l@hindi=\language53
-\l@telugu=\language54
-\l@ukrainian=\language55
-\l@classiclatin=\language56
-\l@bengali=\language57
-\l@afrikaans=\language58
-\l@danish=\language59
-\l@basque=\language60
-\l@piedmontese=\language61
-\l@georgian=\language62
-\l@ngerman=\language63
-\l@czech=\language64
-\l@serbian=\language65
-\l@oriya=\language66
-\l@romanian=\language67
-\l@indonesian=\language68
-\l@polish=\language69
-\l@mongolian=\language70
-\l@swissgerman=\language71
-\l@mongolianlmc=\language72
-\l@hungarian=\language73
-\l@usenglishmax=\language74
-\l@armenian=\language75
-\l@croatian=\language76
-\l@bokmal=\language77
-\l@greek=\language78
-\l@bulgarian=\language79
-\l@galician=\language80
+\l@portuguese=\language3
+\l@czech=\language4
+\l@thai=\language5
+\l@turkmen=\language6
+\l@malayalam=\language7
+\l@mongolianlmc=\language8
+\l@ibycus=\language9
+\l@hungarian=\language10
+\l@slovak=\language11
+\l@oriya=\language12
+\l@romanian=\language13
+\l@welsh=\language14
+\l@kannada=\language15
+\l@icelandic=\language16
+\l@coptic=\language17
+\l@turkish=\language18
+\l@monogreek=\language19
+\l@german-x-2014-05-21=\language20
+\l@danish=\language21
+\l@arabic=\language22
+\l@polish=\language23
+\l@marathi=\language24
+\l@irish=\language25
+\l@interlingua=\language26
+\l@estonian=\language27
+\l@afrikaans=\language28
+\l@catalan=\language29
+\l@croatian=\language30
+\l@usenglishmax=\language31
+\l@finnish=\language32
+\l@lithuanian=\language33
+\l@nynorsk=\language34
+\l@armenian=\language35
+\l@occitan=\language36
+\l@assamese=\language37
+\l@ancientgreek=\language38
+\l@bengali=\language39
+\l@dutch=\language40
+\l@telugu=\language41
+\l@latvian=\language42
+\l@russian=\language43
+\l@friulan=\language44
+\l@spanish=\language45
+\l@tamil=\language46
+\l@romansh=\language47
+\l@bokmal=\language48
+\l@bulgarian=\language49
+\l@ethiopic=\language50
+\l@swedish=\language51
+\l@swissgerman=\language52
+\l@uppersorbian=\language53
+\l@latin=\language54
+\l@greek=\language55
+\l@basque=\language56
+\l@sanskrit=\language57
+\l@piedmontese=\language58
+\l@galician=\language59
+\l@serbian=\language60
+\l@italian=\language61
+\l@ukrainian=\language62
+\l@mongolian=\language63
+\l@ukenglish=\language64
+\l@kurmanji=\language65
+\l@hindi=\language66
+\l@serbianc=\language67
+\l@ngerman-x-2014-05-21=\language68
+\l@panjabi=\language69
+\l@slovenian=\language70
+\l@esperanto=\language71
+\l@georgian=\language72
+\l@german=\language73
+\l@indonesian=\language74
+\l@classiclatin=\language75
+\l@pinyin=\language76
+\l@french=\language77
+\l@gujarati=\language78
+\l@farsi=\language79
+\l@ngerman=\language80
 )
 (/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2012/08/20 v3.3p English support from the babel system
@@ -576,32 +576,32 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 34.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (15.66454pt too wide) in paragraph at lines 91--93
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Overfull \hbox (15.66454pt too wide) in paragraph at lines 107--109
 []\OT1/cmr/m/n/12 4) \OT1/cmr/bx/n/12 Vi-sual in-tu-ition of MGF and char-ac-te
 r-is-tic func-tion\OT1/cmr/m/n/12 : De-fine $\OML/cmm/m/it/12 M[]\OT1/cmr/m/n/1
 2 (\OML/cmm/m/it/12 t\OT1/cmr/m/n/12 ) = \OT1/cmr/bx/n/12 E\OT1/cmr/m/n/12 [[](
 \OML/cmm/m/it/12 tX\OT1/cmr/m/n/12 )]$
  []
 
-[2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 128.
- [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 128.
+[3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
+ [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
  (./section3soln.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 128.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 128.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 144.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 144.
 Package rerunfilecheck Info: File `section3soln.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 128.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 144.
 )
 
 Here is how much of LuaTeX's memory you used:
- 9593 strings out of 495004
+ 9594 strings out of 495004
  100000,266212 words of node,token memory allocated
- 384 words of node memory still in use:
+ 387 words of node memory still in use:
    6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 43 glue_spec, 1 write nodes
-   avail lists: 2:20,3:120,4:759,5:215,6:1494,7:34,8:3,9:368,10:63
+   avail lists: 2:20,3:121,4:695,5:196,6:1208,7:33,8:3,9:406,10:51
  12753 multiletter control sequences out of 65536+600000
  57 fonts using 2250759 bytes
  40i,10n,38p,603b,345s stack positions out of 5000i,500n,10000p,200000b,100000s
@@ -623,10 +623,10 @@ pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><</u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><</usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on section3soln.pdf (3 pages, 173065 bytes).
+Output written on section3soln.pdf (4 pages, 174585 bytes).
 
-PDF statistics: 88 PDF objects out of 1000 (max. 8388607)
- 66 compressed objects within 1 object stream
- 5 named destinations out of 1000 (max. 131072)
+PDF statistics: 92 PDF objects out of 1000 (max. 8388607)
+ 69 compressed objects within 1 object stream
+ 6 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
