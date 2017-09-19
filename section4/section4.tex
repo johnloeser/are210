@@ -1,0 +1,97 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 4: Vector random variables}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+September 19, 2017
+\par\end{center}
+
+The section notes are available on the section Github at \href{github.com/johnloeser/are210}{github.com/johnloeser/are210} in the ``section4'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item \textbf{Cauchy-Schwarz inequality}: $\mathbf{E}[XY]^{2} \leq \mathbf{E}[X^{2}] \mathbf{E}[Y^{2}]$ 
+	\begin{itemize}
+		\item $\mathbf{E}[XY]^{2} = \mathbf{E}[X^{2}] \mathbf{E}[Y^{2}] \Leftrightarrow X = cY \text{ almost surely}$
+	\end{itemize}
+	\item \textbf{Moment inequality}: $|\mathbf{E}[X^{m}]| < \infty, k < m \Rightarrow |\mathbf{E}[X^{k}]| < \infty$ ($\Leftarrow$ Jensen's)
+	\item \textbf{Holder's inequality}: $p, q > 0$, $\frac{1}{p} + \frac{1}{q} = 1 \Rightarrow |\mathbf{E}[XY]| \leq \mathbf{E}[|XY|] \leq \mathbf{E}[|X|^{p}]^{1/p} \mathbf{E}[|X|^{q}]^{1/q}$
+	\begin{itemize}
+		\item Cauchy-Schwarz inequality when $p = q = 2$
+	\end{itemize}
+	\item \textbf{Minkowski's inequality}: $\mathbf{E}[|X + Y|^{p}]^{1/p} \leq \mathbf{E}[|X|^{p}]^{1/p} + \mathbf{E}[|Y|^{p}]^{1/p}$
+	\item Joint distributions
+	\begin{itemize}
+		\item $F(x) = P[X_{1} \leq x_{1}, \ldots, X_{n} \leq x_{n}]$ is the \textbf{joint CDF}
+		\item $F(x) = \int_{-\infty}^{x_{1}} \cdots \int_{-\infty}^{x_{n}} f(s) ds_{n} \cdots ds_{1}$ implicitly defines the \textbf{joint PDF}, $f$
+		\item $F_{j}(x_{j}) = P[X_{j} \leq x_{j}] = \displaystyle\lim_{i \to \infty, i \neq j} F(x)$ is the \textbf{marginal distribution}
+		\item The \textbf{conditional distribution} of a random variable $Y$ given $X$ is a measure $\mu_{Y|X}(\cdot|x)$ satisfying, $\forall$ $A, B$, $P[X \in B, Y \in A] = \int_{B} \mu_{Y | X}(A, x) F_{X, Y}(dx)$, where $F_{X, Y}$ is the joint CDF of the random variable $(X, Y)$
+		\begin{itemize}
+			\item Simplifies to Bayes' Rule + Law of Total Probability when $X$ is discrete
+			\item Suppose $(X, Y)$ has a nicely behaved density $f_{X, Y}$. Let $f_{X}$ be the marginal density. Then, $Y$ conditional on $X = x$ has \textbf{conditional density} $f_{Y | X}(y | x) = \frac{f_{X,Y}(x, y)}{f_{X}(x)}$
+			\item The \textbf{conditional expectation} of a random variable $Y | X$ is $\mathbf{E}[Y | X = x] = \int y F_{Y | X}[dy | x] \equiv \int y f_{Y | X}(y | x) dy$, where $F_{Y | X}[ \cdot, x]$ is the conditional probability measure for $Y | X = x$ and $f_{Y | X}(\cdot | x)$ is the conditional density
+		\end{itemize}
+		\item Multivariate normal (MVN)
+		\begin{itemize}
+			\item $X_{d\times1}$ is MVN $\Leftrightarrow$ $A_{m\times d}X_{d\times1}$ is MVN $\forall$ $A_{m\times d}$
+			\item $X$ MVN $\Leftrightarrow$ $\Psi_{X}(r) = \exp[ir^{\T}\mu - r^{\T} V r / 2]$, where $\Psi_{X}$ is the characteristic function of $X$, $\mu = \mathbf{E}[X]$, and $V = V[X]$
+			\item $X$ MVN $\Rightarrow (X_{1} \perp X_{2} \Leftrightarrow \text{Cov}[X_{1}, X_{2}] = 0)$
+		\end{itemize}
+	\end{itemize}
+	\item Matrices
+	\begin{itemize}
+		\item $\lambda$ is an \textbf{eigenvalue} of $M$ if $\exists v \neq 0$ such that $Mv = \lambda v$
+		\item $M$ \textbf{PD} (\textbf{PSD}) $\Leftrightarrow$ all eigenvalues $>$ ($\geq$) 0
+		\item $M$ PD $\Leftrightarrow M$ PSD, $M^{-1}$ exists
+		\item Let $V_{d\times d}$ be a PD matrix, $\mu_{d \times 1}$ a vector, then the density of a MVN random variable with variance $V$ and mean $\mu$ is $$f(x) = \left( \frac{1}{\sqrt{2\pi}} \right)^{d} \frac{1}{\sqrt{\det[V]}} \exp \left[ -\frac{1}{2} (x - \mu)^{\T} V^{-1} (x - \mu) \right]$$
+	\end{itemize}
+	\item The \textbf{empirical cdf} is $F_{n}(x, \omega) = \frac{1}{n}
+	\sum_{i=1}^{n} \mathbf{1}[X_{i}(\omega) \leq x]$
+	\begin{itemize}
+		\item Equivalent measure $\mu_{n}(A, \omega) = \frac{1}{n} \sum_{i = 1}^{n} \mathbf{1}[X_{i}(\omega) \in A]$ 
+	\end{itemize}
+\end{itemize}
+
+\section{Some helpful tips}
+
+\begin{itemize}
+	\item Equality of marginal distributions $\nRightarrow$ equality of joint distribution
+	\item Conditional distributions are probability measures
+	\item We said $M$ PD $\Rightarrow$ $M = K D K^{\T}$ where $D$ is a diagonal matrix of eigenvalues and $K$ is orthonormal ($K K^{\T} = \mathbf{I}$). Basically, in the expression $Mv = K D K^{\T}v$ think of $K$ and $K^{\T}$ as changing the basis of the vector $v$ to the basis of eigenvectors, $M$ is simply scaling each eigenvector comprising $K^{\T} v$ by its eigenvalue, after which $K$ returns it to the original basis.
+\end{itemize}
+
+\section{Practice questions}
+
+1) \textbf{MVN characteristic function}: Derive the characteristic function for a multivariate normal random variable with mean $\mathbf{0}_{n \times 1}$ and variance $\mathbf{I}_{n \times n}$
+
+\vspace{1em}
+\noindent
+2) \textbf{Bayesian updating}: Suppose I have a prior belief that some population parameter $\theta \sim N(0, 1)$. Suppose I observe an unbiased signal of $\theta$, $t$, with normally distributed noise with variance $\sigma^{2}_{t}$. What are $f(t | \theta)$ and $f(\theta)$? Derive $f(t)$ and $f(\theta | t)$. Interpret $f(\theta | t)$.
+
+\end{document}

@@ -1,0 +1,57 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 4: Vector random variables (solutions)}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+September 19, 2017
+\par\end{center}
+
+\noindent
+1) Derive the characteristic function for a multivariate normal random variable $X$ with mean $\mu_{n \times 1}$ and variance $V_{n \times n}$
+\vspace{1em}
+
+We're interested in $\Psi_{X}(r^{\T}) \equiv \mathbf{E}[\exp(ir^{\T}X)]$. Since $X$ is MVN, $r^{\T} X \sim N(r^{\T} \mu, r^{\T} V r)$. Further, note that, for some random variable $Y$, $\Psi_{aY + b}(t) = \exp(ibt) \Psi_{Y}(at)$. Therefore
+\begin{align*}
+\Psi_{X}(r^{\T}) & = \Psi_{r^{\T}X}(1) \\
+& = \exp(ir^{\T}\mu) \Psi_{r^{\T}X - r^{\T} \mu}(1) \\
+& = \exp(ir^{\T}\mu) \Psi_{\frac{r^{\T}X - r^{\T} \mu}{\sqrt{r^{\T} V r}}}(\sqrt{r^{\T} V r})
+\end{align*}
+However, $\frac{r^{\T}X - r^{\T} \mu}{\sqrt{r^{\T} V r}} \sim N(0,1)$. Looking up the characteristic function of the standard normal ($\exp(-t^{2} / 2)$), this yields $\Psi_{X}(r^{T}) = \exp(ir^{\T}\mu - r^{\T} V r / 2)$.
+
+\vspace{1em}
+\noindent
+2) \textbf{Bayesian updating}: Suppose I have a prior belief that some population parameter $\Theta \sim N(0, 1)$. Suppose I observe an unbiased signal of $\Theta$, $T$, with normally distributed noise with variance $\sigma^{2}_{T}$. What are $f_{T | \Theta}(t | \theta)$ and $f_{\Theta}(\theta)$? Derive $f_{T}(t)$ and $f_{\Theta | T}(\theta | t)$. Interpret $f_{\Theta | T}(\theta | t)$.
+\vspace{1em}
+
+First, $f(T | \Theta) = \frac{1}{\sigma_{T}} \phi\left(\frac{t - \theta}{\sigma_{T}}\right)$. Second, $f_{\Theta}(\theta) = \phi \left( \theta \right)$. Next, note that $f_{T, \Theta}(t, \theta) = \frac{1}{\sigma_{T}} \phi\left(\frac{t - \theta}{\sigma_{T}}\right) \phi \left( \theta \right)$.
+
+Integrating, $f_{T}(t) = \int_{-\infty}^{\infty} f_{T, \Theta}(t, \theta) d\theta = \frac{1}{\sqrt{1 + \sigma_{T}^{2}}} \phi\left(\frac{t}{\sqrt{1 + \sigma_{T}^{2}}}\right)$. Applying the continuous equivalent of Bayes' Rule, $f_{\Theta | T}(\theta | t) = \frac{f_{T, \Theta}(t, \theta)}{f_{T}(t)} = \frac{1}{\sigma_{t} / \sqrt{1 + \sigma_{t}^{2}}} \phi \left( \frac{\theta - \frac{t}{1 + \sigma_{t}^{2}}}{\sigma_{t} / \sqrt{1 + \sigma_{t}^{2}}} \right)$. Note that $\Theta | T \sim N\left(\frac{t}{1 + \sigma_{t}^{2}}, \frac{\sigma_{t}^{2}}{1 + \sigma_{t}^{2}}\right)$.
+
+This is the posterior distribution. Its mean is a weighted average of the old mean (0) and the signal ($t$), where the weights are the inverses of the variances. The new variance is just the variance of this weighted average.
+
+\end{document}
