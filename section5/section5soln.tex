@@ -1,0 +1,102 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 5: Conditional expectations and convergence (solutions)}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+September 26, 2017
+\par\end{center}
+
+\noindent
+1) \textbf{Sum of Bernoulli}: Let $X_{n1}, \ldots, X_{nn}$ be iid Bern[$p_{n}$], and let $S_{n} = \sum_{j = 1}^{n} X_{nj}$. Suppose $np_{n} \to \lambda$. Show that $S_{n} \overset{\text{d}}{\to} \text{Pois}[\lambda]$.
+
+Hint: the characteristic function of a Pois[$\lambda$] RV is $\Psi(t) = \exp(\lambda(\exp(it) - 1))$.
+\vspace{1em}
+
+First, since $X_{nj}$ are iid, $\Psi_{S_{n}}(t) = \mathbf{E}[\exp(i X_{nj} t)]^{n}$. Calculating the expectation yields $\Psi_{S_{n}}(t) = [1 + p_{n}(\exp(it) - 1)]^{n}$. Taking logs yields $\log \Psi_{S_{n}}(t) = n \log [1 + p_{n}(\exp(it) - 1)]$. Since $np_{n} \to \lambda$, $p_{n} \to \frac{\lambda}{n} \to 0$. Therefore $p_{n}(\exp(it) - 1) \to 0$. Additionally, note that $\lim_{x \to 0} \log (1 + x) = x$. This yields $\log \Psi_{S_{n}}(t) \to n p_{n}(\exp(it) - 1) \to \lambda (\exp(it) - 1)$. Exponentiating yields $\Psi_{S_{n}}(t) \to \exp(\lambda (\exp(it) - 1))$, which is the characteristic function of a Pois[$\lambda$] random variable.
+
+\vspace{1em}
+\noindent
+2) \textbf{Law of iterated expectations}: Show $\mathbf{E}[\mathbf{E}[Y | X]] = \mathbf{E}[Y]$.
+\vspace{1em}
+
+First, we use that $\mathbf{E}[\mathbf{E}[Y | X]] = \mathbf{E}[\mathbf{E}[Y | X] | \{ \emptyset, \Omega \}]$. By definition of conditional expectation with respect to a $\sigma$-algebra, 1) $\mathbf{E}[\mathbf{E}[Y | X]]$ must be constant (in order to be $\{ \emptyset, \Omega \}$-measurable), and 2) $\int \mathbf{E}[\mathbf{E}[Y | X]](\omega) \mathbf{1}_{\Omega}(\omega) P[d\omega] = \int \mathbf{E}[Y | X](\omega) \mathbf{1}_{\Omega}(\omega) P[d\omega]$. We can simplify the left hand side to $\mathbf{E}[\mathbf{E}[Y | X]]$ since it is constant, and $P$ integrates to 1 over $\Omega$. For the right hand side, substituting in the definition of conditional expectation means it equals $\int Y(\omega) \mathbf{1}_{\Omega}(\omega) P[d\omega] = \int Y(\omega) P[d\omega] = \mathbf{E}[Y]$. Putting it together yields $\mathbf{E}[\mathbf{E}[Y | X]] = \mathbf{E}[Y]$.
+
+\vspace{1em}
+\noindent
+3) \textbf{LATE}: Let $(Y_{1}, Y_{0}, D_{1}, D_{0}, Z)$ be a vector of random variables, where $D_{1}$, $D_{0}$, and $Z$ are binary. Assume $(Y_{1}, Y_{0}, D_{1}, D_{0}) \perp Z$ (independence), $\mathbf{E}[D_{1}] > \mathbf{E}[D_{0}]$ (first stage), and $D_{1} \geq D_{0}$ almost everywhere (monotonicity). Assume $D = D_{1} Z + D_{0} (1 - Z)$, $Y = Y_{1} D + Y_{0} (1 - D)$, and $Z$ are observed.
+
+a) What is $\mathbf{E}[Y | D = 1] - \mathbf{E}[Y | D = 0]$? What are necessary and sufficient conditions for it to equal $\mathbf{E}[Y_{1} - Y_{0} | D = 1]$?
+\vspace{1em}
+
+\begin{align*}
+\mathbf{E}[Y | D = 1] - \mathbf{E}[Y | D = 0] & = \mathbf{E}[Y_{1} | D = 1] - \mathbf{E}[Y_{0} | D = 0] \\
+& = \underbrace{\mathbf{E}[Y_{1} - Y_{0} | D = 1]}_{\text{TOT}} + \underbrace{\mathbf{E}[Y_{0} | D = 1] - \mathbf{E}[Y_{0} | D = 0]}_{\text{selection}}
+\end{align*}
+
+It equals $\mathbf{E}[Y_{1} - Y_{0} | D = 1]$ if $\mathbf{E}[Y_{0} | D = 1] - \mathbf{E}[Y_{0} | D = 0] = 0$. Note that this is implied by $(Y_{1}, Y_{0}) \perp D$
+
+\vspace{1em}
+b) Show that $\frac{\mathbf{E}[Y | Z = 1] - \mathbf{E}[Y | Z = 0]}{\mathbf{E}[D | Z = 1] - \mathbf{E}[D | Z = 0]} = \mathbf{E}[Y_{1} - Y_{0} | D_{1} > D_{0}]$.
+\vspace{1em}
+
+\begin{align*}
+\mathbf{E}[D | Z = 1] - \mathbf{E}[D | Z = 0] & = \mathbf{E}[D_{1} | Z = 1] - \mathbf{E}[D_{0} | Z = 0] \\
+& = \mathbf{E}[D_{1}] - \mathbf{E}[D_{0}] \\
+& = \mathbf{E}[D_{1} - D_{0}] \\
+& = P[D_{1} > D_{0}]
+\end{align*}
+\begin{align*}
+\mathbf{E}[Y | Z = 1] - \mathbf{E}[Y | Z = 0] & = \mathbf{E}[D_{1} Y_{1} + (1 - D_{1}) Y_{0} | Z = 1] - \mathbf{E}[D_{0} Y_{1} + (1 - D_{0}) Y_{0} | Z = 0] \\
+& = \mathbf{E}[D_{1} Y_{1} + (1 - D_{1}) Y_{0}] - \mathbf{E}[D_{0} Y_{1} + (1 - D_{0}) Y_{0}] \\
+& = \mathbf{E}[(Y_{1} - Y_{0})(D_{1} - D_{0})] \\
+& = \mathbf{E}[\mathbf{1}[D_{1} > D_{0}] (Y_{1} - Y_{0})] \\
+& = P[D_{1} > D_{0}] \mathbf{E}[Y_{1} - Y_{0} | D_{1} > D_{0}]
+\end{align*}
+
+\vspace{1em}
+c) Assume $D = Z$, what does this reduce to?
+\vspace{1em}
+
+$\mathbf{E}[Y | D = 1] - \mathbf{E}[Y | D = 0] = \mathbf{E}[Y_{1} - Y_{0}]$
+
+\vspace{1em}
+\noindent
+4) \textbf{Distribution of $Y_{d}$}: Assume the potential outcomes framework with selection on observables, and assume common support ($\mathbf{E}[D | X] \equiv p(X) \in (0, 1)$).
+
+a) Temporarily consider the case where $(Y_{1}, Y_{0}) \perp D$. How can the marginal distributions of $Y_{1}$ and $Y_{0}$ be calculated using $(Y, D)$? Can the joint distribution be calculated? Intuitively, why not?
+\vspace{1em}
+
+$P[Y_{1} \leq y] = \mathbf{E}[\mathbf{1}[Y \leq y] | D = 1]$. If we only use $Y$, we can't observe $Y_{1} - Y_{0}$. So we can't tell the difference between high $Y_{0}$ correspond to low $Y_{1}$ and high $Y_{0}$ correspond to high $Y_{1}$ without additional assumptions (e.g. what if we observed that $\mathbf{E}[Y_{0} | X]$ and $\mathbf{E}[Y_{1} | X]$ had positive covariance? What would we need to assume for that to tell us about the distribution of $(Y_{0}, Y_{1})$?).
+
+\vspace{1em}
+b) Now return to the selection on observables assumption. How can the marginal distributions of $Y_{1}$ and $Y_{0}$ be calculated using $(Y, D, X)$?
+\vspace{1em}
+
+$P[Y_{1} \leq y | X] = \mathbf{E} \left[ \left. \frac{D \mathbf{1}[Y \leq y]}{p(X)} \right| X \right]$, following the proof in the homework. Taking expectations of both sides (and applying the law of iterated expectations) yields $\mathbf{E}[Y_{1} \leq y] = \mathbf{E} \left[ \frac{D \mathbf{1}[Y \leq y]}{p(X)} \right]$. The marginal distribution of $Y_{0}$ can be calculated similarly.
+
+\end{document}

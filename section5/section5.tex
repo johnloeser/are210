@@ -1,0 +1,128 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 5: Conditional expectations and convergence}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+September 26, 2017
+\par\end{center}
+
+The section notes are available on the section Github at \href{github.com/johnloeser/are210}{github.com/johnloeser/are210} in the ``section5'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item \textbf{Conditional expectation}: Let $(\Omega, \mathbf{F}, P)$ be a probability space, $Y : \Omega \to \mathbf{R}$ a random variable, and $\mathbf{G} \subset \mathbf{F}$ a $\sigma$-algebra.\footnote{We also make the technical assumption that $\mathbf{E}[|Y|] < \infty$.} Then $\mathbf{E}[Y | \mathbf{G}]$ is 1) $\mathbf{G}$-measurable, and 2) solves $\int Y(\omega) \mathbf{1}_{B}(\omega) P[d\omega] = \int \mathbf{E}[Y | \mathbf{G}](\omega) \mathbf{1}_{B}(\omega) P[d \omega]$ for all $B \in \mathbf{G}$.
+	\begin{itemize}
+		\item $\mathbf{E}[Y | \mathbf{G}]$ is $\mathbf{G}$-measurable $\Leftrightarrow$ $\mathbf{E}[Y | \mathbf{G}]^{-1}(B) \in \mathbf{G}$ for all $B \in \mathbf{B}$
+		\begin{itemize}
+			\item More intuitively, this will mean that $\mathbf{E}[Y | \mathbf{G}]$ will be constant over the smallest non-empty sets in $\mathbf{G}$.
+			\item For example, $\mathbf{E}[Y] = \mathbf{E}[Y | \{ \emptyset, \Omega \}]$, and $Y = \mathbf{E}[Y | \mathbf{F}]$
+		\end{itemize}
+		\item Let $\sigma(X) = \{ A \in \mathbf{F} : \exists \; B \in \mathbf{B} \text{ such that } A = X^{-1}(B) \}$ for some random variable $X$, then $\mathbf{E}[Y | X] \equiv \mathbf{E}[Y | \sigma(X)]$.
+		\begin{itemize}
+			\item More intuitively, $\mathbf{E}[Y | X]$ is taking the average of $Y$ over the set of $\omega$ that correspond to any one value of $X$
+		\end{itemize}
+		\item If $W$ is $\mathbf{G}$-measurable, $\mathbf{E}[YW | \mathbf{G}] = W \mathbf{E}[Y | \mathbf{G}]$
+		\begin{itemize}
+			\item More intuitively and equivalently, $\mathbf{E}[Y f(X) | X] = f(X) \mathbf{E}[Y | X]$
+		\end{itemize}
+		\item \textbf{Law of iterated expectations}: $\mathbf{E}[\mathbf{E}[Y | \mathbf{G}]] = \mathbf{E}[Y] = \mathbf{E}[\mathbf{E}[Y] | \mathbf{G}]$
+		\item $X \perp Y | Z \Leftrightarrow \mathbf{E}[f(Y) | X, Z] = \mathbf{E}[f(Y) | Z]$ and $\mathbf{E}[f(X) | Y, Z] = \mathbf{E}[f(X) | Z]$.
+		\item Define the \textbf{potential outcomes framework} to be 1) potential outcomes $(Y_{1}, Y_{0})$, 2) treatment status $D$, 3) observed outcome $Y = Y_{1} D + Y_{0} (1 - D)$, where $(Y_{1}, Y_{0}, D, Y)$ is a random variable
+		\begin{itemize}
+			\item $(Y_{1}, Y_{0}) \perp D$ is random assignment of $D$
+			\item Let $X$ be another random variable, then $(Y_{1}, Y_{0}) \perp D | X$ is the selection on observables assumption
+			\item $P[D = 1 | X]$ is the propensity score
+			\begin{itemize}
+				\item Selection on observables $\Rightarrow$ $(Y_{1}, Y_{0}) \perp D | P[D = 1 | X]$
+				\item Selection on observables $\Rightarrow$ $\mathbf{E} \left[ \left. \frac{DY}{P[D = 1 | X]} \right| X  \right] = \mathbf{E}[Y_{1} | X]$
+			\end{itemize}
+		\end{itemize}
+		\item Let $L^{p}(\mathbf{G}) \equiv \{ X : \Omega \to \mathbf{R} \; | \; X \text{ is } \mathbf{G} \text{-measurable}, \int |X(\omega)|^{p} P[d\omega] < \infty \}$, and assume $Y \in L^{2}(\mathbf{F})$.
+		\begin{itemize}
+			\item $\widehat{Y} = \mathbf{E}[Y | \mathbf{G}]$ is the unique (almost everywhere) random variable satisfying $\mathbf{E}[(Y - \widehat{Y})^{2}] = \underset{X \in L^{2}(\mathbf{G})}{\min} \; \mathbf{E}[(Y - X)^{2}]$, or equivalently, $\mathbf{E}[(Y - \widehat{Y}) X] = 0 \; \forall \; X \in L^{2}(\mathbf{G})$.
+			\item More intuitively, the conditional expectation function ``projects'' $Y$ onto $X$.
+			\item $Y = \widehat{Y} + (Y - \widehat{Y})$ is a useful decomposition of $Y$ into two mean independent random variables
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Convergence}: Let $(\Omega, \mathbf{F}, P)$ be a probability space, $\{ X_{n}\}_{n = 1}^{\infty}$ be a sequence of random variables
+	\begin{itemize}
+		\item $X_{n} \overset{\text{a.s.}}{\to} X$ $\Leftrightarrow$ $X_{n}(\omega) \to X(\omega)$ almost everywhere
+		\item Assume $X_{n} \in L^{p}$.\footnote{Using the definition above, here $L^{p} \equiv L^{p}(\mathbf{F})$.} $X_{n} \overset{L^{p}}{\to} X$ $\Leftrightarrow$ $\mathbf{E}[|X_{n} - X|^{p}] \to 0$
+		\item $X_{n} \overset{\text{p}}{\to} X$ $\Leftrightarrow$ $P[|X_{n}(\omega) - X(\omega)| > \epsilon] \to 0$
+		\begin{itemize}
+			\item $X_{n} \to X$, $Y_{n} \to Y$ implies 1) $X_{n} + Y_{n} \overset{\text{p}}{\to} X + Y$, 2) $X_{n} Y_{n} \overset{\text{p}}{\to} X Y$, 3) $f(X_{n}) \to f(X)$ for sufficiently nice $f$
+			\item \textbf{Weak law of large numbers}: $\{ X_{n} \}_{n=1}^{\infty}$ iid random variables, let $\overline{X}_{n} \equiv \frac{1}{n} \sum_{i=1}^{n} X_{i}$, and assume $X \in L^{2}$. Then $\overline{X}_{n} \overset{\text{p}}{\to} \mathbf{E}[X_{i}]$.
+			\item $\overset{\text{a.s.}}{\to}$ $\Rightarrow$ $\overset{L^{p}}{\to}$ $\Rightarrow$ $\overset{\text{p}}{\to}$
+		\end{itemize}
+		\item Let $\{ \mu_{n} \}_{n=1}^{\infty}$ be a sequence of probability measures, and assume $X_{i}$ has probability measure $\mu_{i}$, and let $\mu$ be the probability measure of $X$. Then $X_{n} \overset{\text{d}}{\to} X$ $\Leftrightarrow$ $\mu_{n} \to \mu$ $\Leftrightarrow$ $\int f(x) \mu_{n}[dx] \to \int f(x) \mu[dx]$ for all bounded, continuous $f$
+		\begin{itemize}
+			\item Probability measures converging is equivalent to CDFs converging which is equivalent to characteristic functions converging (Levy's Theorem)
+			\item $X_{n} \overset{\text{d}}{\to} X$ $\Leftrightarrow$ $r'X_{n} \overset{\text{d}}{\to} r'X$ for any matrix $r$ (joint distributions being the same is equivalent to arbitrary linear combinations having the same distribution)
+			\item \textbf{Lindeberg-Levy CLT}: $\{ X_{i} \}_{i = 1}^{\infty}$ iid random variables, $X_{i} \in L^{2}$, $\overline{X}_{n} = \frac{1}{n} \sum_{i = 1}^{n} X_{i}$, $Y_{n} = \frac{\overline{X}_{n} - \mathbf{E}[\overline{X}_{n}]}{\sqrt{V[\overline{X}_{n}]}}$, then $Y_{n} \overset{\text{d}}{\to} N(0, 1)$.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\section{Some helpful tips}
+
+\begin{itemize}
+	\item The potential outcomes framework is one of the most important recent developments in econometrics, if not the most. Generally, think about $D$ as a proxy for some policy, and $Y$ as some outcome of interest, where we're interested in estimating the effect of the policy on that outcome.
+	\item Try constructing an example that matters to anything we do of $\overset{\text{p}}{\to}$ but not $\overset{\text{a.s.}}{\to}$ \ldots
+	\item Chebyshev's inequality ($P[|X - \mathbf{E}[X]| > \epsilon] \leq \frac{V[X]}{\epsilon^{2}}$) got a lot of use here, almost always to show a sequence of random variables with variance going to 0 is converging in probability to the limit of their expectation
+\end{itemize}
+
+\section{Practice questions}
+
+1) \textbf{Sum of Bernoulli}: Let $X_{n1}, \ldots, X_{nn}$ be iid Bern[$p_{n}$], and let $S_{n} = \sum_{j = 1}^{n} X_{nj}$. Suppose $np_{n} \to \lambda$. Show that $S_{n} \overset{\text{d}}{\to} \text{Pois}[\lambda]$.
+
+Hint: the characteristic function of a Pois[$\lambda$] RV is $\Psi(t) = \exp(\lambda(\exp(it) - 1))$.
+
+\vspace{1em}
+\noindent
+2) \textbf{Law of iterated expectations}: Show $\mathbf{E}[\mathbf{E}[Y | X]] = \mathbf{E}[Y]$.
+
+\vspace{1em}
+\noindent
+3) \textbf{LATE}: Let $(Y_{1}, Y_{0}, D_{1}, D_{0}, Z)$ be a vector of random variables, where $D_{1}$, $D_{0}$, and $Z$ are binary. Assume $(Y_{1}, Y_{0}, D_{1}, D_{0}) \perp Z$ (independence), $\mathbf{E}[D_{1}] > \mathbf{E}[D_{0}]$ (first stage), and $D_{1} \geq D_{0}$ almost everywhere (monotonicity). Assume $D = D_{1} Z + D_{0} (1 - Z)$, $Y = Y_{1} D + Y_{0} (1 - D)$, and $Z$ are observed.
+
+a) What is $\mathbf{E}[Y | D = 1] - \mathbf{E}[Y | D = 0]$? What are necessary and sufficient conditions for it to equal $\mathbf{E}[Y_{1} - Y_{0} | D = 1]$?
+
+b) Show that $\frac{\mathbf{E}[Y | Z = 1] - \mathbf{E}[Y | Z = 0]}{\mathbf{E}[D | Z = 1] - \mathbf{E}[D | Z = 0]} = \mathbf{E}[Y_{1} - Y_{0} | D_{1} > D_{0}]$.
+
+c) Assume $D = Z$, what does this reduce to?
+
+\vspace{1em}
+\noindent
+4) \textbf{Distribution of $Y_{d}$}: Assume the potential outcomes framework with selection on observables, and assume common support ($\mathbf{E}[D | X] \equiv p(X) \in (0, 1)$).
+
+a) Temporarily consider the case where $(Y_{1}, Y_{0}) \perp D$. How can the marginal distributions of $Y_{1}$ and $Y_{0}$ be calculated using $(Y, D)$? Can the joint distribution be calculated? Intuitively, why not?
+
+b) Now return to the selection on observables assumption. How can the marginal distributions of $Y_{1}$ and $Y_{0}$ be calculated using $(Y, D, X)$?
+
+\end{document}
