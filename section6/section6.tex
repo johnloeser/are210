@@ -1,0 +1,114 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 6: Asymptotic theory and identification}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+October 10, 2017
+\par\end{center}
+
+The section notes are available on the section Github at \href{github.com/johnloeser/are210}{github.com/johnloeser/are210} in the ``section6'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item \textbf{Lindeberg-Levy CLT}: $\{ X_{i} \}_{i=1}^{\infty}$ iid random variables, $X_{i}$ finite second moment, $\overline{X}_{n} = \frac{1}{n} \sum_{i=1}^{n} X_{i}$, $Y_{n} = \frac{\overline{X}_{n} - \mathbf{E}[\overline{X}_{n}]}{\sqrt{V[\overline{X}_{n}]}}$, then $Y_{n} \overset{\text{d}}{\to} N(0,1)$
+	\begin{itemize}
+		\item $\{ X_{i} \}_{i=1}^{\infty}$ iid random vectors, mean $\mu$ and covariance matrix $\Sigma$, then $\sqrt{n} (\overline{X}_{n} - \mu) \overset{\text{d}}{\to} N(0, \Sigma)$
+	\end{itemize}
+	\item $X_{n} = O_{p}(1)$ if $\forall$ $\epsilon$, $\exists$ $B_{\epsilon}, N_{\epsilon}$ such that $P[|X_{n}| > B_{\epsilon}] < \epsilon$
+	\begin{itemize}
+		\item $\frac{X_{n}}{a_{n}} \overset{\text{d}}{\to} X \Rightarrow X_{n} = O_{p}(a_{n})$
+		\item $\frac{X_{n}}{a_{n}} \overset{\text{p}}{\to} 0 \Rightarrow X_{n} = o_{p}(a_{n})$
+	\end{itemize}
+	\item \textbf{Continuous mapping theorem}: $g$ continuous $\Rightarrow$ ($X_{n} \overset{\text{p}}{\to} X \Rightarrow g(X_{n}) \overset{\text{p}}{\to} g(X)$)
+	\begin{itemize}
+		\item $g(F_{n}) \to g(F)$, where $F_{n}$ is the empirical distribution
+	\end{itemize}
+	\item \textbf{Slutsky's lemma}: $X_{n} \overset{\text{d}}{\to} X$, $Y_{n} \overset{\text{d}}{\to} c$ (where $c$ is constant), then $X_{n} + Y_{n} \overset{\text{d}}{\to} X + c$ and $X_{n} Y_{n} \overset{\text{d}}{\to} X c$
+	\begin{itemize}
+		\item $\sqrt{n} \overline{X}_{n} / s_{n}^{2} \to N(0,1)$
+		\item $P\left[\mu \in \left(\overline{X}_{n} + \frac{s_{n}^{2}}{\sqrt{n}} \Phi^{-1}(\alpha/2), \overline{X}_{n} + \frac{s_{n}^{2}}{\sqrt{n}} \Phi^{-1}(1 - \alpha/2) \right)\right] \to \alpha$
+	\end{itemize}
+	\item \textbf{Delta method}: $\sqrt{n} (T_{n} - \theta) \overset{\text{d}}{\to} Y$, $g$ differentiable at $\theta$, then $\sqrt{n} (g(T_{n}) - g(\theta))) \overset{\text{d}}{\to} g'(\theta) Y$
+	\begin{itemize}
+		\item $\sqrt{n} (\overline{X}_{n} - \mu) \overset{\text{d}}{\to} N(0, \Sigma)$, then $\sqrt{n} (g(\overline{X}_{n}) - g(\mu)) \overset{\text{d}}{\to} N(0, g'(\mu) \Sigma g'(\mu)^{\T})$ 
+		\item $dx_{n} \overset{\text{p}}{\to} 0$, then $g(x + dx_{n}) = g(x) + g'(x) dx_{n} + \frac{1}{2} dx_{n} g''(\theta) dx_{n}^{\T} + O_{p}(dx_{n}^{3})$ if $g$ is thrice differentiable at $x$
+	\end{itemize}
+	\item \textbf{Identification}
+	\begin{itemize}
+		\item Data $\textbf{X}$, takes values in sample space $\mathcal{X}$, $\textbf{X}$ has unknown distribution $P \in \textbf{P}$ family of probability distributions on $\mathcal{X}$, typically assume
+		\begin{enumerate}
+			\item $\textbf{P} = \{ P_{\theta} : \theta \in \Theta \}$
+			\item $\textbf{X} = \{ X_{i} \}_{i=1}^{n}$ iid, so probability distribution of data $\times_{i=1}^{n} P$
+		\end{enumerate}
+		\item A \textbf{parameter} is a mapping $\nu : \mathbf{P} \to \mathcal{N}$ (i.e. function of distribution of $\textbf{X}$)
+		\begin{itemize}
+			\item $\displaystyle\theta(P) = \arg \max_{b \in \Theta} Q_{0}(b, P)$
+		\end{itemize}
+		\item The \textbf{identified set} $\displaystyle\Theta(P) = \{ \theta \in \Theta : \theta = \arg \max_{b \in \Theta} Q_{0}(b, P) \}$
+		\begin{itemize}
+			\item \textbf{Point identification} $\Leftrightarrow$ the identified set is a singleton
+		\end{itemize}
+		\item A typical problem:
+		\begin{enumerate}
+			\item Show $\Theta(P)$ is a singleton ($P_{\theta_{1}} = P_{\theta_{2}} \Rightarrow \theta_{1} = \theta_{2}$) or characterize the set
+			\item Construct an estimator, often $\Theta(P_{n})$, where $P_{n}$ is the empirical distribution
+			\item Derive its asymptotic properties using implicit function theorem, delta method, \ldots
+		\end{enumerate}
+	\end{itemize}
+\end{itemize}
+
+\section{Practice questions}
+
+1) \textbf{$\mathbf{O_{p}}$ and Taylor approximations}: Let $\{ X_{i} \}_{i=1}^{\infty}$ iid, and $\overline{X}_{n} = \frac{1}{n} \sum_{i=1}^{n} X_{i}$, and let $\mu = \mathbf{E}[X_{i}]$.
+
+a) Show that $ ( \overline{X}_{n} - \mu )^{k}$ is $O\left(n^{-k/2}\right)$.
+
+b) Show that if $T_{n} = O(n^{k})$, then $T_{n} = o(n^{k + \epsilon})$ $\forall$ $\epsilon > 0$.
+
+\vspace{1em}
+\noindent
+2) \textbf{OLS}: Consider the OLS model - $Y_{i} = X_{i}'\beta + \epsilon_{i}$, with $(Y_{i}, X_{i}', \epsilon_{i}) \sim P$ iid, and assume $\mathbf{E}_{P}[X'\epsilon] = 0$ and $\mathbf{E}_{P}[XX']$.
+
+a) Show $P$ is point identified.
+
+b) Suggest an estimator of $\beta$.
+
+c) Additionally, assume $\epsilon_{i} \perp X_{i}$. Derive the asymptotic distribution of $\hat{\beta}$.
+
+\vspace{1em}
+\noindent
+3) \textbf{Selection models and potential outcomes}: Consider the potential outcomes model $(Y_{i1}, Y_{i0}, D_{i})$, where $Y_{i1}$ and $Y_{i0}$ are binary, and let $Y_{i} = Y_{i1} D_{i} + Y_{i0} (1 - D_{i})$. Additionally, consider the selection model $Y_{i} = \mathbf{1}\{ (1,  D_{i}) \beta - U_{i} \geq 0 \}$, where $U_{i} \sim N(0, 1)$, and assume $U_{i} \perp D_{i}$. Suppose $(Y_{i}, D_{i})$ are observed.
+
+a) Show that $\beta$ is identified, and that the two models are observationally equivalent.
+
+b) Show that $\mathbf{E}[Y_{i1} | D_{i} = 0]$ is not identified. Calculate $\mathbf{E}[Y_{i1} | D_{i} = 0]$ using the selection model.
+
+c) How can we make the selection model more flexible to accomodate $\mathbf{E}[Y_{i1} | D_{i} = 0] \neq \mathbf{E}[Y_{i} | D_{i} = 1]$?
+
+\end{document}

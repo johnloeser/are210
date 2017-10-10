@@ -1,0 +1,99 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 6: Asymptotic theory and identification (solutions)}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+October 10, 2017
+\par\end{center}
+
+\noindent
+1) \textbf{$\mathbf{O_{p}}$ and Taylor approximations}: Let $\{ X_{i} \}_{i=1}^{\infty}$ iid, and $\overline{X}_{n} = \frac{1}{n} \sum_{i=1}^{n} X_{i}$, and let $\mu = \mathbf{E}[X_{i}]$.
+
+a) Show that $ ( \overline{X}_{n} - \mu )^{k}$ is $O\left(n^{-k/2}\right)$.
+\vspace{1em}
+
+First, $\sqrt{n} (\overline{X}_{n} - \mu) \overset{\text{d}}{\to} N(0, V[X_{i}])$. $g(x) = x^{k}$ is continuous, by the continuous mapping theorem $n^{k/2} (\overline{X}_{n} - \mu)^{k}$ converges in distribution. By definition of $O_{p}$, $(\overline{X}_{n} - \mu)^{k} = O_{p}(n^{-k/2})$.
+
+\vspace{1em}
+b) Show that if $T_{n} = O(n^{k})$, then $T_{n} = o(n^{k + \epsilon})$ $\forall$ $\epsilon > 0$.
+\vspace{1em}
+
+By definition, $\frac{T_{n}}{n^{k}} \overset{\text{d}}{\to} T$ for some $T$. $\frac{T_{n}}{n^{k + \epsilon}} = n^{-\epsilon} \frac{T_{n}}{n^{k}}$. $n^{-\epsilon} \overset{\text{p}}{\to} 0$ and $\frac{T_{n}}{n^{k}} \overset{\text{d}}{\to} T$, so $\frac{T_{n}}{n^{k + \epsilon}} \overset{\text{d}}{\to} 0T \Rightarrow \frac{T_{n}}{n^{k + \epsilon}} \overset{\text{p}}{\to} 0$.
+
+\vspace{1em}
+\noindent
+2) \textbf{OLS}: Consider the OLS model - $Y_{i} = X_{i}'\beta + \epsilon_{i}$, with $(Y_{i}, X_{i}', \epsilon_{i}) \sim P$ iid, and assume $\mathbf{E}_{P}[X'\epsilon] = 0$ and $\mathbf{E}_{P}[XX']$. Assume $(Y_{i}, X_{i})$ is observed
+
+a) Show $P$ is point identified.
+\vspace{1em}
+
+First, note that $X_{i} Y_{i} = X_{i} X_{i}' \beta + X_{i} \epsilon$. Taking expectations, $\mathbf{E}_{P}[X_{i} Y_{i}] = \mathbf{E}_{P}[X_{i} X_{i}'] \beta$, using $\mathbf{E}_{P}[X'\epsilon] = 0$. Using the full rank condition, this means $\mathbf{E}_{P}[X_{i} X_{i}']^{-1} \mathbf{E}_{P}[X_{i} Y_{i}] = \beta$.
+
+Second, $P_{X}$ is identified from the distribution of $(Y, X)$. Since $\beta$ is identified, $P_{Y - X' \beta | X}$ is also identified, or $P_{\epsilon | X}$. This gives us $P_{X, \epsilon}$, which with $\beta$ is sufficient for $P_{Y, X, \epsilon} = P$.
+
+\vspace{1em}
+b) Suggest an estimator of $\beta$.
+\vspace{1em}
+
+By the analogy principle, we can use $\hat{\beta} = \left( \frac{1}{n} \sum_{i=1}^{n} X_{i} X_{i}' \right)^{-1} \left( \frac{1}{n} \sum_{i=1}^{n} X_{i} Y_{i} \right)$.
+
+\vspace{1em}
+c) Additionally, assume $\epsilon_{i} \perp X_{i}$. Derive the asymptotic distribution of $\hat{\beta}$.
+\vspace{1em}
+
+First, note that $\sqrt{n} (\beta - \hat{\beta}) = \left( \frac{1}{n} \sum_{i=1}^{n} X_{i} X_{i}' \right)^{-1} \left( \frac{1}{\sqrt{n}} \sum_{i=1}^{n} X_{i} Y_{i} \right) - \mathbf{E}_{P}[X_{i} X_{i}']^{-1} \sqrt{n} \mathbf{E}_{P}[X_{i} Y_{i}]$. $\frac{1}{n} \sum_{i=1}^{n} X_{i} X_{i}' \overset{\text{p}}{\to} \mathbf{E}[X_{i} X_{i}']$. Since the inverse matrix operator is continuous, this implies $\left( \frac{1}{n} \sum_{i=1}^{n} X_{i} X_{i}' \right)^{-1} \overset{\text{p}}{\to} \mathbf{E}[X_{i} X_{i}']^{-1}$. Second,
+\begin{align*}
+\sqrt{n} \left( \frac{1}{n} \sum_{i=1}^{n} X_{i} Y_{i} - \mathbf{E}_{P}[X_{i} Y_{i}] \right) & = \sqrt{n} \frac{1}{n} \sum_{i=1}^{n} X_{i} \epsilon_{i} \\
+& \overset{\text{d}}{\to} N(0, V_{P}[X_{i} \epsilon_{i}])
+\end{align*}
+By LLCLT, making use of the definition of $Y_{i}$ and that $\mathbf{E}_{P}[X'\epsilon] = 0$.  Next, note that $V_{P}[X_{i} \epsilon_{i}] = \mathbf{E}_{P}[X_{i} \epsilon_{i}^{2} X_{i}'] = \mathbf{E}_{P}[X_{i} X_{i}'] V_{P}[\epsilon_{i}]$ using $\epsilon_{i} \perp X_{i}$. Putting this together, this yields $\sqrt{n} (\hat{\beta} - \beta) \overset{\text{d}}{\to} N(0, \mathbf{E}_{P}[X_{i} X_{i}']^{-1} V_{P}[\epsilon_{i}])$.
+
+\vspace{1em}
+\noindent
+3) \textbf{Selection models and potential outcomes}: Consider the potential outcomes model $(Y_{i1}, Y_{i0}, D_{i})$, where $Y_{i1}$ and $Y_{i0}$ are binary, and let $Y_{i} = Y_{i1} D_{i} + Y_{i0} (1 - D_{i})$. Additionally, consider the selection model $Y_{i} = \mathbf{1}\{ (1,  D_{i}) \beta - U_{i} \geq 0 \}$, where $U_{i} \sim N(0, 1)$, and assume $U_{i} \perp D_{i}$. Suppose $(Y_{i}, D_{i})$ are observed.
+
+a) Show that $\beta$ is identified, and that the two models are observationally equivalent. Did the normality assumption matter?
+\vspace{1em}
+
+Note that $P_{\beta}[Y_{i} = 1 | D_{i} = 0] = \Phi(\beta_{0})$ and $P_{\beta}[Y_{i} = 1 | D_{i} = 1] = \Phi(\beta_{0} + \beta_{1})$. Therefore $\beta_{0} = \Phi^{-1}(P[Y_{i} = 1 | D_{i} = 0])$ and $\beta_{1} = \Phi^{-1}(P[Y_{i} = 1 | D_{i} = 1]) - \beta_{0}$, so $\beta$ is identified. Moreover, since these two probabilities fully characterize the joint distribution of $(Y_{i}, D_{i})$, the two models are observationally equivalent. The normality assumption did not matter.
+
+\vspace{1em}
+b) Show that $\mathbf{E}[Y_{i1} | D_{i} = 0]$ is not identified. Calculate $\mathbf{E}[Y_{i1} | D_{i} = 0]$ using the selection model.
+\vspace{1em}
+
+In a simple case, suppose $\mathbf{P}[Y_{i1} | D_{i} = 1] = \mathbf{P}[Y_{i0} | D_{i} = 0] = 1$, and take $\mathbf{E}[Y_{i1} | D_{i} = 0] = 1$ and $\mathbf{E}[Y_{i1} | D_{i} = 0] = 0$. Both of these result in the same observed data, so $\mathbf{E}[Y_{i1} | D_{i} = 0] = 0$ is not identified. Under the selection model, $\mathbf{E}[Y_{i1} | D_{i} = 0] = \mathbf{E}[Y_{i} | D_{i} = 0]$.
+
+\vspace{1em}
+c) How can we make the selection model more flexible to accomodate $\mathbf{E}[Y_{i1} | D_{i} = 0] \neq \mathbf{E}[Y_{i} | D_{i} = 1]$?
+\vspace{1em}
+
+We can relax the assumption that $U_{i} \perp D_{i}$. One way to do this is to allow $D_{i} = \mathbf{1}[ (1, U_{i}) \gamma - V_{i} > 0 ]$, where $V_{i} \sim N(0, 1)$, and assuming $V_{i} \perp U_{i}$.
+
+What value of $\gamma$ would correspond to the assumption that $Y_{i} \perp D_{i}$? Is this model equivalent to a fully flexible potential outcomes framework? What are we implicitly assuming? 
+
+\end{document}
