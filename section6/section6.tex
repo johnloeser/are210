@@ -51,8 +51,8 @@ The section notes are available on the section Github at \href{github.com/johnlo
 	\end{itemize}
 	\item \textbf{Slutsky's lemma}: $X_{n} \overset{\text{d}}{\to} X$, $Y_{n} \overset{\text{d}}{\to} c$ (where $c$ is constant), then $X_{n} + Y_{n} \overset{\text{d}}{\to} X + c$ and $X_{n} Y_{n} \overset{\text{d}}{\to} X c$
 	\begin{itemize}
-		\item $\sqrt{n} \overline{X}_{n} / s_{n}^{2} \to N(0,1)$
-		\item $P\left[\mu \in \left(\overline{X}_{n} + \frac{s_{n}^{2}}{\sqrt{n}} \Phi^{-1}(\alpha/2), \overline{X}_{n} + \frac{s_{n}^{2}}{\sqrt{n}} \Phi^{-1}(1 - \alpha/2) \right)\right] \to \alpha$
+		\item $\sqrt{n} \overline{X}_{n} / \sqrt{s_{n}^{2}} \to N(0,1)$
+		\item $P\left[\mu \in \left(\overline{X}_{n} + \frac{\sqrt{s_{n}^{2}}}{\sqrt{n}} \Phi^{-1}(\alpha/2), \overline{X}_{n} + \frac{\sqrt{s_{n}^{2}}}{\sqrt{n}} \Phi^{-1}(1 - \alpha/2) \right)\right] \to 1 - \alpha$
 	\end{itemize}
 	\item \textbf{Delta method}: $\sqrt{n} (T_{n} - \theta) \overset{\text{d}}{\to} Y$, $g$ differentiable at $\theta$, then $\sqrt{n} (g(T_{n}) - g(\theta))) \overset{\text{d}}{\to} g'(\theta) Y$
 	\begin{itemize}
@@ -72,6 +72,7 @@ The section notes are available on the section Github at \href{github.com/johnlo
 		\end{itemize}
 		\item The \textbf{identified set} $\displaystyle\Theta(P) = \{ \theta \in \Theta : \theta = \arg \max_{b \in \Theta} Q_{0}(b, P) \}$
 		\begin{itemize}
+			\item More generally, $\nu(P)$, where we allow $\nu$ to be set valued
 			\item \textbf{Point identification} $\Leftrightarrow$ the identified set is a singleton
 		\end{itemize}
 		\item A typical problem:
