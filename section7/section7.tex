@@ -1,0 +1,108 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 7: Identification and MLE}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+October 17, 2017
+\par\end{center}
+
+The section notes are available on the section Github at \href{github.com/johnloeser/are210}{github.com/johnloeser/are210} in the ``section7'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item \textbf{Identification}
+	\begin{itemize}
+		\item Data $\textbf{X}$, takes values in sample space $\mathcal{X}$, $\textbf{X}$ has unknown distribution $P \in \textbf{P}$ family of probability distributions on $\mathcal{X}$, typically assume
+		\begin{enumerate}
+			\item Often $\textbf{P} = \{ P_{\theta} : \theta \in \Theta \}$
+			\item $\textbf{X} = \{ X_{i} \}_{i=1}^{n}$ iid, so probability distribution of data $\times_{i=1}^{n} P$
+		\end{enumerate}
+		\item A \textbf{parameter} is a mapping $\nu : \mathbf{P} \to \mathcal{N}$ (i.e. function of distribution of $\textbf{X}$)
+		\item The \textbf{identified set} $\displaystyle\Theta(P) = \{ \theta \in \Theta : \theta = \arg \max_{b \in \Theta} Q_{0}(b, P) \}$
+		\begin{itemize}
+			\item More generally, $\nu(P)$, where we allow $\nu$ to be set valued
+			\item \textbf{Point identification} $\Leftrightarrow$ the identified set is a singleton
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Estimation methods}
+	\begin{itemize}
+		\item A typical problem:
+		\begin{enumerate}
+			\item Show $\Theta(P)$ is a singleton ($P_{\theta_{1}} = P_{\theta_{2}} \Rightarrow \theta_{1} = \theta_{2}$) or characterize the set
+			\item Construct an estimator, often $\Theta(P_{n})$, where $P_{n}$ is the empirical distribution
+			\item Derive its asymptotic properties using implicit function theorem, delta method, \ldots
+		\end{enumerate}
+		\item \textbf{MLE}: $\{ Y_{i} \}_{i=1}^{n}$ iid, $Y_{i} \sim P_{\theta}$ with density $p_{\theta}$
+		\begin{itemize}
+			\item $\theta = \arg \max_{b} \mathbf{E}_{P_{\theta}} [\log p_{b}(Y)]$ (proof using KLIC + Jensen's inequality)
+			\item $\widehat{\theta}_{MLE} = \arg \max_{b} \frac{1}{n} \sum_{i=1}^{n} \log p_{b}(y_{i})$
+			\item \textbf{Invariance property of MLE}: Let $P_{\theta_{0}} \in \{ P_{\theta} : \theta \in \Theta \}$, and let $\lambda_{0} = h(\theta_{0})$. Then $\widehat{\lambda}_{MLE} = h(\widehat{\theta}_{MLE})$.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\section{Practice questions}
+
+1) Let $Y \sim \text{Bern}(p)$.
+
+a) Construct the MLE of $p$, $\widehat{p}_{MLE}$.
+
+b) What is the probability distribution of $\widehat{p}_{MLE}$? Note that this case is relatively unique in that the distribution of this estimator has a closed form solution.
+
+c) Derive the asymptotic distribution of $\widehat{p}_{MLE}$.
+
+\vspace{1em}
+\noindent
+2) (Problem set 4, Question 7) Consider the following model for an independently distributed sample $\{ Y_{i} \}_{i=1}^{n} = \{ Y_{i1}, Y_{i2} \}_{i=1}^{n}$ where each $Y_{ij}$ is a binary valued random variable and $Y_{ij} \sim \text{Bernoulli}(\mu_{ij})$ for $i = 1, \ldots, n$. Suppose that (using the logit function, $\ell(\mu) = \log \frac{\mu}{1 + \mu}$),
+$$ \ell(\mu_{ij}) = \beta_{1} + \beta_{2} z_{ij} + \theta_{i} $$
+for a sequence of known constants $\{ z_{i1}, z_{i2} \}_{i=1}^{n}$ and unknown constants $\{\theta_{i}\}_{i=1}^{n}$. Consider the statistic $T(Y_{i}) = Y_{i1} + Y_{i2}$ and show that the probability
+$$ P(Y_{i1} = a, Y_{i2} = b | T(Y_{i}) = 1) $$
+does not depend upon $\theta_{i}$ (the $\theta_{i}$ are known as \underline{fixed effects}).
+
+\vspace{1em}
+\noindent
+3) (Midterm 2016, Question 7) Consider the following two-stage experiment.  In the first stage we draw a random variable $X$ with support $[0,1]$.  In the second stage we toss a coin thrice independently with the probability of heads in each toss given by the observed value of $X$. To fix ideas, let the density function of $X$ be given by
+$$f(x) = 6x(1 - x) \mathbf{1} \{ x \in [0, 1] \}$$
+Let $Y$ denote the number of heads in three independent tosses of a coin with probability $x$ of heads (where $X = x$).
+
+a) (4 points)  What is the support of the vector of random variables $(X,Y)$?  Does the joint distribution have any atoms?
+
+b) (6 points)  What is the density (mass) function $p_{Y}(y)$ of $Y$ (i.e.  the marginal distribution of $Y$)? Hint: Note that
+$$ \int_{0}^{1} x^{a-1}(1-x)^{b-1}dx = \frac{(a-1)!(b-1)!}{(a + b - 1)!} $$
+for $a, b \in \mathbf{N}_{+}$. Compute $p_{Y}(0)$.
+
+c) (2 points) What is $\mathbf{E}(Y|X)$?
+
+d) (2 points) What is $\text{Var}(Y|X)$?
+
+e) (8 points) Use the variance equality
+$$ \text{Var}(Y) = \mathbf{E}(\text{Var}(Y|X)) + \text{Var}(\mathbf{E}(Y|X)) $$
+to compute the variance of $Y$.
+
+\end{document}

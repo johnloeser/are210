@@ -1,7 +1,7 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015/Debian) (rev 5238)  (format=lualatex 2017.8.23)  16 OCT 2017 21:59
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015/Debian) (rev 5238)  (format=lualatex 2017.8.23)  17 OCT 2017 00:03
  restricted \write18 enabled.
-**section6.tex
-(./section6.tex
+**section7soln.tex
+(./section7soln.tex
 LaTeX2e <2016/02/01>
 Babel <3.9q> and hyphenation patterns for 1 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -464,8 +464,8 @@ File: babel.def 2016/02/24 3.9q Babel common definitions
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
-(./section6.aux)
-\openout1 = section6.aux
+(./section7soln.aux)
+\openout1 = section7soln.aux
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
@@ -561,70 +561,68 @@ LaTeX Info: Redefining \ref on input line 21.
 LaTeX Info: Redefining \pageref on input line 21.
 LaTeX Info: Redefining \nameref on input line 21.
 
-(./section6.out) (./section6.out)
+(./section7soln.out) (./section7soln.out)
 \@outlinefile=\write3
 
-\openout3 = section6.out
-
-Overfull \hbox (7.17519pt too wide) in paragraph at lines 34--35
-[][]\OT1/cmr/m/n/12 The sec-tion notes are avail-able on the sec-tion Github at
- []github.com/john-loeser/are210[]
- []
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 39.
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 39.
-LaTeX Font Info:    Try loading font information for U+msa on input line 39.
+\openout3 = section7soln.out
+LaTeX Font Info:    Try loading font information for U+msa on input line 35.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 39.
+LaTeX Font Info:    Try loading font information for U+msb on input line 35.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+Overfull \hbox (26.23785pt too wide) in paragraph at lines 40--41
+[][]$\OML/cmm/m/it/12 P[]\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 Y[]; [] ; Y[]\OT1/cm
+r/m/n/12 ] = \OML/cmm/m/it/12 p[]\OT1/cmr/m/n/12 (1 \OMS/cmsy/m/n/12   \OML/cmm
+/m/it/12 p\OT1/cmr/m/n/12 )[]$. Tak-ing logs yields $[] \OML/cmm/m/it/12 P[]\OT
+1/cmr/m/n/12 [\OML/cmm/m/it/12 Y[]; [] ; Y[]\OT1/cmr/m/n/12 ] = ([][] \OML/cmm/
+m/it/12 Y[]\OT1/cmr/m/n/12 ) [] \OML/cmm/m/it/12 p \OT1/cmr/m/n/12 +
+ []
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 115.
- [2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 115.
- (./section6.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 115.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 115.
-Package rerunfilecheck Info: File `section6.out' has not changed.
-(rerunfilecheck)             Checksum: 45B07E4921BCCC87CC1E7C04BE6CE600;99.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 115.
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 110.
+ [3]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 110.
+
+(./section7soln.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 110.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 110.
+Package rerunfilecheck Info: File `section7soln.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 110.
 )
 
 Here is how much of LuaTeX's memory you used:
- 9607 strings out of 495004
+ 9560 strings out of 495004
  100000,266212 words of node,token memory allocated
- 344 words of node memory still in use:
-   5 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 43 glue_spec, 1 write nodes
-   avail lists: 2:25,3:198,4:992,5:221,6:1356,7:34,8:7,9:390,10:111
- 12774 multiletter control sequences out of 65536+600000
- 38 fonts using 1504867 bytes
- 40i,6n,38p,426b,549s stack positions out of 5000i,500n,10000p,200000b,100000s
+ 360 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 43 glue_spec, 1 write nodes
+   avail lists: 2:20,3:163,4:732,5:142,6:1671,7:22,8:2,9:237,10:105
+ 12742 multiletter control sequences out of 65536+600000
+ 36 fonts using 1426371 bytes
+ 40i,9n,38p,568b,344s stack positions out of 5000i,500n,10000p,200000b,100000s
 <</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><</usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><</usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><</usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><</usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><</usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmmi8.pfb><</usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr12.pfb><</usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmr17.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr6.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr8.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on section6.pdf (2 pages, 142403 bytes).
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><</usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><</usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><</usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><</usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><</usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb><</usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr17.pfb><</usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr6.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr8.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy10.pfb><</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.p
+fb>
+Output written on section7soln.pdf (3 pages, 127950 bytes).
 
-PDF statistics: 85 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
- 10 named destinations out of 1000 (max. 131072)
- 17 words of extra memory for PDF output out of 10000 (max. 10000000)
+PDF statistics: 69 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
+ 4 named destinations out of 1000 (max. 131072)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

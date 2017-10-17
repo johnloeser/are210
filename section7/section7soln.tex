@@ -1,0 +1,110 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 7: Identification and MLE (solutions)}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+October 17, 2017
+\par\end{center}
+
+\noindent
+1) Let $Y \sim \text{Bern}(p)$, and suppose we observe $\{ Y_{i} \}_{i=1}^{n}$ iid $Y$.
+
+a) Construct the MLE of $p$, $\widehat{p}_{MLE}$.
+\vspace{1em}
+
+$P_{p}[Y_{1}, \ldots, Y_{n}] = p^{\sum_{i} Y_{i}} (1 - p)^{n - \sum_{i} Y_{i}}$. Taking logs yields $\log P_{p}[Y_{1}, \ldots, Y_{n}] = (\sum_{i} Y_{i}) \log p + (n - \sum_{i} Y_{i}) \log (1 - p)$. Taking derivatives with respect to $p$, and setting equal to 0 to maximize yields $\hat{p}_{MLE} = \sum_{i=1}^{n} Y_{i} / n$.
+
+\vspace{1em}
+b) What is the probability distribution of $\widehat{p}_{MLE}$? Note that this case is relatively unique in that the distribution of this estimator has a closed form solution.
+\vspace{1em}
+
+$n \hat{p} \sim \text{Binomial}[n, p]$. Written alternatively, $P[\hat{p} = k/n] = \binom{n}{k} p^{k} (1 - p)^{n-k}$.
+
+\vspace{1em}
+c) Derive the asymptotic distribution of $\widehat{p}_{MLE}$.
+\vspace{1em}
+
+$\sqrt{n} (\hat{p}_{n} - p) \to N(0, p(1 - p))$.
+
+\vspace{1em}
+\noindent
+2) (Problem set 4, Question 7) Consider the following model for an independently distributed sample $\{ Y_{i} \}_{i=1}^{n} = \{ Y_{i1}, Y_{i2} \}_{i=1}^{n}$ where each $Y_{ij}$ is a binary valued random variable and $Y_{ij} \sim \text{Bernoulli}(\mu_{ij})$ for $i = 1, \ldots, n$. Suppose that (using the logit function, $\ell(\mu) = \log \frac{\mu}{1 + \mu}$),
+$$ \ell(\mu_{ij}) = \beta_{1} + \beta_{2} z_{ij} + \theta_{i} $$
+for a sequence of known constants $\{ z_{i1}, z_{i2} \}_{i=1}^{n}$ and unknown constants $\{\theta_{i}\}_{i=1}^{n}$. Consider the statistic $T(Y_{i}) = Y_{i1} + Y_{i2}$ and show that the probability
+$$ P(Y_{i1} = a, Y_{i2} = b | T(Y_{i}) = 1) $$
+does not depend upon $\theta_{i}$ (the $\theta_{i}$ are known as \underline{fixed effects}).
+\vspace{1em}
+
+First, note that $\mu_{ij} = \frac{\exp(\beta_{1} + \beta_{2} z_{ij} + \theta_{i})}{1 + \exp(\beta_{1} + \beta_{2} z_{ij} + \theta_{i})}$. Next, since $a = 1 - b$, we have $P(Y_{i1} = a, Y_{i2} = b | T(Y_{i}) = 1) = \frac{[\mu_{i1}(1 - \mu_{i2})]^{a} [\mu_{i2}(1 - \mu_{i1})]^{b}}{\mu_{i1}(1 - \mu_{i2}) + \mu_{i2}(1 - \mu_{i1})}$. Simplifying this yields $P(Y_{i1} = a, Y_{i2} = b | T(Y_{i}) = 1) = \frac{\exp(\beta_{2} z_{i1})^{a} \exp(\beta_{2} z_{i1})^{b}}{\exp(\beta_{2} z_{i1}) + \exp(\beta_{2} z_{i2})}$, which does not depend on $\theta_{i}$.
+
+\vspace{1em}
+\noindent
+3) (Midterm 2016, Question 7) Consider the following two-stage experiment.  In the first stage we draw a random variable $X$ with support $[0,1]$.  In the second stage we toss a coin thrice independently with the probability of heads in each toss given by the observed value of $X$. To fix ideas, let the density function of $X$ be given by
+$$f(x) = 6x(1 - x) \mathbf{1} \{ x \in [0, 1] \}$$
+Let $Y$ denote the number of heads in three independent tosses of a coin with probability $x$ of heads (where $X = x$).
+
+a) (4 points)  What is the support of the vector of random variables $(X,Y)$?  Does the joint distribution have any atoms?
+\vspace{1em}
+
+$([0, 1] \times \{0, 1, 2, 3 \}) \setminus \{ (0, 1), (0, 2), (0, 3), (1, 0), (1, 1), (1, 2) \}$. The joint distribution has no atoms.
+
+\vspace{1em}
+b) (6 points)  What is the density (mass) function $p_{Y}(y)$ of $Y$ (i.e.  the marginal distribution of $Y$)? Hint: Note that
+$$ \int_{0}^{1} x^{a-1}(1-x)^{b-1}dx = \frac{(a-1)!(b-1)!}{(a + b - 1)!} $$
+for $a, b \in \mathbf{N}_{+}$. Compute $p_{Y}(0)$.
+\vspace{1em}
+
+\begin{align*}
+p_{Y}(y) & = \int_{0}^{1} \binom{3}{y} x^{y} (1 - x)^{3 - y} P[dx] \\
+& = \binom{3}{y} \int_{0}^{1} 6x^{y + 1} (1 - x)^{4 - y} dx \\
+& = \frac{(y + 1)(4 - y)}{20}
+\end{align*}
+
+$p_{Y}(0) = \frac{1}{5}$.
+
+\vspace{1em}
+c) (2 points) What is $\mathbf{E}(Y|X)$?
+\vspace{1em}
+
+$\mathbf{E}[Y | X] = 3X$
+
+\vspace{1em}
+d) (2 points) What is $\text{Var}(Y|X)$?
+\vspace{1em}
+
+$\text{Var}(Y | X) = 3X(1 - X)$
+
+\vspace{1em}
+e) (8 points) Use the variance equality
+$$ \text{Var}(Y) = \mathbf{E}(\text{Var}(Y|X)) + \text{Var}(\mathbf{E}(Y|X)) $$
+to compute the variance of $Y$.
+\vspace{1em}
+
+First, $ \mathbf{E}[X] = \frac{1}{2} $. Second, $\mathbf{E}[X^{2}] = \int_{0}^{1} (6x^{3} - 6 x^{4}) dx = \frac{3}{10}$. This implies $\text{Var}[X] = \frac{1}{20}$, and that $\text{Var}[\mathbf{E}[Y | X]] = \frac{9}{20}$. Next, $\mathbf{E}[X(1 - X)] = \int_{0}^{1} 6x^{2}(1 - x)^{2} dx = \frac{1}{5}$, which implies $\mathbf{E}[\text{Var}(Y | X)] = \frac{3}{5}$. Together this gives $\text{Var}[Y] = \frac{3}{5} + \frac{9}{20} = \frac{21}{20}$.
+
+\end{document}
