@@ -1,0 +1,143 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 8: Estimators and statistics}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+October 24, 2017
+\par\end{center}
+
+\noindent
+1) (Midterm, Question 6) Let $Z=g(X)(Y-\expec(Y|X))$ for some measurable  function $g:\mathbb{R}\rightarrow\mathbb{R}$. Assume that all moments in
+question exist.
+
+a) Compute $\mathbf{E}(Z|X)$.
+\vspace{1em}
+
+$\mathbf{E}[Z | X] = g(X) \mathbf{E}[Y | X] - g(X) \mathbf{E}[Y | X] = 0$.
+
+\vspace{1em}
+b) Compute $V(Z)$
+\vspace{1em}
+
+$\text{Var}[Z] = \mathbf{E}[Z^{2}] - \mathbf{E}[Z]^{2} = \mathbf{E}[Z^{2}]$, applying the law of iterated expectations. Next, $\mathbf{E}[Z^{2} | X] = g(X)^{2} (\mathbf{E}[Y^{2} | X] - 2 \mathbf{E}[Y | X]^{2} + \mathbf{E}[Y | X]^{2}) = g(X)^{2} (\mathbf{E}[Y^{2} | X] - \mathbf{E}[Y | X]^{2})$. Taking the expectation of this, we're left with $\mathbf{E}[Z^{2}] = \mathbf{E}[ g(X)^{2}(\mathbf{E}[Y^{2} | X] - \mathbf{E}[Y | X]^{2}) ]$, which is our answer.
+
+Note that we can rewrite this $\mathbf{E}[g(X)^{2} V[Y | X]]$, which is a scaled weighted average of conditional variances of $Y$.
+
+\vspace{1em}
+c) Now let Let $Z=\mathbf{E}(g(X))(Y-\expec(Y|X))$. Compute $V(Z)$.
+\vspace{1em}
+
+First, $\text{Var}[Z] = \mathbf{E}[g(X)]^{2} \text{Var}[Y - \mathbf{E}[Y | X]]$. Using the previous part, we get $\text{Var}[Z] = \mathbf{E}[g(X)]^{2} \mathbf{E}[ (\mathbf{E}[Y^{2} | X] - \mathbf{E}[Y | X]^{2})]$.
+
+Similar to the last part, we can rewrite this $\mathbf{E}[g(X)]^{2} \mathbf{E}[V[Y | X]]$, which is a scaled \textit{unweighted} average of conditional variances of $Y$.
+
+\vspace{1em}
+\noindent
+2) (Midterm, Question 7) Let $Y_{i}^{*}\sim N(\theta,1)$ and let
+$Y_{i}=\mathbb{I}\{Y_{i}^{*}>0\}$. Suppose we observe a an i.i.d. sample
+$\{Y_{i}\}_{i=1}^{n}$.
+
+a) Let $\Phi^{-1}$ denote the inverse of the cumulative
+distribution function (CDF) of the $N(0,1)$ distribution and
+let $\phi$ denote the probability density function of the
+$N(0,1)$ distribution. Find
+the MLE for $\theta$ and denote it by $\hat{\theta}_{n}$.  
+\vspace{1em}
+
+$Y_{i} \sim \text{Bern}[\Phi(\theta)]$, therefore $\hat{\Phi}(\theta)_{MLE} = \sum_{i=1}^{n} Y_{i} / n$. Applying the invariance principle, $\hat{\theta}_{MLE} \equiv \hat{\theta}_{n} = \Phi^{-1}(\sum_{i=1}^{n} Y_{i} / n)$.
+
+\vspace{1em}
+b) Show whether $\hat{\theta}_{n}$ converges in probability to  $\theta$. 
+\vspace{1em}
+
+$\lim_{n \to \infty} \hat{\theta}_{n} = \lim_{n \to \infty} \Phi^{-1}(\sum_{i=1}^{n} Y_{i} / n) = \Phi^{-1}( \lim_{n \to \infty} \sum_{i=1}^{n} Y_{i} / n)$, by application of the CMT. By the WLLN, $\lim_{n \to \infty} \sum_{i=1}^{n} Y_{i} / n = \mathbf{E}[Y_{i}] = \Phi(\theta)$. Putting this together implies $\lim_{n \to \infty} \hat{\theta}_{n} = \theta$.
+
+\vspace{1em}
+c) Derive the limiting distribution for (an appropriately
+normalized) $\hat{\theta}_{n}$
+\vspace{1em}
+
+Applying the delta method and the inverse function theorem, \\ $\sqrt{n} \left( \hat{\theta}_{n} - \theta \right) \to N \left(0, \frac{\Phi(\theta)(1 - \Phi(\theta))}{\phi(\theta)^{2}} \right)$, where $\phi$ is the standard normal pdf.
+
+\vspace{1em}
+\noindent
+3) (Problem Set 4, Question 4) (\textbf{Identification in an Endogenous Non-Parametric Regression Model})  Suppose that we have a model given by%
+\begin{equation*}
+y_{i}=\mu \left( x_{i}\right) +\epsilon _{i}
+\end{equation*}%
+and that we assume $\mathbb{E}\left( \epsilon _{i}|z_{i}\right) =0$
+for some variable $z_{i}$ and the model is non-parametric in the sense
+that we place no restrictions on the form of the (unknown) function $\mu
+\left( \cdot \right) .$ \ Consider taking expectations conditional on
+$z$ to obtain%
+\begin{equation*}
+\int yf\left( y|z\right) dy=\int \mu \left( x\right) f\left( x|z\right) dx
+\end{equation*}%
+The above is an example of an integral equation. \ Note that since we
+observe $\left( y,x,z\right) $ the density functions $f\left( y|z\right) $
+and $f\left( x|z\right) $ are identified. \ We will show that this integral
+equation will have a unique solution if the distribution of $x$ conditional
+on $z$ is complete (in $z$). 
+
+Suppose that there exists another function $%
+\tilde{\mu}\left( \cdot \right) $ that satisfies the equation, then we must
+have%
+\begin{equation*}
+\int \left( \mu \left( x\right) -\tilde{\mu}\left( x\right) \right) f\left(
+x|z\right) dx=0
+\end{equation*}%
+In order for their to be a unique solution therefore we must have the
+following hold (setting $\delta \left( x\right) =\mu \left( x\right) -\tilde{%
+	\mu}\left( x\right) $)%
+\begin{equation}
+\int \delta \left( x\right) f\left( x|z\right) dx=0\Rightarrow \delta \left(
+x\right) =0  \label{id}
+\end{equation}%
+for almost all $z.$ \ Suppose that the distribution of $x$ conditional on $z$
+is given by%
+\begin{equation}
+f\left( x|z\right) =h\left( x\right) \exp\left(\eta \left(
+z\right) \tau \left( x\right)-B(z)\right)  \label{bing2}
+\end{equation}%
+Suppose further that the function $\tau \left( \cdot \right) $ is
+one-to-one.\footnote{Formally we also need to assume that the support
+	of $\mu \left( z\right) $ contains an open set and $%
+	h\left( x\right) >0$.} \ Show that this implies (\ref{id}) so a
+sufficient condition for the integral equation to have a unique
+solution is the distributional assumption (\ref{bing2}%
+) (Hint: Use the result on Completeness for Exponential Families. See
+Newey \& Powell (2003) for an extension to cases where the
+conditional distribution does not belong to an exponential family.)
+\vspace{1em}
+
+First, note that $\tau$ is 1-to-1 implies that $\delta(x) = \delta(\tau^{-1}(\tau(x)))$, so $\delta$ is a function of $\tau$. Second, we had the result that $\tau(x)$ is complete for $z$, since $f(x | z)$ belongs to the exponential family. Therefore, $\mathbf{E}_{z}[g(\tau)] = 0 \Rightarrow g(\tau) = 0$ almost everywhere. Substituting $g = \delta \circ \tau^{-1}$, we have that $\delta(x) = 0$ almost everywhere.
+
+Note that the intuition here is in some ways similar to the intuition for how a characteristic function can encode all the information about a distribution - seeing how $\mathbf{E}[y | z]$ changes as $f(x | z)$ changes in a neighborhood of some $z$ tells us the full function $\mu$ with the right functional form for $f$. Another assumption, that we need that $f(x | z)$ to be shifted by $z$, is equivalent to assuming there's a first stage relationship in standard instrumental variables.
+
+
+\end{document}
