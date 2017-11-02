@@ -1,0 +1,86 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 9: ``Optimal'' estimators}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+November 2, 2017
+\par\end{center}
+
+\noindent
+1) Prove (CRI Lemma).
+\vspace{1em}
+
+Taking the first order condition of the minimization problem, $\mathbf{E}[(Y - Z'\beta(P)) Z] = 0$. Simplifying under our assumptions yields $\beta(P) = \mathbf{E}[ZZ']^{-1} \mathbf{E}[ZY]$. Note that this just says that OLS recovers the minimum variance (``best'') linear estimator of $Y$ (or its conditional expectation with respect to $Z$).
+
+Second, let $\mu_{L}(Z) = Z'\beta(P)$. We want to show $V[Y] \geq V[\mu_{L}(Z)]$. First, note, $V[Y] = V[\mu_{L}(Z) + (Y - \mu_{L}(Z))] = V[\mu_{L}(Z)] + V[Y - \mu_{L}(Z)] + 2 \text{Cov}[\mu_{L}(Z), Y - \mu_{L}(Z)]$. Note that $V[Y - \mu_{L}(Z)] \geq 0$, so it suffices to show $\text{Cov}[\mu_{L}(Z), Y - \mu_{L}(Z)] = 0$.
+
+To show this, first note that if $\mathbf{E}[Y - \mu_{L}(Z)] = 0$, then the first order condition to the minimization problem implies $\text{Cov}[\mu_{L}(Z), Y - \mu_{L}(Z)] = 0$. Next, note that if $Z$ contains a constant, and if $\mathbf{E}[Y - \mu_{L}(Z)] \neq 0$, we can improve the minimization by adjusting the term on the constant, a contradiction, so $\mathbf{E}[Y - \mu_{L}(Z)] = 0$.
+
+Together, these give (1) $\beta(P) = \mathbf{E}[Z Z']^{-1} \mathbf{E}[ZY]$, and (2) $V[Y] \geq V[\mu_{L}(Z)] = \beta(P)' V[Z] \beta(P)$.
+
+\vspace{1em}
+\noindent
+2) (\textbf{Identification in Exponential Families) }Consider the
+(canonical) exponential family $\left\{ p\left( y,\theta \right) :\theta \in
+\Theta\subset\mathbb{R}^{d} \right\} $ where%
+\begin{equation*}
+p\left( y,\theta \right) =h\left( y\right) \exp \left\{ \sum_{k=1}^{d}\theta
+_{k}T_{k}\left( y\right) -A\left( \theta \right) \right\}
+\end{equation*}%
+and suppose that $A\left( \theta \right) $ is continuously
+differentiable for all 
+$\theta \in \Theta $. \ Show that $\theta $ is identified if the $d\times d$
+matrix%
+\begin{equation*}
+I\left( \theta ^{\ast }\right) =\mathbb{E}_{\theta^{*}}\left( \frac{d\log p\left(
+	y,\theta ^{\ast }\right) }{d\theta }\frac{d\log p\left( y,\theta ^{\ast
+	}\right) }{d\theta }^{\prime }\right)
+\end{equation*}
+is non-singular for every $\theta ^{\ast }\in \Theta $ (where $\frac{d\log
+	p\left( y,\theta ^{\ast }\right) }{d\theta }=\left. \frac{d\log p\left(
+	y,\theta \right) }{d\theta }\right\vert _{\theta =\theta ^{\ast }}$)
+\vspace{1em}
+
+We assume that $I(\theta^{*}) = \mathbf{E}_{\theta^{*}} \left[ \frac{d \log p(y, \theta^{*})}{d\theta} \frac{d \log p(y, \theta^{*})}{d\theta}' \right]$ is non-singular $\forall$ $\theta^{*} \in \Theta$. Suppose $\theta$ is not identified. Then, $\exists$ $\theta_{1} \neq \theta_{2}$ such that $p(y, \theta_{1}) = p(y, \theta_{2})$ for all $y$. Assuming $h(y) \neq 0$, this implies $A(\theta_{1}) - A(\theta_{2}) = \sum(\theta_{2k} - \theta_{1k}) T_{k}(y)$. Applying the mean value theorem, there exists $\theta^{*} = \alpha \theta_{1} + (1 - \alpha) \theta_{2}$ such that $ A(\theta_{1}) - A(\theta_{2}) = (\theta_{1} - \theta_{2})' \frac{d A(\theta^{*})}{d\theta}$. Substituting into our expression for the derivative of $\log p(y, \theta)$ yields
+$$ (\theta_{1} - \theta_{2})' \frac{d \log p(y, \theta^{*})}{d\theta} = 0 $$
+for all $y$. This implies $V_{\theta^{*}}\left[(\theta_{1} - \theta_{2})' \frac{d \log p(y, \theta^{*})}{d\theta}\right] = 0$.
+
+Next, note that $\mathbf{E}_{\theta^{*}} \left[ \frac{d \log p(y, \theta^{*})}{d \theta} \right] = 0$.\footnote{This is true because $\theta^{*}$ maximizes the likelihood function when it is the true parameter.} Therefore, $V_{\theta^{*}}\left[ \frac{d \log p(y, \theta^{*})}{d \theta} \right] = I(\theta^{*})$. Since this matrix is non-singular, it must be the case that $V_{\theta^{*}}\left[(\theta_{1} - \theta_{2})' \frac{d \log p(y, \theta^{*})}{d\theta}\right] \neq 0$, a contradiction. Therefore $\theta$ is identified.
+
+\vspace{1em}
+\noindent
+3) Prove the Hausman principle.
+\vspace{1em}
+
+($\Rightarrow$, in class notes) First, assume $W$ is UMVUE of $\tau(\theta)$. Consider an unbiased estimator $U$ of 0. Let $W_{a} = W + aU$, which is trivially unbiased for $\tau(\theta)$. Note that $V_{\theta}[W_{a}] = V_{\theta}[W] + a^{2} V_{\theta}[U] + 2a \text{Cov}_{\theta}[W, U]$. Fix some $\theta$ such that $\text{Cov}_{\theta}[W, U] \neq 0$, then we can pick $a$ such that $V_{\theta}[W_{a}] < V_{\theta}[W]$.
+
+($\Leftarrow$) Assume $W$ is unbiased for $\tau(\theta)$, and that $W$ is uncorrelated with all unbiased estimators of 0. Suppose $\exists$ $W_{a}$ which is unbiased for $\tau(\theta)$ and has lower variance than $W$ for some $\theta_{0}$. Then, define $U = W - W_{a}$, which is clearly an unbiased estimator of $\tau(\theta)$. Note that $\text{Cov}_{\theta_{0}}[U, W] = V_{\theta_{0}}[W] - \text{Cov}_{\theta_{0}}[W, W_{a}] > 0$, since $V_{\theta_{0}}[W] > V_{\theta_{0}}[W_{a}]$. This is a contradiction, so it must be the case that $W$ is UMVUE.
+
+Note that one way to interpret this result is that Lehmann-Scheffe is basically an if and only if - in other words, given $\phi$ UMVUE for $g(\theta)$, $\phi$ is complete and sufficient for $g(\theta)$. The Hausman principle is basically showing that any ancillary statistic is uncorrelated with $\phi$ (implying it's complete for $g(\theta)$), and by assuming it's unbiased for $g(\theta)$ we already know that it's sufficient, and that if $\phi$ is unbiased for $g(\theta)$, $\phi$ is UMVUE if and only if $\phi$ is complete and sufficient for $g(\theta)$, again loosely speaking.
+
+\end{document}

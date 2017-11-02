@@ -1,0 +1,116 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 9: ``Optimal'' estimators}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+November 2, 2017
+\par\end{center}
+
+The section notes are available on the section Github at \href{github.com/johnloeser/are210}{github.com/johnloeser/are210} in the ``section9'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item \textbf{Statistics}
+	\begin{itemize}
+		\item A function of the data $T(X)$ is a \textbf{statistic}
+		\item $X \sim P_{\theta_{0}}$, $\theta_{0} \in \Theta$, $T(X)$ is \textbf{sufficient} for $\textbf{P} = \{ P_{\theta} : \theta \in \Theta \}$ (or sufficient for $\theta$) if $P_{\theta}[X | T] = P[X | T]$
+		\item \textbf{Factorization theorem}: $\{ f_{\theta} : \theta \in \Theta \}$, $T(X)$ statistic, $T$ is sufficient $\Leftrightarrow$ $f(X, \theta) = g(T(X), \theta) h(X)$
+		\item \textbf{Exponential family of distributions}: \\$p(x, \theta) = h(x) \exp( \sum_{j=1}^{k} \eta_{j}(\theta) T_{j}(x) - \beta(\theta))$
+		\item $S$ is \textbf{ancillary} for $\theta$ if the distribution of $S$ does not depend on $\theta$
+		\item $T$ is \textbf{complete} for $\theta$ if $\forall$ $g$ such that $\mathbf{E}_{\theta}[g(T)] = 0$ $\forall$ $\theta \in \Theta$, $g(T) = 0$ almost everywhere.
+		\item $X_{i}$ iid, $p(X, \theta)$ from the exponential family, then \\$T(X_{1}, \ldots, X_{n}) = \left( \sum_{i=1}^{n} T_{1}(X_{i}), \ldots, \sum_{i=1}^{n} T_{k}(X_{i}) \right)$ is complete for $\theta$ if \\$\{ \eta_{1}(\theta), \ldots, \eta_{k}(\theta) \}$ contains an open set in $\mathbf{R}^{k}$. By the factorization theorem, $T(X_{1}, \ldots, X_{n})$ is always sufficient for $\theta$.
+		\item \textbf{Basu}: If $T$ is complete and sufficient, then $T \perp$ every ancillary statistic.
+	\end{itemize}
+	\item \textbf{``Optimal'' statistics}
+	\begin{itemize}
+		\item For estimators, unbiased = good, consistency = good, efficiency = good
+		\item $\phi(X)$ is \textbf{UMVUE} of $g(\theta)$ if 1) $\phi(X)$ is unbiased, and 2) $\forall$ $\delta(X)$ unbiased for $g(\theta)$, $V_{\theta}[\phi(X)] \leq V_{\theta}[\delta(X)]$ $\forall$ $\theta \in \Theta$
+		\begin{itemize}
+			\item If $\phi(X)$ is UMVUE of $g(\theta)$, then it is the unique UMVUE of $g(\theta)$
+		\end{itemize}
+		\item \textbf{Rao-Blackwell}: Let $h(X)$ be any unbiased estimator of $g(\theta)$, $T(X)$ sufficient statistic for $\theta$. Let $\phi(T) = \mathbf{E}_{\theta}[h(X) | T] = \mathbf{E}[h(X) | T]$, then $\phi(T)$ is also unbiased and has lower variance.
+		\begin{itemize}
+			\item $\phi(T)$ only a statistic because $T$ is sufficient
+		\end{itemize}
+		\item $\phi(S(X))$ unbiased for $g(\theta)$, $S$ is a complete statistic, then $\phi$ equals any other unbiased statistic that's a function of $S(X)$ almost everywhere
+		\item \textbf{Lehmann-Scheffe}: $T(X)$ sufficient and complete for $\theta$, $\phi(T(X))$ unbiased for $g(\theta)$, then $\phi$ is UMVUE for $g(\theta)$
+		\item \textbf{Hausman principle}: Let $\mathbf{E}_{\theta}[W(X)] = \tau(\theta)$, then $W$ is UMVUE of $\tau(\theta)$ if and only if $W$ is uncorrelated with all unbiased estimators of 0 $\forall$ $\theta \in \Theta$
+		\item Variance bounds
+		\begin{itemize}
+			\item Below, assume $X \sim P_{\theta}$, $p(X, \theta)$ density, conditions (1) the support of $p$ does not depend on $\theta$, (2) $\frac{\partial p(x, \theta)}{\partial \theta}$ exists $\forall$ $\theta$, for almost all $x$, and is finite, (3) if $T(X)$ is any statistic such that $\mathbf{E}_{\theta}[|T|] < \infty$ $\forall$ $\theta$, then $\frac{\partial}{\partial \theta} \int T(x) p(x, \theta) dx = \int T(x) \frac{\partial p(x, \theta)}{\partial \theta} dx$
+			\item Define $I(\theta) \equiv \mathbf{E}_{\theta} \left[ \left(\frac{\partial}{\partial \theta} \log p(x, \theta) \right) \left(\frac{\partial}{\partial \theta} \log p(x, \theta) \right)' \right]$
+			\item \textbf{Information matrix equality}: $\mathbf{E}_{\theta^{*}}[\frac{\partial}{\partial \theta} \log p(x, \theta^{*})] = 0$,\\ $I(\theta^{*}) = V_{\theta^{*}}[\frac{\partial}{\partial \theta} \log p(x, \theta^{*})]$, $I(\theta^{*}) = -\mathbf{E}_{\theta^{*}}[\frac{\partial^{2}}{\partial \theta \partial \theta'} \log p(x, \theta^{*})]$
+			\item \textbf{Cramer-Rao inequality}: $T(X)$ real valued statistic, $\mathbf{E}_{\theta}[T(X)] = \phi(\theta)$, $I(\theta)$ non-singular. Then, $\forall$ $\theta$, $V_{\theta}[T(X)] \geq \frac{d \phi(\theta)}{d\theta} I(\theta)^{-1} \frac{d \phi(\theta)}{d\theta}$
+			\begin{itemize}
+				\item (CRI Lemma): Let $Y$ be a scalar random variable, $Z$ random vector, $\mathbf{E}[Z Z']^{-1}$ and $\mathbf{E}[ZY]$ exist, and either $\mathbf{E}[Z] = 0$ or $Z$ contains a constant, then let $\beta(P) = \arg \min_{c} \mathbf{E}[\left(Y - Z'c\right)^{2}]$ and let $\mu_{L}(Z) = Z'\beta(P)$, then 1) $\beta(P) = \mathbf{E}[ZZ']^{-1} \mathbf{E}[ZY]$, and 2) $V[Y] \geq V[\mu_{L}(Z)] = \beta(P)'V[Z] \beta(P)$
+				\item Proof: (CRI Lemma) letting $Z = \frac{\partial \log p(x, \theta)}{\partial \theta}$ and $Y = T(X)$
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\section{Some useful bits}
+\begin{enumerate}
+	\item Unbiased estimators need not exist, when they do exist UMVUE need not exist
+	\item Main lessons here - OLS is great, IV with one endogenous variable and one instrument is great, finding minimally sufficient statistics = complete sufficient statistics for your model is great, writing down models with minimally sufficient statistics is great, MLE is great (when you're correctly specified-ish)
+	\item Exponential families have nice results
+	\item IME $\Rightarrow$ MLE equivalent to setting the score equal to 0, and the variance of the score is the negative Hessian of the log likelihood; we'll use this basically to get simpler expressions for the variance of estimators
+\end{enumerate}
+
+\section{Practice questions}
+
+1) Prove (CRI Lemma).
+
+\vspace{1em}
+\noindent
+2) (\textbf{Identification in Exponential Families) }Consider the
+(canonical) exponential family $\left\{ p\left( y,\theta \right) :\theta \in
+\Theta\subset\mathbb{R}^{d} \right\} $ where%
+\begin{equation*}
+p\left( y,\theta \right) =h\left( y\right) \exp \left\{ \sum_{k=1}^{d}\theta
+_{k}T_{k}\left( y\right) -A\left( \theta \right) \right\}
+\end{equation*}%
+and suppose that $A\left( \theta \right) $ is continuously
+differentiable for all 
+$\theta \in \Theta $. \ Show that $\theta $ is identified if the $d\times d$
+matrix%
+\begin{equation*}
+I\left( \theta ^{\ast }\right) =\mathbb{E}_{\theta^{*}}\left( \frac{d\log p\left(
+	y,\theta ^{\ast }\right) }{d\theta }\frac{d\log p\left( y,\theta ^{\ast
+	}\right) }{d\theta }^{\prime }\right)
+\end{equation*}
+is non-singular for every $\theta ^{\ast }\in \Theta $ (where $\frac{d\log
+	p\left( y,\theta ^{\ast }\right) }{d\theta }=\left. \frac{d\log p\left(
+	y,\theta \right) }{d\theta }\right\vert _{\theta =\theta ^{\ast }}$)
+
+\vspace{1em}
+\noindent
+3) Prove the Hausman principle.
+
+\end{document}
