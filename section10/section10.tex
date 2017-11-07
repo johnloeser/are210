@@ -1,0 +1,121 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 10: Large sample theory}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+November 7, 2017
+\par\end{center}
+
+The section notes are available on the section Github at \href{github.com/johnloeser/are210}{github.com/johnloeser/are210} in the ``section10'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item Assume we observe iid $W = \{ W_{i} \}_{i=1}^{n}$, with $W_{i} \sim P$, interested in $\theta(P)$
+	\begin{itemize}
+		\item $\hat{\theta}_{n}$ is a \textbf{consistent} estimator of $\theta$ if $\hat{\theta}_{n} \overset{p}{\to} \theta$
+		\item $\hat{\theta}_{n}$ is \textbf{asymptotically normal} if $\sqrt{n} (\hat{\theta}_{n} - \theta) \overset{d}{\to} N(0, V)$ for some $V$
+		\item If $V_{n} \overset{p}{\to} V$ as defined above, we say it's a \textbf{consistent variance estimator}
+	\end{itemize}
+	\item Math tricks
+	\begin{itemize}
+		\item ULLN (defined below) used repeatedly for convergence of functions, when we want to apply LLN but don't satisfy requirements
+		\item \textbf{MVT}: $h : \mathbf{R}^{p} \to \mathbf{R}^{q}$ continuously differentiable, then $h(b) = h(\theta) + \frac{\partial h(\tilde{b})}{\partial b} (b - \theta)$, where $\tilde{b} = \alpha b + (1 - \alpha) \theta$ for $\alpha \in (0, 1)$
+		\item Note that I'll confusingly use $W$ to either denote the data or a random variable with distribution $P$
+	\end{itemize}
+	\item \textbf{Extremum estimation}: $\hat{\theta}_{n} = \arg \max_{b \in \Theta} Q_{n}(W, b)$
+	\begin{itemize}
+		\item \textbf{Consistency 1}: Assume (i) $\Theta$ is compact, (ii) $Q_{n}$ is continuous in $b \in \Theta$, (iii) $Q_{n}$ is measurable in $W$, (iv) $\exists$ $Q_{0}(b)$ such that 1) $Q_{0}(b)$ is uniquely maximized at $\theta \in \Theta$, and 2) $\sup_{b \in \Theta} | Q_{n}(b, W) - Q_{0}(b) | \overset{p}{\to} 0$. Then $\hat{\theta}_{n} \overset{p}{\to} \theta$.
+		\item \textbf{Consistency 2}: Substitute (i) for $\theta \in \text{int}(\Theta)$ and $\Theta$ is convex, and (ii) for $Q_{n}(b, W)$ is concave in $b$
+		\item \textbf{Asymptotic normality}: Suppose (i) $\hat{\theta}_{n} \overset{p}{\to} \theta$, (ii) $\theta \in \text{int}(\Theta)$, (iii) $Q_{n}(b, W)$ twice continuously differentiable with respect to $b \in \mathcal{N}_{\theta}$, where $\mathcal{N}_{\theta}$ denotes a neighborhood of $\theta$, (iv) $\sqrt{n} \frac{\partial}{\partial b} Q_{n}(b, W) \overset{d}{\to} N(0, \Sigma(\theta))$, \\(v) $\sup_{c \in \mathcal{N}_{\theta}} \left| \frac{\partial^{2} Q_{n}(c, W)}{\partial b \partial b^{\T}} - H(c) \right| \overset{p}{\to} 0$, where $H(c) = \frac{\partial^{2} Q_{0}(c)}{\partial b \partial b^{\T}}$. Then $\sqrt{n}(\hat{\theta} - \theta) \overset{d}{\to} N(0, V)$, where $V = H(\theta)^{-1} \Sigma(\theta) H(\theta)^{-1}$ 
+	\end{itemize}
+	\item \textbf{M-estimation}: $\hat{\theta}_{n} = \arg \max_{b \in \Theta} \frac{1}{n} \sum_{i=1}^{n} q(W_{i}, b)$
+	\begin{itemize}
+		\item \textbf{ULLN, Consistency 1}: (Used for proof of consistency) Suppose (i) $\Theta$ is compact, (ii) $q(W, b)$ is continuous in $b$, (iii) $q(W, b)$ is measurable in $W$, (iv) $\mathbf{E}[\sup_{b \in \Theta} |q(W, b)|] < \infty$. Then $\sup_{b \in \Theta} \left| \frac{1}{n} \sum_{i=1}^{n} q(W_{i}, b) - \mathbf{E}[q(W, b)] \right| \overset{p}{\to} 0$.
+		\item \textbf{Consistency 2}: Assume (i) $\theta \in \text{int}(\Theta)$ and $\Theta$ is convex, (ii) $q(W, b)$ is concave in $b$, (iii) $q(W, b)$ is measurable in $W$, (iv) 1) $\mathbf{E}[q(W, b)]$ is uniquely maximized at $\theta$ and 2) $\mathbf{E}[|q(W, b)|] < \infty$ $\forall$ $b \in \Theta$. Then $\hat{\theta}_{n} \overset{p}{\to} \theta$.
+		\item \textbf{Asymptotic normality}: Follow results for extremum estimation. Letting $S(W, b) = \frac{\partial q(W, b)}{\partial b}$ and $H(W, b) = \frac{\partial S(W, b)^{T}}{\partial b}$, $\Sigma(\theta) = V[S(W, \theta)]$ and $H(\theta) = \mathbf{E}[H(W, \theta)]$.
+		\begin{itemize}
+			\item \textbf{NLLS}: Let $q((Y, Z), b) = -\frac{1}{2} (Y - \Psi(Z, b))^{2}$, and let $\epsilon = Y - \Psi(Z, \theta)$. Then $\Sigma(\theta) = \mathbf{E}[\epsilon^{2} \frac{\partial \Psi}{\partial b} \frac{\partial \Psi}{\partial b}^{\T}]$ and $H(\theta) = - \mathbf{E}[\frac{\partial \Psi}{\partial b} \frac{\partial \Psi}{\partial b}^{\T}]$. We call $\mathbf{E}[\epsilon^{2} | Z] = \sigma^{2}$ \textbf{conditional homoskedasticity}.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{MLE}: $\hat{\theta}_{n} = \arg \max_{b \in \Theta} \frac{1}{n} \sum_{i=1}^{n} \log p(W_{i}, b)$
+	\begin{itemize}
+		\item \textbf{Identification}: Sufficient that $\theta$ uniquely maximizes the log likelihood
+		\item \textbf{Consistency}: See conditions for M-estimation or GMM (using moment condition $ \mathbf{E}_{\theta} \left[ \frac{\partial \log p(W_{i}, \theta)}{\partial b} \right] = 0 $)
+		\item \textbf{Asymptotic normality}: Follow results for M-estimation. Letting $I(\theta)$ be the Fisher Information Matrix (variance of the score), $\Sigma(\theta) = I(\theta)$ and $H(\theta) = I(\theta)$, so $\sqrt{n}(\hat{\theta} - \theta) \overset{d}{\to} N(0, I(\theta)^{-1})$
+		\begin{itemize}
+			\item Ronald Fisher thought $\Rightarrow$ MLE is asymptotically efficient and achieves the Cramer-Rao lower bound, so you'll be forgiven for thinking this also
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{GMM}: $\hat{\theta}_{n} = \arg \max_{b \in \Theta} -\frac{1}{2} [\frac{1}{n} \sum_{i=1}^{n} m(W_{i}, b)]^{\T} S_{n}(W) [\frac{1}{n} \sum_{i=1}^{n} m(W_{i}, b)]$
+	\begin{itemize}
+		\item \textbf{Identification}: Let $Q_{0}(b) = -\frac{1}{2} \mathbf{E}[m(W, b)]^{\T} S \mathbf{E}[m(W, b)]$. Suppose $\mathbf{E}[m(W, b)] = 0 \Leftrightarrow b = \theta$. Then if $S$ is strictly positive definite, $\theta = \arg \max_{b} Q_{0}(b)$.
+		\item \textbf{Consistency 1}: Suppose (i) $\Theta$ is a compact subset of $\mathbf{R}^{d}$, (ii) $m(W, b)$ is continuous in $b$, (iii) $m(W, b)$ is measurable in $W$, and (iv) $S_{n}(W) \overset{p}{\to} S$, where $S$ is symmetric positive definite. Suppose further (1) assumptions made above for identification, and (2) $\mathbf{E}[\sup_{b \in \Theta} |m(W, b)|] < \infty$. Then $\hat{\theta}_{n} \overset{p}{\to} \theta$.
+		\item \textbf{Consistency 2}: Replace (i), (ii), and (2) with $Q_{n}(b)$ is concave and $\mathbf{E}[m(W, b)]$ exists and is finite
+		\item \textbf{Asymptotic normality}: Let $m_{n}(b) = \sum_{i=1}^{n} m(W_{i}, b)$, $M_{n}(b) = \frac{\partial m_{n}(b)}{\partial b}$, and $M(b) = \mathbf{E}[\frac{\partial m(W, b)}{\partial b}]$. Then assuming 1)  $M_{n}(\hat{\theta}_{n}) W_{n} M_{n}(\tilde{b}_{n})'$ is invertible, for $\tilde{b}_{n} = \alpha \hat{\theta}_{n} + (1 - \alpha) \theta$ for $\alpha \in [0, 1]$, 2) $M_{n}(\hat{\theta}_{n}) \overset{p}{\to} M(\theta)$, and 3) assumptions made above for consistency, $\sqrt{n}(\hat{\theta}_{n} - \theta) \overset{d}{\to} N(0, V)$ where $V = (M(\theta)SM(\theta)^{\T})^{-1} M(\theta)SV[m(W, \theta)] SM(\theta)^{\T} (M(\theta)SM(\theta)^{\T})^{-1}$
+	\end{itemize}
+\end{itemize}
+
+\section{Some useful bits}
+\begin{enumerate}
+	\item This is the fun part! Get excited!
+	\item Each find-the-estimator problem will generally follow three steps - 1) show consistency, 2) show asymptotic normality, and 3) show you've got a consistent estimator of the variance. Typically we'll work with M-estimators, MLE, or GMM estimators, so you'll be able to recognize the class of estimator and appeal to existing results for each step. You'll often need to apply the MVT and a ULLN to show the variance estimator is consistent.
+\end{enumerate}
+
+\section{Practice questions}
+
+1) Derive the Fisher Information matrix of a $N(\mu, \sigma^{2})$ random variable. Construct an unbiased 95\% confidence interval for $\widehat{\mu}_{MLE}$ using $\widehat{\sigma}_{MLE}$. What is its asymptotic variance? How can we interpret it asymptotically?
+
+\vspace{1em}
+\noindent
+2) (Problem 1, PS5) Consider the parametric model $\left\{ p\left( x,\theta \right)
+:\theta >0\right\} $ where
+\begin{equation*}
+p\left( x,\theta \right) =\theta x^{\theta -1}\text{~~~}x\in \left(
+0,1\right)
+\end{equation*}
+
+a. Suppose we observe an i.i.d. sample from this density. Find the
+	Maximum Likelihood estimator of $\theta $ and calculate the Fisher
+	Information.
+	
+b. Show whether the the MLE is consistent for $\theta$.
+	
+c. Derive the limiting distribution of the MLE.
+	
+d. Find a Method of Moments estimator for $\theta$ and discuss its
+	consistency.
+	
+e. Does there exist a UMVUE for $\theta$? If so, does it attain the
+	Cramer-Rao lower bound?
+
+\vspace{1em}
+\noindent
+3) Prove the asymptotic normality of the GMM estimator.
+
+\end{document}

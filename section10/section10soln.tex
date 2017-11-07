@@ -1,0 +1,99 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 10: Large sample theory}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+November 7, 2017
+\par\end{center}
+
+\noindent
+1) Derive the Fisher Information matrix of a $N(\mu, \sigma^{2})$ random variable. Construct an asymptotically consistent 95\% confidence interval for $\widehat{\mu}_{MLE}$ using $\widehat{\sigma}_{MLE}$. What is its asymptotic variance? How can we interpret it asymptotically?
+\vspace{1em}
+
+$\log p(x; \mu, \sigma^{2}) = - \frac{1}{2} \log 2 \pi - \frac{1}{2} \log \sigma^{2} - \frac{(x - \mu)^{2}}{2 \sigma^{2}}$. Differentiating with respect to the parameters yields the first order conditions (score) $s(x; \mu, \sigma^{2}) \equiv \left( \begin{array}{c} \frac{\partial \log p(x; \mu, \sigma^{2})}{\partial \mu} \\ \frac{\partial \log p(x; \mu, \sigma^{2})}{\partial \sigma^{2}} \end{array}\right) = \left( \begin{array}{c} - \frac{x - \mu}{\sigma^{2}} \\ -\frac{1}{2 \sigma^{2}} + \frac{(x - \mu)^{2}}{2 \sigma^{4}} \end{array}\right) $, where $\sigma^{k} = (\sigma^{2})^{k/2}$. Applying the analogy principle to the population first order condition $\mathbf{E}[s(x; \mu, \sigma^{2})] = 0$ yields $\frac{1}{n} \sum_{i=1}^{n} s(X_{i}; \hat{\mu}_{MLE}, \hat{\sigma^{2}}_{MLE}) = 0$. Solvings this yields $\left( \begin{array}{c} \hat{\mu}_{MLE} \\ \hat{\sigma^{2}}_{MLE} \end{array} \right) = \left( \begin{array}{c} \frac{1}{n} \sum_{i=1}^{n} X_{i} \\ \frac{1}{n} \sum_{i=1}^{n} (X_{i} - \hat{\mu}_{MLE})^{2} \end{array} \right)$.
+
+Next, we can compute $I(\mu, \sigma^{2}) = V[s] = \mathbf{E}[ss']$, suppressing notation for the score $s(x; \mu, \sigma^{2})$. Calculating this yields $I(\mu, \sigma^{2}) = \left( \begin{array}{cc} \frac{1}{\sigma^{2}} & 0 \\ 0 & \frac{1}{2 \sigma^{4}} \end{array} \right)$. Using results for maximum likelihood estimators, $\sqrt{n} \left( \begin{array}{c} \hat{\mu}_{MLE} - \mu \\ \hat{\sigma^{2}}_{MLE} - \sigma^{2} \end{array} \right) \overset{d}{\to} N(0, I(\mu, \sigma^{2})^{-1})$. This gives us the asymptotically consistent 95\% confidence interval for $\hat{\mu}_{MLE}$
+$$ \left( \hat{\mu}_{MLE} + \Phi^{-1}(.025) \sqrt{\frac{\hat{\sigma^{2}}_{MLE}}{n}}, \hat{\mu}_{MLE} + \Phi^{-1}(.975) \sqrt{\frac{\hat{\sigma^{2}}_{MLE}}{n}} \right)$$
+where $\Phi$ is the normal CDF.
+
+\vspace{1em}
+\noindent
+2) (Problem 1, PS5) Consider the parametric model $\left\{ p\left( x,\theta \right)
+:\theta >0\right\} $ where
+\begin{equation*}
+p\left( x,\theta \right) =\theta x^{\theta -1}\text{~~~}x\in \left(
+0,1\right)
+\end{equation*}
+
+a. Suppose we observe an i.i.d. sample from this density. Find the
+Maximum Likelihood estimator of $\theta$ and calculate the Fisher
+Information.
+\vspace{1em}
+
+First, $\log p(x, \theta) = \log \theta + (\theta - 1) \log x$. This yields $s(x, \theta) = \frac{1}{\theta}  + \log x$, where $s$ is the score (derivative of log likelihood with respect to $\theta$). Population moment is $\mathbf{E}[s(X, \theta)] = 0$, which yields the sample equivalent $\frac{1}{n} \sum_{i=1}^{n} s(X_{i}, \hat{\theta}_{MLE}) = 0$. Solving yields the MLE $\hat{\theta}_{MLE} = -\frac{1}{\overline{\log X}}$, where $\overline{\log X} = \frac{1}{n} \sum_{i=1}^{n} \log X_{i}$ the sample mean of $\log X$.
+
+Next, we calculate $I(\theta) = V[s(X, \theta)] = \mathbf{E}[s(X, \theta)^{2}]$.  Using the results that $\mathbf{E}[\log X] = -\frac{1}{\theta}$ (from the population moment condition for the score) and $\mathbf{E}[(\log X)^{2}] = \frac{2}{\theta^{2}}$ (by integration by parts) yields $I(\theta) = \frac{1}{\theta^{2}}$.
+
+\vspace{1em}
+b. Show whether the the MLE is consistent for $\theta$.
+\vspace{1em}
+
+First, note that $\overline{\log x} \overset{p}{\to} -\frac{1}{\theta}$. This follows from the sample mean of the score is a consistent estimator of 0, which follows from the LLN (since the score has finite variance, since $\theta > 0$. Applying the CMT to  $\hat{\theta}_{MLE}$ yields $\hat{\theta}_{MLE} \overset{p}{\to} -\frac{1}{-\frac{1}{\theta}} = \theta$, so $\hat{\theta}_{MLE}$ is consistent for $\theta$.
+
+\vspace{1em}
+c. Derive the limiting distribution of the MLE.
+\vspace{1em}
+
+We can do this two ways. First, we can use results for MLE to state $\sqrt{n}(\hat{\theta}_{MLE} - \theta) \overset{d}{\to} N(0, I(\theta)^{-1})$, which yields $\sqrt{n}(\hat{\theta}_{MLE} - \theta) \overset{d}{\to} N(0, \theta^{2})$.
+
+Alternatively, applying the MVT to $\hat{\theta}_{MLE}$ yields $\hat{\theta}_{MLE} - \theta = \frac{1}{\tilde{b}_{n}^{2}}(\overline{\log X} - \mathbf{E}[\log X])$, for $\tilde{b}_{n} = \alpha \overline{\log X} + (1 - \alpha) \mathbf{E}[\log X]$ for some $\alpha \in (0, 1)$. Note that $\tilde{b}_{n} \overset{p}{\to} \mathbf{E}[\log X] = -\frac{1}{\theta}$, and applying a CLT to $\overline{\log X}$ yields $\sqrt{n}(\overline{\log x} - \mathbf{E}[\log X]) \overset{d}{\to} N(0, V[\log X])$, where $V[\log X] = \mathbf{E}[(\log X)^{2}] - \mathbf{E}[\log X]^{2} = \frac{1}{\theta^{2}}$. This yields $\sqrt{n}(\hat{\theta}_{MLE} - \theta) \overset{d}{\to} N(0, \theta^{2})$.
+
+\vspace{1em}
+d. Find a Method of Moments estimator for $\theta$ and discuss its
+consistency.
+\vspace{1em}
+
+First, note that MLE is a MOM estimator, using the moment restriction $\mathbf{E}[\log X] + \frac{1}{\theta} = 0$. Alternatively, we can use $\mathbf{E}[X] - \frac{\theta}{\theta + 1} = 0$. The analogous estimator is defineed by $\overline{X} - \frac{\hat{\theta}_{MOM}}{\hat{\theta}_{MOM} + 1} = 0$, which yields $\hat{\theta}_{MOM} = \frac{\overline{X}}{1 - \overline{X}}$. Since $\mathbf{E}[X^{2}] = \frac{\theta}{\theta + 2}$, $X$ has a finite second moment, so by a LLN $\overline{X} \overset{p}{\to} \frac{\theta}{\theta + 1}$. Applying Slutsky's Rule and CMT yields $\hat{\theta}_{MOM} \overset{p}{\to} \theta$, so it is consistent.
+
+\vspace{1em}
+e. Does there exist a UMVUE for $\theta$? If so, does it attain the
+Cramer-Rao lower bound?
+\vspace{1em}
+
+First, the MLE is biased (based on calculating it's expectation in Wolfram Alpha for $n = 2$ and $\theta = 2$), as is the MOM estimator we constructed. I'm not sure how to construct an unbiased estimator for $\theta$, so I don't know if UMVUE exists, nor if it attains the Cramer-Rao lower bound.
+
+\vspace{1em}
+\noindent
+3) Prove the asymptotic normality of the GMM estimator.
+\vspace{1em}
+
+Let $\hat{\theta}_{n} = \arg \max_{b \in \Theta} -\frac{1}{2} m_{n}(b)^{\T} S_{n}(W) m_{n}(b)$ be the GMM estimator, with everything defined as in the notes. The first order condition is $M_{n}(\hat{\theta}_{n}) S_{n}(W) m_{n}(\hat{\theta}_{n}) = 0$. Next, applying the MVT to $m_{n}(\hat{\theta}_{n})$ yields $m_{n}(\hat{\theta}_{n}) = m_{n}(\theta) + M_{n}(\tilde{b}_{n})^{T} (\hat{\theta}_{n} - \theta)$, for $\tilde{b}_{n} = \alpha \hat{\theta}_{n} + (1 - \alpha) \theta$ for $\alpha \in (0, 1)$. Substituting this into the first order condition, and solving for $\hat{\theta}_{n} - \theta$ yields
+$$ \sqrt{n}(\hat{\theta}_{n} - \theta) = -\left[ M_{n}(\hat{\theta}_{n}) S_{n}(W) M_{n}(\tilde{b}_{n})^{\T} \right]^{-1} M_{n}(\hat{\theta}_{n}) S_{n}(W) \sqrt{n} m_{n}(\hat{\theta}_{n}) $$
+Next, by a ULLN, $M_{n}(\hat{\theta}_{n}) \overset{p}{\to} M_{n}(\theta)$, and $M_{n}(\tilde{b}_{n}) \overset{p}{\to} M_{n}(\theta)$. By assumption, $S_{n}(W) \overset{p}{\to} S$, and by a central limit theorem $\sqrt{n} m_{n}(\hat{\theta}_{n}) \overset{d}{\to} N(0, V[m(W, \theta)])$. Let $\Sigma = V[m(W, \theta)]$. Applying Slutsky's rule to the expression above yields
+$$ \sqrt{n}(\hat{\theta}_{n} - \theta) \overset{d}{\to} N\left(0, (MSM^{\T})^{-1} MS\Sigma SM^{\T} (MSM^{\T})^{-1} \right) $$
+\end{document}
