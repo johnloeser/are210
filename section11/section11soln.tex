@@ -1,0 +1,95 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 11: GMM}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+November 14, 2017
+\par\end{center}
+
+\noindent
+1)
+\begin{enumerate}
+	\item[a)] Suppose we draw a random sample of individuals from a large population to estimate the average income. We have two unbiased observations of individual $i$'s income $\mu_{i}$: $X_{i}^{\T} = (x_{1i}, x_{2i})$. Construct the efficient GMM estimator of the population average income $\mu$. Interpret the estimator and the effect of the optimal weighting matrix.
+	\vspace{1em}
+	
+	Write our stacked moment conditions $m(X_{i}; \mu) = X_{i} - \mu$. The optimal weighting matrix is $V[m(X_{i}; \mu)] = V[X_{i}]^{-1}$. Let $V \equiv V[X_{i}]$, then \\ $\displaystyle V[X_{i}]^{-1} = \frac{1}{V_{11} V_{22} - V_{12}^{2}} \left( \begin{array}{cc} V_{22} & -V_{12} \\ -V_{12} & V_{11} \end{array} \right)$. Our GMM estimator solves
+	$$ \hat{\mu}_{GMM} = \arg \max_{\hat{\mu}} -\frac{1}{2} \left( \frac{1}{n} \sum_{i=1}^{n} m(X_{i}; \mu) \right)^{\T} V[X_{i}]^{-1} \left( \frac{1}{n} \sum_{i=1}^{n} m(X_{i}; \mu) \right) $$
+	Let $M(X_{i}; \mu) \equiv D_{\mu} m(X_{i}; \mu) = (-1, -1)^{\T}$. Then the first order condition for the maximization problem gives $\left( \frac{1}{n} \sum_{i=1}^{n} M(X_{i}; \hat{\mu}_{GMM}) \right) V[X_{i}]^{-1} \left( \frac{1}{n} \sum_{i=1}^{n} m(X_{i}; \hat{\mu}_{GMM}) \right) = 0$. Simplifying yields
+	$$ \hat{\mu}_{GMM} = \frac{(V_{22} - V_{12}) \overline{X_{1}} + (V_{11} - V_{12}) \overline{X_{2}}}{V_{11} + V_{22} - 2 V_{12}}$$
+	where $\overline{X_{j}} = \frac{1}{n} \sum_{i=1}^{n} x_{ji}$.
+	
+	To interpret this, note that $V_{22} - V_{12}$ is the variance of the residual from a regression of $X_{2i}$ on $X_{1i}$. In other words, this estimator is an inverse residual variance weighted average of the two means.
+	
+	\vspace{1em}
+	\noindent
+	\item[b)] (Random effects) Now assume for simplicity $V[X_{i}] = \mathbf{I}$. Also assume $\mu_{i} \sim N(\mu, \sigma^{2})$, and assume for simplicity $\mu$ and $\sigma^{2}$ are known. What is $\hat{\mu}_{i,RE} \equiv \mathbf{E}[\mu_{i} | X_{i}]$? Compare this estimator to $\hat{\mu} = \overline{X}_{i} \equiv \frac{x_{1i} + x_{2i}}{2}$.
+	\vspace{1em}
+	
+	\begin{align*}
+	\mathbf{E}[\mu_{i} | X_{i}] & = \int \mu_{i} p(\mu_{i} | X_{i}) d\mu_{i} \\
+	& = \int \mu_{i} \left[ p(X_{i} | \mu_{i}) p(\mu_{i}) / p(X_{i}) \right] d\mu_{i}
+	\end{align*}
+	To simplify this, note that with some algebra, we can rewrite $p(X_{i} | \mu_{i}) p(\mu_{i}) / p(X_{i}) = p(\overline{X}_{i} | \mu_{i}) p(\mu_{i}) / p(\overline{X}_{i})$, where $\overline{X}_{i} = \frac{x_{1i} + x_{2i}}{2}$. We can then calculate each of these terms. $p(\overline{X}_{i} | \mu_{i}) = \sqrt{2} \phi(\sqrt{2}(\overline{X}_{i} - \mu_{i}))$, $p(\mu_{i}) = \frac{1}{\sigma} \phi((\mu_{i} - \mu)/\sigma)$, and $p(\overline{X}_{i}) = \frac{1}{\sqrt{\sigma^{2} + 1/2}}\phi \left(\frac{\overline{X}_{i} - \mu}{\sqrt{\sigma^{2} + 1/2}} \right)$. Substituting these and further algebra yields
+	$$\mathbf{E}[\mu_{i} | X_{i}] = \frac{1/\sigma^{2}}{2 + 1/\sigma^{2}} \mu + \frac{2}{2 + 1/\sigma^{2}} \overline{X}_{i} $$
+	which is a weighted average of the population mean, $\mu$, and the individual's mean observed income, $\overline{X}_{i}$. To interpret this, consider what happens when $\sigma^{2}$ gets large. When $\sigma^{2}$ is large, it means the population mean income carries relatively little information about an individual's income compared to noisy observations about that individual's income. In this case, all the weight gets put on $\overline{X}_{i}$.
+	\vspace{1em}
+\end{enumerate}
+
+\vspace{1em}
+\noindent
+2) (Overidentified linear IV) Consider the linear instrumental variable model from class. $W_{i} \equiv \{ y_{i}, x_{i}, z_{i} \}$ are independently and identically distributed, where $y_{i}$ and $x_{i}$ are scalars and $z_{i}$ is a 2x1 vector, and we impose the moment restriction $\mathbf{E}[z_{i}(y_{i} - x_{i} \beta)] = 0$, and assume that $y_{i}$, $x_{i}$, and $z_{i}$ are all mean 0.
+
+\begin{enumerate}
+	\item[a)] Show that the GMM estimator using the weighting matrix $W = \hat{V}[z_{i}]^{-1}$ is just $\hat{\beta}_{2SLS} \equiv \frac{\text{Cov}[\hat{x}_{i}, y_{i}]}{V[\hat{x}_{i}]}$, where $\hat{x}_{i} = z_{i}^{T} V[z_{i}]^{-1} \text{Cov}[z_{i}, x_{i}]$, predicted $x_{i}$ from a regression of $x_{i}$ on $z_{i}$. Justify this choice of weights.
+	
+	\textbf{Hint}: See your answer to 1) for the justification.
+	
+	\textbf{Note}: This is called ``Mahalanobis distance'', which may seem weird but makes sense when we think of GMM as a minimum distance estimator, with the choice of weights allowing us to calculate the distance between the moments and 0.
+	\vspace{1em}
+	
+	First, let $m(W_{i}, \beta) = z_{i}(y_{i} - x_{i} \beta)$, and let $M(W_{i}, \beta) \equiv D_{\beta} m(X_{i}, \beta) = z_{i} x_{i}$. As seen previously, we can write $\hat{\beta}_{GMM} = \arg \max_{b} m(b)^{T} W m(b)$, where $m(b) = \frac{1}{n} \sum_{i=1}^{n} m(W_{i}, b)$. The first order condition of this maximization problem yields $M(\hat{\beta}_{GMM}) W m(\hat{\beta}_{GMM}) = 0$, where $M(b) = \frac{1}{n} \sum_{i=1}^{n} M(W_{i}, b)$. Substituting yields
+	\begin{align*}
+	\text{Cov}[z_{i}, x_{i}]^{T} W \left( \text{Cov}[z_{i}, y_{i}] - \text{Cov}[z_{i}, x_{i}] \hat{\beta}_{GMM} \right) = 0 \\
+	\hat{\beta}_{GMM} = \left( \text{Cov}[z_{i}, x_{i}]^{T} W \text{Cov}[z_{i}, x_{i}] \right)^{-1} \text{Cov}[z_{i}, x_{i}]^{T} W \text{Cov}[z_{i}, y_{i}]
+	\end{align*}
+	Now, suppose $W = V[z_{i}]^{-1}$. Now, note that $W = V[z_{i}]^{-1} \mathbf{E}[z_{i} z_{i}^{T}] V[z_{i}]^{-1}$. Substituting this into our formula for $\hat{\beta}_{GMM}$ yields $\hat{\beta}_{GMM} = \hat{\beta}_{2SLS}$. Note that this inverse variance weighting of the moments is equivalent to what we saw in 1): we're weighting the moments proportionally to their residual information. Since the moments correspond to $z_{i}$, we can also think of this as normalizing $z_{i}$ such that they're independent with unit variance.
+	\vspace{1em}	
+	\item[b)] Show how to construct the efficient GMM estimator, using $\hat{\beta}_{2SLS}$ as the first step estimator. Interpret the weighting matrix used here. Compare it to the weighting matrix in part a).
+	\vspace{1em}
+	
+	First, we would estimate $\hat{\beta}_{2SLS}$. Second, we would estimate $W_{e} = \mathbf{E}[m(W_{i}, \beta) m(W_{i}, \beta)^{\T}] = \mathbf{E}[z_{i} z_{i}^{T} \epsilon_{i}^{2}]$ using $\hat{W_{e}} = \frac{1}{n} \sum_{i=1}^{n} (y_{i} - x_{i} \hat{\beta}_{2SLS})^{2} z_{i} z_{i}^{\T}$. Finally, we would estimate
+	$$\hat{\beta}_{GMM,e} = [\text{Cov}[z_{i}, x_{i}]^{\T} \hat{W_{e}} \text{Cov}[z_{i}, x_{i}]]^{-1} \text{Cov}[z_{i}, x_{i}]^{\T} \hat{W_{e}} \text{Cov}[z_{i}, y_{i}] $$
+	
+	To interpret the optimal weighting matrix, note that
+	$$\mathbf{E}[z_{i} z_{i}^{T} \epsilon_{i}^{2}] = \mathbf{E}[\epsilon_{i}^{2}] \left( \begin{array}{cc} \mathbf{E}[z_{1i}^{2} \epsilon_{i}^{2}] / \mathbf{E}[\epsilon_{i}^{2}] & \mathbf{E}[z_{1i} z_{2i} \epsilon_{i}^{2}] / \mathbf{E}[\epsilon_{i}^{2}] \\ \mathbf{E}[z_{1i} z_{2i} \epsilon_{i}^{2}] / \mathbf{E}[\epsilon_{i}^{2}] & \mathbf{E}[z_{2i}^{2} \epsilon_{i}^{2}] / \mathbf{E}[\epsilon_{i}^{2}] \end{array} \right) $$
+	which you can contrast with
+	$$\mathbf{E}[z_{i} z_{i}^{T}] = \left( \begin{array}{cc} \mathbf{E}[z_{1i}^{2}] & \mathbf{E}[z_{1i} z_{2i}] \\ \mathbf{E}[z_{1i} z_{2i}] & \mathbf{E}[z_{2i}^{2}] \end{array} \right) $$
+	The two are different in that the optimal weighting matrix is just a weighted variance matrix of the $z_{i}$, where the weights used are $\epsilon_{i}^{2}$. In other words, we'd put relatively more weight on a $z_{ji}$ that varies relatively less when $\epsilon_{i}^{2}$ are large.
+\end{enumerate}
+
+\end{document}

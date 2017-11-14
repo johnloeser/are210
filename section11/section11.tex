@@ -1,0 +1,87 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 11: GMM}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+November 14, 2017
+\par\end{center}
+
+The section notes are available on the section Github at \href{github.com/johnloeser/are210}{github.com/johnloeser/are210} in the ``section11'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item Math tricks
+	\begin{itemize}
+		\item ULLN (defined below) used repeatedly for convergence of functions, when we want to apply LLN but don't satisfy requirements
+		\item \textbf{MVT}: $h : \mathbf{R}^{p} \to \mathbf{R}^{q}$ continuously differentiable, then $h(b) = h(\theta) + \frac{\partial h(\tilde{b})}{\partial b} (b - \theta)$, where $\tilde{b} = \alpha b + (1 - \alpha) \theta$ for $\alpha \in (0, 1)$
+	\end{itemize}
+	\item \textbf{GMM}: $\hat{\theta}_{n} = \arg \max_{b \in \Theta} -\frac{1}{2} [\frac{1}{n} \sum_{i=1}^{n} m(W_{i}, b)]^{\T} S_{n}(W) [\frac{1}{n} \sum_{i=1}^{n} m(W_{i}, b)]$
+	\begin{itemize}
+		\item \textbf{Identification}: Let $Q_{0}(b) = -\frac{1}{2} \mathbf{E}[m(W, b)]^{\T} S \mathbf{E}[m(W, b)]$. Suppose $\mathbf{E}[m(W, b)] = 0 \Leftrightarrow b = \theta$. Then if $S$ is strictly positive definite, $\theta = \arg \max_{b} Q_{0}(b)$.
+		\item \textbf{Consistency 1}: Suppose (i) $\Theta$ is a compact subset of $\mathbf{R}^{d}$, (ii) $m(W, b)$ is continuous in $b$, (iii) $m(W, b)$ is measurable in $W$, and (iv) $S_{n}(W) \overset{p}{\to} S$, where $S$ is symmetric positive definite. Suppose further (1) assumptions made above for identification, and (2) $\mathbf{E}[\sup_{b \in \Theta} |m(W, b)|] < \infty$. Then $\hat{\theta}_{n} \overset{p}{\to} \theta$.
+		\item \textbf{Consistency 2}: Replace (i), (ii), and (2) with $Q_{n}(b)$ is concave and $\mathbf{E}[m(W, b)]$ exists and is finite
+		\item \textbf{Asymptotic normality}: Let $m_{n}(b) = \sum_{i=1}^{n} m(W_{i}, b)$, $M_{n}(b) = \frac{\partial m_{n}(b)}{\partial b}$, and $M(b) = \mathbf{E}[\frac{\partial m(W, b)}{\partial b}]$. Then assuming 1)  $M_{n}(\hat{\theta}_{n}) W_{n} M_{n}(\tilde{b}_{n})'$ is invertible, for $\tilde{b}_{n} = \alpha \hat{\theta}_{n} + (1 - \alpha) \theta$ for $\alpha \in [0, 1]$, 2) $M_{n}(\hat{\theta}_{n}) \overset{p}{\to} M(\theta)$, and 3) assumptions made above for consistency, $\sqrt{n}(\hat{\theta}_{n} - \theta) \overset{d}{\to} N(0, V)$ where $V = (M(\theta)SM(\theta)^{\T})^{-1} M(\theta)SV[m(W, \theta)] SM(\theta)^{\T} (M(\theta)SM(\theta)^{\T})^{-1}$
+		\item \textbf{Efficient GMM}: $W = V[m(W, \theta)]^{-1}$ minimizes the variance of the GMM estimator.
+		\begin{itemize}
+			\item Two step estimation : 1) Estimate $\hat{\theta}$ using simple weighting matrix $W_{0}$, e.g. identity matrix. 2) Estimate $W_{e} = V[m(W, \hat{\theta})]^{-1}$. 3) Estimate $\hat{\theta}_{e}$ using $W_{e}$.
+			\item For inference, use $\frac{1}{n} \sum_{i=1}^{n} \left[ 
+			\begin{array}{c} M(X_{i}, \hat{\theta}) W_{0} m(X_{i}, \hat{\theta}) \\ m_{1}(x_{i}, \hat{\theta}) m_{1}(x_{i}, \hat{\theta}) - W_{e,11} \\ m_{2}(x_{i}, \hat{\theta}) m_{1}(x_{i}, \hat{\theta}) - W_{e,21} \\ \vdots \\ m_{d}(x_{i}, \hat{\theta}) m_{d}(x_{i}, \hat{\theta}) - W_{e,dd} \\ M(X_{i}, \hat{\theta}_{e}) W_{e} m(X_{i}, \hat{\theta}_{e}) \end{array} \right] = 0$
+			\item \ldots or bootstrap (which we haven't defined yet)
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\section{Some useful bits}
+\begin{enumerate}
+	\item Estimation strategies (fancier than OLS/2SLS) we saw in class that you'll see most frequently ``in the wild'' are GMM, NLLS, and MLE (in no particular order), so we'll spend a little more time on GMM.
+\end{enumerate}
+
+\section{Practice questions}
+
+1)
+\begin{enumerate}
+	\item[a)] Suppose we draw a random sample of individuals from a large population to estimate the average income. We have two unbiased observations of individual $i$'s income $\mu_{i}$ - $X_{i}^{T} = (x_{1i}, x_{2i})$. Construct the efficient GMM estimator of the population average income $\mu$. Interpret the optimal weighting matrix and the estimator.
+	\item[b)] (Random effects) Now assume for simplicity $V[X_{i}] = \mathbf{I}$. Also assume $\mu_{i} \sim N(\mu, \sigma^{2})$, and assume for simplicity $\mu$ and $\sigma^{2}$ are known. What is $\hat{\mu}_{i,RE} \equiv \mathbf{E}[\mu_{i} | X_{i}]$? Compare this estimator to $\hat{\mu} = \overline{X}$.
+\end{enumerate}
+
+\vspace{1em}
+\noindent
+2) (Overidentified linear IV) Consider the linear instrumental variable model from class. $\{ y_{i}, x_{i}, z_{i} \}$ are independently and identically distributed, where $y_{i}$ and $x_{i}$ are scalars and $z_{i}$ is a 2x1 vector, and we impose the moment restriction $\mathbf{E}[z_{i}(y_{i} - x_{i} \beta)] = 0$, and assume that $y_{i}$, $x_{i}$, and $z_{i}$ are all mean 0.
+
+\begin{enumerate}
+	\item[a)] Show that the GMM estimator using the weighting matrix $W = \hat{V}[z_{i}]^{-1}$ is just $\hat{\beta}_{2SLS}$. Justify this choice of weights.
+	
+	\textbf{Hint}: See your answer to 1).
+	
+	\textbf{Note}: This is called ``Mahalanobis distance'', which may seem weird but makes sense when we think of GMM as a minimum distance estimator, with the choice of weights allowing us to calculate the distance between the moments and 0.
+	
+	\item[b)] Show how to construct the efficient GMM estimator. Interpret the weighting matrix used here. Compare it to the weighting matrix in part a).
+\end{enumerate}
+
+\end{document}
