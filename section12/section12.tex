@@ -1,0 +1,82 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 12: Hypothesis testing}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+November 21, 2017
+\par\end{center}
+
+The section notes are available on the section Github at \href{github.com/johnloeser/are210}{github.com/johnloeser/are210} in the ``section12'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item Hypothesis testing setup
+	\begin{itemize}
+		\item $X \sim P \in \mathbf{P}$
+		\item Two hypotheses: H: $P \in \mathbf{P}_{H}$ or K: $P \in \mathbf{P}_{K}$ (where $\mathbf{P}_{H} \cap \mathbf{P}_{K} = \emptyset$)
+		\begin{itemize}
+			\item Typically say H = null, K = alternative
+			\item Typically parametrize $\mathbf{P}_{H} = \{ P_{\theta} : \theta \in \Theta_{H} \}$, $\mathbf{P}_{K} = \{ P_{\theta} : \theta \in \Theta_{K} \}$
+		\end{itemize}
+		\item \textbf{Test} $\delta : X \to [0, 1]$
+		\begin{itemize}
+			\item $\delta$ takes data, says fail to reject null ($\delta(X) = 0$) or reject null ($\delta(X) = 1$)
+			\item Allow $\delta$ to represent more general tests, e.g. $\delta(X) = \frac{1}{2}$ $\forall$ $X$ represents flipping a coin
+		\end{itemize}
+		\item \textbf{Power function} $B_{\delta}(\theta) \equiv \mathbf{E}_{\theta}[\delta(X)]$
+		\item \textbf{Size} $\sup_{\theta \in \Theta_{H}} B_{\delta}(\theta)$
+		\item A test is \textbf{level-$\alpha$} if its size is at most $\alpha$
+		\item A test $\phi^{*}$ is \textbf{uniformly most powerful level-$\alpha$} if 1) $\phi^{*}$ is level-$\alpha$, and 2) for all level $\alpha$ tests $\phi$ and all $\theta_{K} \in \Theta_{K}$, $B_{\phi^{*}}(\theta_{K}) \geq B_{\phi}(\theta_{K})$.
+		\item For a family of tests $\delta_{\alpha}$, suppose there exists $T, t_{\alpha}$ such that $\delta_{\alpha}(X) = \mathbf{1}\{ T(X) \geq t_{\alpha} \}$. Then the \textbf{p-value} is $\inf \{ \alpha : \delta_{\alpha}(X) = 1 \}$.
+		\item \textbf{Neyman-Pearson Lemma} Suppose $\Theta_{H} \equiv \{ \theta_{0} \}$ and $\Theta_{K} \equiv \{ \theta_{1} \}$ are singletons, and $p(x; \theta_{i})$ is the pdf or pmf. Then define $\phi_{k,\epsilon}(x) = \mathbf{1} \{ p(x, \theta_{1}) / p(x, \theta_{0}) > k \} + \epsilon \mathbf{1} \{ p(x, \theta_{1}) / p(x, \theta_{0}) = k \}$ for some $\epsilon \in \{ 0, 1\}$. Then 1) $\phi_{k, \epsilon}$ is the uniformly most powerful level-$\mathbf{E}_{\theta_{0}}[\phi_{k, \epsilon}(x)]$ test, 2) $\forall$ $\alpha \in [0, 1]$, $\exists$ a most powerful level-$\alpha$ test of the form $\phi_{k, \epsilon}$, and 3) if $\phi$ is the most powerful level-$\alpha$ test, then $\exists$ $k, \epsilon$ such that $\phi(\cdot) = \phi_{k, \epsilon}(\cdot)$.
+		\item $\{ P_{\theta} : \theta \in \Theta \}$, where $\Theta \subset \mathbf{R}$, is an \textbf{increasing monotone likelihood ratio family} in $T(X)$ if $\frac{p(x, \theta_{2})}{p(x, \theta_{1})}$ is increasing in $T(X)$ for all $(\theta_{1}, \theta_{2})$
+		\begin{itemize}
+			\item For exponential family $p(x, \theta) = h(x) \exp(\eta(\theta) T(x) - \beta(\theta))$, $\eta$ is increasing $\Rightarrow$ $p(\cdot, \theta)$ is increasing monotone likelihood ratio in $\frac{1}{n} \sum_{i=1}^{n} T(X_{i})$
+			\item $\delta_{t}(X) = \mathbf{1}\{ T(X) > t \}$ is the uniformly most powerful test of H : $\theta_{H} = \{ \theta : \theta \leq \theta_{0} \}$ against K : $\theta_{K} = \{ \theta : \theta > \theta_{0} \}$ of level-$\mathbf{E}_{\theta_{0}}[\delta_{t}(X)]$
+		\end{itemize}
+		\item $\delta$ is \textbf{unbiased} if $B_{\phi}(\theta) \leq \alpha$ $\forall$ $\theta \in \Theta_{H}$ and $B_{\phi}(\theta) \geq \alpha$ $\forall$ $\theta \in \Theta_{K}$
+		\item $\delta$ is \textbf{uniformly most powerful unbiased level-$\alpha$} if 1) $\delta$ is unbiased and level-$\alpha$, and 2) $\forall$ $\theta \in \Theta_{K}$, $B_{\delta}(\theta) \geq B_{\phi}(\theta)$ $\forall$ unbiased level-$\alpha$ $\phi$
+		\item $\delta$ is \textbf{$\alpha$-similar} on $\Theta^{*} \subset \Theta$ if $B_{\delta}(\theta) = \alpha$ $\forall$ $\theta \in \Theta^{*}$
+		\item Suppose $\delta$ is unbiased level-$\alpha$, and $B_{\delta}(\theta)$ is continuous $\forall$ $\theta \in \text{bdry}(\Theta)$. Then 1) $B_{\delta}(\theta) = \alpha$ $\forall$ $\theta \in \text{bdry}(\Theta)$, and 2) if $\delta$ is uniformly most powerful among all $\alpha$-similar tests, then $\phi^{*}$ is uniformly most powerful level-$\alpha$.
+	\end{itemize}
+\end{itemize}
+
+\section{Practice questions}
+
+\begin{enumerate}
+	\item Assume $\{ X_{i} \}_{i=1}^{n}$ iid $P \in \mathbf{P} = \{ P : V_{P}[X_{i}] = \sigma^{2} \}$. Let $\mathbf{P}_{H} = \{ P : V_{P}[X_{i}] =  \sigma^{2}, \mathbf{E}_{P}[X_{i}] = \mu \}$, representing the null hypothesis that the mean of $X_{i}$ is $\mu$.
+	\begin{enumerate}
+		\item Calculate $V[\overline{X}]$, where $\overline{X} = \sum_{i=1}^{n} X_{i} / n$.
+		\item Assume $P \in \mathbf{P}_{H}$. Place a lower bound on $P\left[\left|(\overline{X} - \mu)/\sqrt{V[\overline{X}]} \right| \right]$.
+		\item Let $\delta_{\alpha} = \mathbf{1}\left\{ \left|(\overline{X} - \mu)/\sqrt{V[\overline{X}]} \right| > t_{1 - \alpha/2} \right\}$. Derive the maximum threshold $t_{1 - \alpha/2}$ such that $\delta_{\alpha}$ is size $\alpha$. Compare this threshold to $Z_{1 - \alpha/2}$.\footnote{Recall $Z_{.84} \approx 1$, $Z_{.97} \approx 2$, $Z_{.998} \approx 3$.}
+		\item $\delta_{\alpha}$ is not unbiased, provide a counter example. What intuition does this give you about the set of possible unbiased tests in this context? Think about what $\text{bdry}(\mathbf{P}_{H})$ looks like.
+		\item Construct a useful bound on $\inf_{P \in \mathbf{P}_{\mu + k}} \{ \mathbf{E}_{P}[\delta_{\alpha}] \}$, where $\mathbf{P}_{\mu + k} \equiv \{ P : \mathbf{E}_{P}[X_{i}] = \mu + k \}$.
+	\end{enumerate}
+\end{enumerate}
+\end{document}

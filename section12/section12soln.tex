@@ -1,0 +1,78 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 12: Hypothesis testing}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+November 21, 2017
+\par\end{center}
+
+\begin{enumerate}
+	\item Assume $\{ X_{i} \}_{i=1}^{n}$ iid $P \in \mathbf{P} = \{ P : V_{P}[X_{i}] = \sigma^{2} \}$. Let $\mathbf{P}_{H} = \{ P : V_{P}[X_{i}] =  \sigma^{2}, \mathbf{E}_{P}[X_{i}] = \mu \}$, representing the null hypothesis that the mean of $X_{i}$ is $\mu$.
+	\begin{enumerate}
+		\item Calculate $V[\overline{X}]$, where $\overline{X} = \sum_{i=1}^{n} X_{i} / n$.
+		\vspace{1em}
+		
+		$V[\overline{X}] = \frac{\sigma^{2}}{n}$
+		
+		\vspace{1em}
+		\item Assume $P \in \mathbf{P}_{H}$. Place a lower bound on $P\left[\left|(\overline{X} - \mu)/\sqrt{V[\overline{X}]} \right| > t \right]$.
+		\vspace{1em}
+		
+		Applying Chebyshev, $P\left[\left|(\overline{X} - \mu)/(\sigma/\sqrt{n}) \right| > t \right] \leq t^{2}$
+		
+		\vspace{1em}
+		\item Let $\delta_{\alpha} = \mathbf{1}\left\{ \left|(\overline{X} - \mu)/\sqrt{V[\overline{X}]} \right| > t_{1 - \alpha/2} \right\}$. Derive the maximum threshold $t_{1 - \alpha/2}$ such that $\delta_{\alpha}$ is size $\alpha$. Compare this threshold to $Z_{1 - \alpha/2}$.\footnote{Recall $Z_{.84} \approx 1$, $Z_{.97} \approx 2$, $Z_{.998} \approx 3$.}
+		\vspace{1em}
+		
+		By the above result, $\mathbf{E}_{P}[\delta_{\alpha}] \leq (t_{1-\alpha/2})^{-2}$. Solving $\mathbf{E}_{P}[\delta_{\alpha}] = \alpha$ yields $t_{1-\alpha/2} = \alpha^{-1/2}$. As a comparison, for $\alpha = .05$, this yields $Z_{1 - \alpha/2} \approx 2$ and $t_{1 - \alpha/2} \approx 4.5$.
+		
+		\vspace{1em}
+		\item $\delta_{\alpha}$ is not unbiased, provide a counter example. What intuition does this give you about the set of possible unbiased tests in this context? Think about what $\text{bdry}(\mathbf{P}_{H})$ looks like.
+		\vspace{1em}
+		
+		No. For intuition, note that $\text{bdry}(\mathbf{P}_{H}) = \mathbf{P}_{H}$, so a continuous unbiased test would have to have power .05 for every possible distribution in $\mathbf{P}_{H}$, but many of these distributions are impossible to distinguish in any finite sample from a distribution just outside $\mathbf{P}_{H}$.
+		
+		For a counter example, consider a random variable $X$ with pmf $P[X = \mu] = 1 - \epsilon$ and $P[X = \mu + k_{\epsilon}] = \epsilon$, where $k_{\epsilon}$ solves $V[X] = k_{\epsilon}^{2}\epsilon(1 - \epsilon) = \sigma^{2}$. $P[\overline{X} \neq \mu] = 1 - (1 - \epsilon)^{n} \leq n\epsilon$. Set $\epsilon = \alpha / (2n)$. Then $\mathbf{E}_{P}[\delta_{\alpha}] = \leq \alpha/2 < \alpha$. Since Chebyshev's inequality holds with equality for a discrete random variable that's $\mu + k$ with probability 0.5 and $\mu - k$ with probability 0.5, $\delta_{\alpha}$ is size $\alpha$. So $\delta_{\alpha}$ is not unbiased.
+		
+		\vspace{1em}
+		\item Construct useful bounds on $\mathbf{E}_{P}[\delta_{\alpha}]$, for $P \in \mathbf{P}_{\mu + k} \equiv \{ P : \mathbf{E}_{P}[X_{i}] = \mu + k \}$.
+		\vspace{1em}
+		
+		First, we apply the proof to Chebyshev to get an upper bound.
+		\begin{align*}
+		P\left[ \left| \frac{\overline{X} - \mu}{\sigma / \sqrt{n}} \right| > t_{1 - \alpha/2} \right] & \leq \frac{\mathbf{E}[(\overline{X} - \mu)^{2}]}{(\sigma^{2} / n) (t_{1 - \alpha/2})^{2}} \\
+		& = \alpha \frac{\sigma^{2}/n + k^{2}}{\sigma^{2}/n} \\
+		& = \alpha (1 + \frac{k^{2}}{\sigma^{2} / n})
+		\end{align*}
+		
+		Second\ldots without stronger assumptions (e.g. common bounded support, finite higher moments, \ldots), I don't think a lower bound exists (besides trivially 0).	
+	
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}
