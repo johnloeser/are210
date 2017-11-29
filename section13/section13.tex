@@ -1,0 +1,120 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 13: Large sample hypothesis testing}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+November 28, 2017
+\par\end{center}
+
+The section notes are available on the section Github at \href{github.com/johnloeser/are210}{github.com/johnloeser/are210} in the ``section13'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item Large sample hypothesis testing setup
+	\begin{itemize}
+		\item $\{ X_{i} \}_{i=1}^{n}$ iid, $X_{i} \sim P_{0}$, $\theta(P_{0}) \equiv \theta_{0}$ $d\times1$ vector of parameters [write $P_{\theta}$ for some distribution in the probability space]
+		\item Null and alternative hypotheses $\left\{ \begin{array}{ll} H & : \theta_{0} \in \Theta_{H} \equiv \{ \theta \in \Theta : a(\theta) = 0 \} \\ K & : \theta_{0} \in \Theta \setminus \Theta_{H} \equiv \{ \theta \in \Theta : a(\theta) \neq 0 \} \end{array} \right\}$, where $a(\theta)$ is an $r\times1$ vector of restrictions
+		\item Assume $A(\theta) \equiv \frac{\partial}{\partial \theta^{\T}} a(\theta)$, an $r\times d$ Jacobian, has full row rank
+	\end{itemize}
+	\item Definitions
+	\begin{itemize}
+		\item $\{ \delta_{n}(X) \}_{n=1}^{\infty} \equiv \{ \delta_{n} \}_{n=1}^{\infty}$ is \textbf{pointwise asymptotically level-$\alpha$} if $\forall$ $\theta \in \Theta_{H}$, $\lim \sup_{n \to \infty} \mathbf{E}_{P_{\theta}}[\delta_{n}] \leq \alpha$
+		\item $\lim_{n \to \infty} \sup_{\theta \in \Theta_{H}} \mathbf{E}_{P_{\theta}}[\delta_{n}]$ is the \textbf{limiting size of $\delta_{n}$}
+		\item $\delta_{n}$ has \textbf{asymptotic significance level-$\alpha$ uniformly in $P_{0}$} if the limiting size of $\delta_{n}$ is less than or equal to $\alpha$
+		\item $\delta_{n}$ is \textbf{consistent} if $\lim_{n \to \infty} \mathbf{E}_{P}[\delta_{n}] = 1$ $\forall$ $\theta \in \Theta \setminus \Theta_{H}$.
+	\end{itemize}
+	\item Estimator and more definitions
+	\begin{itemize}
+		\item Assume $\theta_{0} = \arg \min_{\theta \in \Theta} Q_{0}(\theta)$, construct a sequence $Q_{n}(\theta) \overset{p}{\to} Q_{0}(\theta)$, and define $\hat{\theta}_{u} \equiv \arg \min_{\theta \in \Theta} Q_{n}(\theta)$ and $\hat{\theta}_{c} \equiv \arg \min_{\theta \in \Theta_{H}} Q_{n}(\theta)$
+		\item Let $A_{n} = A(\hat{\theta_{c}})$ and $A_{0} = A(\theta_{0})$
+		\item Assuming a ``well behaved'' $Q_{n}$, we can also write
+		\begin{itemize}
+			\item $\frac{\partial Q_{n}(\hat{\theta}_{u})}{\partial \theta} = 0$ in the unconstrained case
+			\item $\frac{\partial Q_{n}(\hat{\theta}_{c})}{\partial \theta} + A(\hat{\theta}_{c})^{\T} \lambda_{n} = 0$ subject to $a(\hat{\theta}_{c}) = 0$ in the constrained case
+		\end{itemize}
+		\item Assume $\sqrt{n} \frac{\partial Q_{n}(\theta_{0})}{\partial \theta} \overset{d}{\to} N(0, \Sigma)$
+		\item Let $\Psi_{n} = \frac{\partial^{2} Q_{n}(\hat{\theta}_{c})}{\partial \theta \partial \theta^{\T}}$, such that $\Psi_{n} \overset{p}{\to} \Psi \equiv \frac{\partial^{2} Q_{0}(\theta_{0})}{\partial \theta \partial \theta^{\T}}$
+		\item Let $\Sigma_{n} = V_{\hat{\theta}_{c}} \left[ \sqrt{n} \frac{\partial Q_{n}(\hat{\theta}_{c})}{\partial \theta} \right]$, and assume $\Sigma_{n} \overset{p}{\to} \Sigma$.\footnote{Note that this notation is somewhat ambiguous - we're treating $\hat{\theta}_{c}$ like a parameter here, not like a random variable.}
+	\end{itemize}
+	\item Some asymptotic results under the null
+	\begin{itemize}
+		\item $\sqrt{n}(\hat{\theta}_{u} - \theta_{0})  = -\Psi^{-1} \sqrt{n} \frac{\partial Q_{n}(\theta_{0})}{\partial \theta} + o_{p}(1) \overset{d}{\to} N(0, \Psi^{-1} \Sigma \Psi^{-1})$
+		\item $A_{0} \sqrt{n} \lambda_{n} + \Psi \sqrt{n} (\hat{\theta}_{c} - \theta_{0}) = -\sqrt{n} \frac{\partial Q_{n}(\theta_{0})}{\partial \theta} + o_{p}(1)$
+		\item $ \sqrt{n} \lambda_{n} = - [A_{0} \Psi^{-1} A_{0}^{\T}]^{-1} A_{0} \Psi^{-1} \sqrt{n} \frac{\partial Q_{n}(\theta_{0})}{\partial \theta} + o_{p}(1)$
+		\item $ \sqrt{n} (\hat{\theta}_{c} - \theta_{0}) = -[\Psi^{-1} - \Psi^{-1} A_{0}^{\T} (A_{0} \Psi^{-1} A_{0}^{\T})^{-1} A_{0} \Psi^{-1}] \sqrt{n} \frac{\partial Q_{n}(\theta_{0})}{\partial \theta} + o_{p}(1) $
+		\item $ \sqrt{n} (\hat{\theta}_{c} - \hat{\theta}_{u})  = - \Psi^{-1} A_{0}^{\T} (A_{0} \Psi^{-1} A_{0}^{\T})^{-1} A_{0} \Psi^{-1} \sqrt{n} \frac{\partial Q_{n}(\theta_{0})}{\partial \theta} + o_{p}(1)$
+	\end{itemize}
+	\item Key result
+	\begin{itemize}
+		\item $X \sim N(\mu, \Sigma)$ $d$-dimensional vector random variables $\Rightarrow$ $(X - \mu)^{\T} \Sigma^{-1} (X - \mu) \sim \chi^{2}_{d}$
+	\end{itemize}
+	\item Possible test statistics
+	\begin{itemize}
+		\item Likelihood ratio test
+		\begin{itemize}
+			\item $\text{LR} \equiv 2n (Q_{n}(\hat{\theta}_{u}) - Q_{n}(\hat{\theta}_{c}))$
+			\item Use $Q_{n}(\hat{\theta}_{u}) - Q_{n}(\hat{\theta}_{c}) = \frac{1}{2} (\hat{\theta}_{u} - \hat{\theta}_{c})^{\T} \frac{\partial^{2} Q_{n}(\theta^{*})}{\partial \theta \partial \theta^{\T}} (\hat{\theta}_{u} - \hat{\theta}_{c})$ for some $\theta^{*} \in \left( \hat{\theta}_{c}, \hat{\theta}_{u} \right)$, with $\theta^{*}, \hat{\theta}_{c}, \hat{\theta}_{u} \overset{p}{\to} \theta_{0}$
+			\item Gives $\text{LR} \approx -n (\hat{\theta}_{u} - \hat{\theta}_{c})^{\T} \Psi (\hat{\theta}_{u} - \hat{\theta}_{c})$
+			\item More algebra, $\text{LR} \approx -(A_{0} \Psi^{-1} \sqrt{n} \frac{\partial Q_{n}(\theta_{0})}{\partial \theta})^{\T} (A_{0} \Psi^{-1} A_{0}^{\T})^{-1} (A_{0} \Psi^{-1} \sqrt{n} \frac{\partial Q_{n}(\theta_{0})}{\partial \theta})$
+			\item $\Sigma = -\Psi$ $\Rightarrow$ $\text{LR} \overset{d}{\to} \chi^{2}_{r}$
+		\end{itemize}
+		\item Wald test
+		\begin{itemize}
+			\item $ \text{WS} = n a(\hat{\theta}_{u})^{\T} V_{\theta_{0}}[a(\hat{\theta}_{u})]^{-1} a(\hat{\theta}_{u})$
+			\item Since $\theta_{0}$ is unobserved, we can estimate it using $\hat{\theta}_{u}$
+			\item $ \text{WS} \overset{d}{\to} \chi^{2}_{r}$
+		\end{itemize}
+		\item Lagrange multiplier/score test
+		\begin{itemize}
+			\item $ n (\lambda_{n})^{\T} V_{\theta}[\lambda_{n}]^{-1} \lambda_{n} \overset{d}{\to} \chi^{2}_{r}$
+			\item When $\Psi = -\Sigma$, using $ \frac{\partial Q_{n}(\hat{\theta}_{c})}{\partial \theta} = -A_{n}^{\T} \lambda_{n}$, we can show $n (\frac{Q_{n}(\hat{\theta}_{c})}{\partial \theta})^{\T} \Sigma_{n}^{-1} (\frac{Q_{n}(\hat{\theta}_{c})}{\partial \theta}) \overset{d}{\to} \chi^{2}_{r} $
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\section{Useful tips}
+
+\begin{itemize}
+	\item One useful simplifying case is where we have the null $\theta_{0} = 0$, in which case $A(\theta) \equiv \mathbf{I}_{n}$
+	\item Recall that $\Psi = -\Sigma$ when we use maximum likelihood or efficient GMM to estimate $\theta$. When this does not hold, we can estimate these two matrices separately and relax the assumption that $\Psi = -\Sigma$.
+\end{itemize}
+
+\section{Practice questions}
+
+\begin{enumerate}
+	\item Consider the linear regression model $Y_{i} | Z_{i} \sim N(\beta_{0} + \beta_{1} Z_{i}, \sigma^{2})$, where $Z_{i}$ is a scalar, and consider the null hypothesis $\beta_{1} = 0$.
+	\begin{enumerate}
+		\item What is $\theta_{0}$? $Q_{0}(\theta)$? $Q_{n}(\theta)$? $\hat{\theta}_{u}$? $\hat{\theta}_{c}$? $a(\theta)$? $A(\theta)$? $A_{n}$? $\frac{\partial Q_{0}(\theta)}{\partial \theta}$? $\frac{\partial Q_{n}(\theta)}{\partial \theta}$? $\frac{\partial Q_{n}(\hat{\theta}_{u})}{\partial \theta}$? $\frac{\partial Q_{n}(\hat{\theta}_{c})}{\partial \theta}$? $\lambda_{n}$? $\Sigma$? $\Sigma_{n}$? $\Psi$? $\Psi_{n}$?
+		\item Derive the LR test and its asymptotic distribution.
+		\item Derive the Wald test and its asymptotic distribution.
+		\item Derive the score test and its asymptotic distribution.
+		\item Compare the tests, do they differ in power? Size? How do their sizes compare to the t-test we discussed previously?
+	\end{enumerate}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,91 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 13: Large sample hypothesis testing}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+November 28, 2017
+\par\end{center}
+
+\begin{enumerate}
+	\item Consider the linear regression model $Y_{i} | Z_{i} \sim N(\beta_{0} + \beta_{1} Z_{i}, \sigma^{2})$, where $Z_{i}$ is a scalar, and consider the null hypothesis $\beta_{1} = 0$.
+	\begin{enumerate}
+		\item What is $\theta_{0}$? $Q_{0}(\theta)$? $Q_{n}(\theta)$? $\hat{\theta}_{u}$? $\hat{\theta}_{c}$? $a(\theta)$? $A(\theta)$? $A_{n}$? $\frac{\partial Q_{0}(\theta)}{\partial \theta}$? $\frac{\partial Q_{n}(\theta)}{\partial \theta}$? $\frac{\partial Q_{n}(\hat{\theta}_{u})}{\partial \theta}$? $\frac{\partial Q_{n}(\hat{\theta}_{c})}{\partial \theta}$? $\lambda_{n}$? $\Sigma$? $\Sigma_{n}$? $\Psi$? $\Psi_{n}$?
+		\vspace{1em}
+		
+		$\theta_{0}^{\T} = (\beta_{0}, \beta_{1}, \sigma^{2})$ \\
+		$Q_{0}(\theta) = \mathbf{E}\left[-\frac{1}{2} \log 2\pi - \frac{1}{2} \log \sigma^{2} - \frac{(Y_{i} - \beta_{0} - \beta_{1} Z_{i})^{2}}{2 \sigma^{2}} \right]$ \\
+		$Q_{n}(\theta) = -\frac{1}{2} \log 2\pi - \frac{1}{2} \log \sigma^{2} - \frac{\frac{1}{n} \sum_{i=1}^{n} (Y_{i} - \beta_{0} - \beta_{1} Z_{i})^{2}}{2 \sigma^{2}}$ \\
+		$\hat{\theta}_{u}^{\T} = (\overline{Y} - \hat{\beta}_{1} \overline{Z}, \frac{\hat{\text{Cov}}(Y_{i}, Z_{i})}{\hat{\text{Var}}(Z_{i})}, \frac{1}{n} \sum_{i=1}^{n} (Y_{i} - \hat{\beta}_{0} - \hat{\beta}_{1} Z_{i})^{2})$ \\
+		$\hat{\theta}_{c}^{\T} = (\overline{Y}, 0, \frac{1}{n} \sum_{i=1}^{n} (Y_{i} - \overline{Y}))$ \\
+		$a(\theta) = \beta_{1}$ \\
+		$A(\theta) = (0, 1, 0)$ \\
+		$A_{n} = (0, 1, 0)$ \\
+		$\frac{\partial Q_{0}(\theta)}{\partial \theta} = \left( \begin{array}{c} (\mathbf{E}[Y] - \beta_{0} - \beta_{1} \mathbf{E}[Z]) / \sigma^{2} \\ \mathbf{E}[(Y - \beta_{0} - \beta_{1} Z)Z]/\sigma^{2} \\ -\frac{1}{2\sigma^{2}} + \frac{\mathbf{E}[(Y - \beta_{0} - \beta_{1} Z)^{2}]}{2(\sigma^{2})^{2}} \end{array} \right)$ \\
+		$\frac{\partial Q_{n}(\theta)}{\partial \theta} = \left( \begin{array}{c} (\overline{Y} - \beta_{0} - \beta_{1} \overline{Z}) / \sigma^{2} \\ \frac{1}{n} \sum_{i=1}^{n} (Y_{i} - \beta_{0} - \beta_{1} Z_{i})Z_{i}/\sigma^{2} \\ -\frac{1}{2\sigma^{2}} + \frac{\frac{1}{n} \sum_{i=1}^{n} (Y_{i} - \beta_{0} - \beta_{1} Z_{i})^{2}}{2(\sigma^{2})^{2}} \end{array} \right)$ \\
+		$\frac{\partial Q_{n}(\hat{\theta}_{u})}{\partial \theta}^{\T} = (0,0,0)$ \\
+		$\frac{\partial Q_{n}(\hat{\theta}_{c})}{\partial \theta}^{\T} = (0,\hat{\text{Cov}}(Y_{i}, Z_{i}) / \sigma^{2},0)$ \\
+		$\lambda_{n} = \hat{\text{Cov}}(Y_{i}, Z_{i}) / \sigma^{2}$ \\
+		$\Sigma = -\Psi = \left( \begin{array}{ccc} 1/\sigma^{2} & \mathbf{E}[Z]/\sigma^{2} & 0 \\ \mathbf{E}[Z]/\sigma^{2} & \mathbf{E}[Z^{2}]/\sigma^{2} & 0 \\ 0 & 0 & \frac{1}{2 \sigma^{4}} \end{array} \right) $ \\
+		$\Sigma_{n} = -\Psi_{n} = \left( \begin{array}{ccc} 1/\hat{\sigma}^{2} & \overline{Z}/\hat{\sigma}^{2} & 0 \\ \overline{Z}/\hat{\sigma}^{2} & \overline{Z^{2}}/\hat{\sigma}^{2} & 0 \\ 0 & 0 & \frac{1}{2 \hat{\sigma}^{4}} \end{array} \right)$
+		\vspace{1em}		
+		\item Derive the LR test and its asymptotic distribution.
+		\vspace{1em}
+		\begin{align*}
+		\text{LR} & = 2n (Q_{n}(\hat{\theta_{u}}) - Q_{n}(\hat{\theta}_{c})) \\
+		& = n \log \frac{\hat{\sigma}_{c}^{2}}{\hat{\sigma}_{u}^{2}}
+		\end{align*}
+		Here, we use the fact that $\hat{\sigma}_{c}^{2} = \hat{V}[Y]$, and $\hat{\sigma}_{u}^{2} = \frac{1}{n} \sum_{i=1}^{n} (Y_{i} - \hat{\beta}_{0} - \hat{\beta}_{1} Z_{i})^{2} = \hat{V}[Y] - \hat{\beta}_{1}^{2} \hat{V}[Z]$. Making these substitutions yields
+		\begin{align*}
+		\text{LR} & = n \log \left( 1 + \frac{\hat{\beta}_{1}^{2} \hat{V}[Z]}{\hat{\sigma}_{u}^{2}} \right)
+		\end{align*}
+		Asymptotically under the null (with an application of the delta method), we can approximate this $\text{LR} \approx n \frac{\hat{\beta}_{1}^{2}\hat{V}[Z]}{\hat{\sigma}^{2}_{u}}$. From previous results on OLS, we know $\sqrt{n} \frac{\hat{\beta_{1}} \hat{V}[Z]}{\hat{\sigma}^{2}_{u}} \overset{d}{\to} N(0, 1)$, so $\text{LR} \overset{d}{\to} \chi_{1}^{2}$.
+		\vspace{1em}
+		\item Derive the Wald test and its asymptotic distribution.
+		\vspace{1em}
+		
+		$\text{WS} = n a(\hat{\theta}_{u})^{\T} V_{\theta_{0}}[a(\hat{\theta}_{u})]^{-1} a(\hat{\theta}_{u})$. Here, we use $a(\hat{\theta}_{u}) = \hat{\beta_{1}}$, so $\hat{V}[a(\hat{\theta}_{u})]^{-1} = \hat{V}[Z] / \hat{\sigma}^{2}_{u}$. Making this substitution yields $\text{WS} = n \frac{\hat{\beta}_{1}^{2}\hat{V}[Z]}{\hat{\sigma}^{2}_{u}}$. As above, we can see $\text{WS} \overset{d}{\to} \chi^{2}_{1}$.
+		
+		\vspace{1em}
+		\item Derive the score test and its asymptotic distribution.
+		\vspace{1em}
+		
+		$\text{ST} = n (\frac{\partial Q_{n}(\hat{\theta}_{c})}{\partial \theta})^{\T} \Sigma_{n}^{-1} (\frac{\partial Q_{n}(\hat{\theta}_{c})}{\partial \theta})$
+		For this, we first use the fact that $(\frac{\partial Q_{n}(\hat{\theta}_{c})}{\partial \theta})^{\T} = (0, \hat{\text{Cov}}(Y, Z)/\hat{\sigma}^{2}_{c}, 0)$. Because of this, we only need to calculate $\left[ \Sigma_{n}^{-1} \right]_{22} = \hat{\sigma}_{c}^{2} / \hat{V}[Z]$. Simplifying yields $\text{ST} = n \frac{\hat{\beta}_{1}^{2}\hat{V}[Z]}{\hat{\sigma}^{2}_{c}}$. Again, we can see $\text{ST} \overset{d}{\to} \chi^{2}_{1}$.
+		
+		\vspace{1em}
+		\item Compare the tests, do they differ in power? Size? How do their sizes compare to the t-test we discussed previously?
+		\vspace{1em}
+		
+		As a quick note, note that the LR test depends on $\hat{\theta}_{u}$ and $\hat{\theta}_{c}$, the Wald test depends on $\hat{\theta}_{u}$, and the score test depends on $\hat{\theta}_{c}$. As a consequence, which test is most appropriate may depend on the relative ease of estimating each of these quantities; while an LR test is often relatively easy with nested models estimated by maximum likelihood.
+		
+		We can see that each test is identical except the LR. The LR has strictly lower power than the Wald test, since $\log(1 + x)$ is always below $x$ for positive $x$. The score test has strictly lower power than the Wald test, since $\hat{\sigma}_{c}$ is always larger than $\hat{\sigma}_{u}$ (however, if a degrees of freedom adjustment were used, this would no longer be true, and the two would have the same expectation under the null, although $\hat{\sigma_{u}}$ would have a higher variance). The Wald test has strictly higher power than the equivalent t-test. As a result, it will over reject in small samples relative to its asymptotic size. It is more difficult to compare the score test or the LR test to the equivalent t-test. However, it looks like the Wald is more aggressive than the score which is more aggressive than the LR test and the t-test. I'm not sure which of the t-test or the LR is more conservative.
+		
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}
