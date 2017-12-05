@@ -1,0 +1,44 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 14: Confidence regions}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+December 5, 2017
+\par\end{center}
+
+\begin{enumerate}
+	\item Prove the result on the duality of $(1 - \alpha)$100\% confidence regions and level-$\alpha$ tests.
+	\vspace{1em}
+	
+	Let $\delta_{v}$ be a level-$\alpha$ test of the null $H_{v} : \nu(P) = v$. Define $C_{v} = \{ X : \delta_{v}(X) = 1 \}$ and $A_{v} = \mathcal{X} \setminus C_{v}$. Let $S(X) = \{ v \in \mathcal{N} : X \in A_{v} \}$. Then $P_{P}[\nu(P) \in S(X)] = P_{P}[X \in A_{\nu(P)}] \geq 1 - \alpha$.
+	
+	Note that when $\nu$ is invertible, we can reverse this logic.
+	\vspace{1em}
+\end{enumerate}
+
+\end{document}

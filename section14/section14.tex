@@ -1,0 +1,83 @@
+\documentclass[12pt,english]{article}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{caption}
+\geometry{verbose,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{verbatim}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\onehalfspacing
+\usepackage{babel}
+\newcommand{\expec}{\ensuremath{\mathbb E}}
+\newcommand{\T}{\ensuremath{\text{T}}}
+\begin{document}
+\begin{center}
+{\Large{}Section 14: Confidence regions}
+\par\end{center}{\Large \par}
+
+\begin{center}
+ARE 210
+\par\end{center}
+
+\begin{center}
+December 5, 2017
+\par\end{center}
+
+The section notes are available on the section Github at \href{github.com/johnloeser/are210}{github.com/johnloeser/are210} in the ``section14'' folder.
+
+\section{Definitions}
+
+\begin{itemize}
+	\item Definitions
+	\begin{itemize}
+		\item Let $X = \{ X_{i} \}_{i=1}^{n} \sim P \in \mathbf{P}$, where $X \in \mathcal{X}$, $\nu(P) \in \mathcal{N}$ parameter of interest
+		\item $(1 - \alpha)$100\% \textbf{confidence region for $\nu(P)$} is a mapping $S : \mathcal{X} \to 2^{\mathcal{N}}$ such that $P_{P}[\nu(P) \in S(X)] \geq 1 - \alpha$
+		\item The \textbf{confidence coefficient} of $S$ is $\inf_{P \in \mathbf{P}}[\nu(P) \in S(X)]$
+		\item The \textbf{probability of coverage} of $S$ is $P_{P}[\nu(P) \in S(X)]$
+		\item Assume $\nu(P)$ is scalar, then $S(X)$ is a $(1 - \alpha)$100\% \textbf{lower (upper) confidence bound} if $P_{P}[\nu(P) > S(X)] \geq 1 - \alpha$ ($P_{P}[\nu(P) < S(X)] \geq 1 - \alpha$).
+		\item Suppose $L(X)$ is a $(1 - \alpha_{1})$100\% lower confidence bound and $U(X)$ is a $(1 - \alpha_{2})$100\% upper confidence bound. Then $S(X) = \mathbf{1}\{ \nu(P) \in [L(X), U(X)] \}$ is a $(1 - \alpha_{1} - \alpha_{2})$100\% confidence region.
+	\end{itemize}
+	\item Duality
+	\begin{itemize}
+		\item Let $\delta_{v}$ be a level-$\alpha$ test of the null $H_{v} : \nu(P) = v$. Define $C_{v} = \{ X : \delta_{v}(X) = 1 \}$ and $A_{v} = \mathcal{X} \setminus C_{v}$. Then let $S(X) \equiv \{ v \in \mathcal{N} : X \in A_{v} \}$, then $S(X)$ is a $(1 - \alpha)$100\% confidence region for $\nu(P)$.
+		\item Suppose $X \sim P_{\theta}$, where $\theta \in \Theta \subset \mathbf{R}$, and the family is monotone likelihood ratio in $T(X) \sim F_{\theta}(t)$, where $F$ is continuous in $(\theta, t)$. Implicitly define $\theta_{L}(\alpha, t)$ by $F_{\theta_{L}(\alpha, t)}(t) = 1 - \alpha$, then $P_{\theta}[\theta > \theta_{L}(\alpha, T(X))] \geq 1 - \alpha$.
+	\end{itemize}
+	\item Pivots
+	\begin{itemize}
+		\item $R(X, \nu(P))$ is a pivot if and only if the distribution of $R(X, \nu(P))$ does not depend on $P$
+		\item Let $C(X) = \{ v \in \mathcal{N} : R(X, v) \in A \}$, and $P_{P}[R(X, \nu(P)) \in A] = P[R(X, \nu(P)) \in A] \geq 1 - \alpha$
+	\end{itemize}
+\end{itemize}
+
+\section{Useful tips}
+
+\begin{itemize}
+	\item The duality result is particularly useful for constructing confidence regions for permutation or bootstrap based tests, but generally the intuition is key - to construct a $(1 - \alpha)$100\% confidence region, just invert a family of level-$\alpha$ tests.
+	\item The most common example of pivots we have is statistics with a known distribution (e.g. $\frac{\overline{X} - \mu}{s^{2}}$ has a $t$-distribution when $X_{i} \sim N(\mu, \sigma^{2})$). In the same way that these statistics are useful for constructing tests, they are useful for constructing confidence regions.
+	\item I omit asymptotic definitions, but they follow the patterns for asymptotic definitions for tests.
+\end{itemize}
+
+\section{Practice questions}
+
+\begin{enumerate}
+	\item Prove the result on the duality of $(1 - \alpha)$100\% confidence regions and level-$\alpha$ tests.
+\end{enumerate}
+
+\section{Review}
+
+We observe iid data $\{ X_{i} \}_{i=1}^{n}$, where $X_{i} \sim P_{\theta}$, with $\theta \in \Theta$. Represent $\theta$ as the solution to a minimum distance problem, $\theta = \arg \min_{b \in \Theta} Q_{0}(b)$, where $Q_{0}(b) \equiv g_{0}(b)^{\T} W g_{0}(b)$. Examples include m-estimation (where $g_{0}(b)$ is the expectation of the score), NLLS (where $g_{0}(b) = \mathbf{E}[(Y_{i} - \Phi(X_{i}, \theta)) \frac{\partial \Phi(X_{i}, \theta)}{\partial \theta} ]$), and GMM (where $g_{0}(b)$ is the population moment condition). We next need to construct finite sample equivalents, $Q_{n}(b)$ and $g_{n}(b)$. Frequently, $g_{n}(b)$ will be a sample average of moment conditions (e.g. score, NLLS FOC, \ldots). In this cases, it will often turn out that the estimator implied by the optimization problem is $\sqrt{n}$-consistent.
+
+In other cases, we construct our estimator directly. We can start by looking for complete and sufficient statistics for $\theta$. The sample score is typically a complete and sufficient statistic. We can apply the factorization theorem to find sufficient statistics. When $P_{\theta}$ is exponential family, we can find complete and sufficient statistics from factorization. Unbiased estimators we can sometimes find by analyzing population moments (e.g. $kth$ moment of $X_{i}$, covariances, CDF, \ldots). The expectation of an unbiased estimator conditional on a complete and sufficient statistic will be UMVUE. Generally, asymptotically, MLE is as good as we can do. In many cases other estimators will be asymptotically equivalent to MLE. In special cases, multiple approaches yield the same estimator (e.g. OLS).
+
+Typically, our estimators will be $\sqrt{n}$-consistent, so $\sqrt{n}(\hat{\theta} - \theta) \overset{d}{\to} N(0, V)$. $V$ typically has a nice form for MLE and efficient-GMM, and a less nice sandwich form otherwise. The formula is relatively simple in the NLLS and OLS cases and easy to interpret. For interpretation in particular problems, it's useful to remember here that the quadratic form $X^{\T} V^{-1} X$, where $X \sim N(0, V)$ can roughly be interpreted as summing the squares of the $X$, normalizing each by its residual variance.
+
+Once we find a finite sample or asymptotic distribution of our estimator, we find a way to construct a pivotal or asymptotically pivotal quantity. For example, often the Wald statistic $n (A(\hat{\theta} - \theta))^{\T} (A^{\T}\hat{V}A)^{-1} (A(\hat{\theta} - \theta)) \overset{d}{\to} \chi^{2}_{r}$, where $r$ is the rank of $A^{\T}VA$. We can use this to construct a hypothesis test that rejects when this pivotal quantity is large, i.e. when $\hat{\theta}$ is further from $\theta$ than we would ``normally'' expect to see. This test can be inverted to construct a $(1 - \alpha)$100\% confidence region for $\theta$. In finite samples, using a $t$-test or $F$-test instead of the normal/$\chi^{2}$ asymptotic approximation often performs better. Bootstrap and permutation based inference are often robust to certain forms of bias in other tests.
+\end{document}
